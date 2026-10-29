@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
-import { ArrowRight, Zap, Sun, Battery, Power, ChevronDown } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Zap, Sun, Battery, Power, ChevronDown, House, Building2, Factory, CarFront, Landmark, Target, BarChart3, Lightbulb, Settings, ShieldCheck } from "lucide-react";
 
 const solutions = [
   {
@@ -33,77 +34,49 @@ const solutions = [
   },
 ];
 
-const stats = [
-  { value: "4+", label: "Energy Verticals" },
-  { value: "Pan-India", label: "Reach" },
-  { value: "OEM", label: "Partnerships" },
-  { value: "24/7", label: "Support" },
-];
-
 export default function HomePage() {
   return (
     <div className="home-page">
-      {/* ── HERO ── */}
-      <section className="home-hero">
-        {/* Background grid */}
-        <div
-          
-          
-        />
-        {/* Radial glow */}
-        <div  />
-        <div  />
+      {/* Homepage hero */}
+      <section className="home-hero ev-promo-hero">
+        <div className="ev-promo-visual" aria-hidden="true">
+          <Image
+            src="/Industries/Mobility.png"
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 680px) 100vw, 62vw"
+            className="ev-promo-image"
+          />
+          <div className="ev-promo-visual-shade" />
+          <div className="ev-promo-ring ev-promo-ring-one" />
+          <div className="ev-promo-ring ev-promo-ring-two" />
+          <div className="ev-promo-image-caption"><Zap aria-hidden="true" /> Built for electric mobility</div>
+        </div>
 
-        <div >
-          {/* Badge */}
-          <div >
-            <span  />
-            Technology-Led Clean Energy Solutions
-          </div>
-
-          <h1 >
-            Powering Mobility.{" "}
-            <span >Harnessing Energy.</span>
-            <br />
-            Enabling a Sustainable Future.
-          </h1>
-          <p >
-            VLOXIA Systems LLP delivers integrated clean energy solutions — from EV charging
-            infrastructure to solar power, lithium storage and power management — built for
-            India&apos;s energy transition.
+        <div className="ev-promo-content">
+          <div className="ev-promo-eyebrow"><span /> VLOXIA EV CHARGING</div>
+          <h1>Fueling the <span>Next Electric Era.</span></h1>
+          <p className="ev-promo-description">
+            Charging that fits seamlessly into your life. We provide intelligent, high-speed power solutions designed for the mobility of tomorrow.
           </p>
+          <Link href="/solutions/ev-charging" className="ev-promo-cta">
+            Find your charging solution <ArrowRight aria-hidden="true" />
+          </Link>
 
-          <div >
-            <Link
-              href="#solutions"
-              
-            >
-              Explore Our Solutions <ArrowRight  />
-            </Link>
-            <Link
-              href="/contact"
-              
-            >
-              Get a Quote ↗
-            </Link>
+          <div className="ev-promo-features">
+            <div><span className="ev-feature-mark"><Zap aria-hidden="true" /></span><span><b>Fast Charging</b><small>Power up at home, work or on the move.</small></span></div>
+            <div><span className="ev-feature-mark"><ShieldCheck aria-hidden="true" /></span><span><b>Certified & Reliable</b><small>Trusted technology with dependable support.</small></span></div>
           </div>
 
-          {/* Stats */}
-          <div >
-            {stats.map((s) => (
-              <div key={s.label} >
-                <div >{s.value}</div>
-                <div >{s.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Scroll indicator */}
-          <div >
-            <span >SCROLL</span>
-            <ChevronDown  />
+          <div className="ev-promo-proof">
+            <span className="ev-proof-avatars" aria-hidden="true"><i>V</i><i>EV</i><i>+</i></span>
+            <span><b>Powering the transition</b><small>Clean energy solutions across India</small></span>
           </div>
         </div>
+
+        <div className="ev-promo-stat"><span className="ev-stat-pulse" /><b>Smart charging</b><small>Designed around your journey</small></div>
+        <a href="#solutions" className="ev-promo-scroll" aria-label="Scroll to solutions"><span>SCROLL TO EXPLORE</span><ChevronDown aria-hidden="true" /></a>
       </section>
 
       <section aria-label="VLOXIA clean energy promise" className="feature-rail">
@@ -111,7 +84,7 @@ export default function HomePage() {
         <Link href="/solutions/ev-charging">Explore VLOXIA solutions <ArrowRight /></Link>
       </section>
 
-      {/* ── COMPANY INTRO ── */}
+      {/* â”€â”€ COMPANY INTRO â”€â”€ */}
       <section className="home-intro">
         <div >
           <div >
@@ -128,7 +101,7 @@ export default function HomePage() {
                 Battery Storage and Power Solutions.
               </p>
               <p >
-                We combine OEM-grade technology partnerships with a consultative approach — helping
+                We combine OEM-grade technology partnerships with a consultative approach â€” helping
                 residential, commercial and industrial clients design, deploy and manage their energy
                 ecosystems for maximum efficiency, reliability and sustainability.
               </p>
@@ -159,7 +132,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FOUR SOLUTIONS ── */}
+      {/* â”€â”€ FOUR SOLUTIONS â”€â”€ */}
       <section id="solutions"  className="home-solutions">
         <div >
           <div >
@@ -168,7 +141,7 @@ export default function HomePage() {
             </p>
             <h2 >Our Four Core Solutions</h2>
             <p >
-              An integrated ecosystem that generates, stores, manages and moves energy — all under one partner.
+              An integrated ecosystem that generates, stores, manages and moves energy â€” all under one partner.
             </p>
           </div>
           <div >
@@ -192,35 +165,59 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── WHY VLOXIA ── */}
+      {/* â”€â”€ WHY VLOXIA â”€â”€ */}
       <section className="home-advantages">
-        <div >
-          <div >
-            <p >Our Edge</p>
-            <h2 >Why Choose VLOXIA?</h2>
+        <div className="home-advantages-inner">
+          <div className="home-advantages-heading">
+            <p>Our Edge</p>
+            <h2>Why Choose VLOXIA?</h2>
           </div>
-          <div >
+          <div className="home-advantage-layout">
+            <div className="home-advantage-column">
             {[
               { n: "01", title: "Technology-Led Approach", desc: "We source from leading OEMs and integrate proven global technology into every solution." },
-              { n: "02", title: "Multiple Energy Verticals", desc: "EV, Solar, Storage and Power — one partner for your entire clean energy journey." },
+              { n: "02", title: "Multiple Energy Verticals", desc: "EV, Solar, Storage and Power â€” one partner for your entire clean energy journey." },
               { n: "03", title: "Customised Recommendations", desc: "Site assessment, load analysis and tailored system design for every client." },
+            ].map((item) => (
+              <article key={item.n} className="home-advantage-card">
+                <span className="home-advantage-number">{item.n}</span>
+                <div><h3>{item.title}</h3><p>{item.desc}</p></div>
+              </article>
+            ))}
+            </div>
+
+            <div className="home-charger-art" aria-hidden="true">
+              <div className="home-charger-halo" />
+              <div className="home-charger-device">
+                <div className="home-charger-top"><span /></div>
+                <div className="home-charger-screen"><Zap /></div>
+                <div className="home-charger-light" />
+                <div className="home-charger-port"><span /></div>
+                <div className="home-charger-brand">VLOXIA <small>EV CHARGE</small></div>
+              </div>
+              <div className="home-charger-cable" />
+              <div className="home-charger-connector"><span /></div>
+              <div className="home-charger-base" />
+              <div className="home-charger-ground-glow" />
+            </div>
+
+            <div className="home-advantage-column">
+            {[
               { n: "04", title: "OEM Ecosystem", desc: "Direct technology partnerships ensuring product quality, warranty and support." },
-              { n: "05", title: "Scalable Systems", desc: "Solutions designed to scale with your growth — from single home to large industrial campus." },
+              { n: "05", title: "Scalable Systems", desc: "Solutions designed to scale with your growth â€” from single home to large industrial campus." },
               { n: "06", title: "Channel Network", desc: "Expanding dealer, distributor and installer network across India." },
             ].map((item) => (
-              <div key={item.n} >
-                <div >
-                  {item.n}
-                </div>
-                <h3 >{item.title}</h3>
-                <p >{item.desc}</p>
-              </div>
+              <article key={item.n} className="home-advantage-card">
+                <span className="home-advantage-number">{item.n}</span>
+                <div><h3>{item.title}</h3><p>{item.desc}</p></div>
+              </article>
             ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── PARTNERS ── */}
+      {/* â”€â”€ PARTNERS â”€â”€ */}
       <section className="home-partners">
         <div >
           <p >Technology Partners</p>
@@ -244,7 +241,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── INDUSTRIES ── */}
+      {/* â”€â”€ INDUSTRIES â”€â”€ */}
       <section className="home-industries">
         <div >
           <div >
@@ -253,27 +250,32 @@ export default function HomePage() {
           </div>
           <div >
             {[
-              { icon: "🏠", label: "Residential", desc: "Homes & Apartments" },
-              { icon: "🏢", label: "Commercial", desc: "Offices & Retail" },
-              { icon: "🏭", label: "Industrial", desc: "Factories & Plants" },
-              { icon: "🚗", label: "Mobility", desc: "Fleets & Transport" },
-              { icon: "🏛️", label: "Institutional", desc: "Schools & Hospitals" },
-            ].map((seg) => (
-              <Link
+                { image: "/Industries/Residential.png", icon: House, label: "Residential", desc: "Homes & Apartments" },
+                { image: "/Industries/Commercial.png", icon: Building2, label: "Commercial", desc: "Offices & Retail" },
+                { image: "/Industries/Industrial.png", icon: Factory, label: "Industrial", desc: "Factories & Plants" },
+                { image: "/Industries/Mobility.png", icon: CarFront, label: "Mobility", desc: "Fleets & Transport" },
+                { image: "/Industries/Institutional.png", icon: Landmark, label: "Institutional", desc: "Schools & Hospitals" },
+            ].map((seg) => {
+              const Icon = seg.icon;
+              return <Link
                 key={seg.label}
                 href={`/industries#${seg.label.toLowerCase()}`}
-                
+                className="home-industry-card"
               >
-                <div >{seg.icon}</div>
-                <h3 >{seg.label}</h3>
-                <p >{seg.desc}</p>
-              </Link>
-            ))}
+                <Image src={seg.image} alt={`${seg.label} energy solutions`} fill sizes="(max-width: 680px) 70vw, (max-width: 1100px) 32vw, 20vw" className="home-industry-image" />
+                <div className="home-industry-shade" />
+                <div className="home-industry-copy">
+                  <span className="home-industry-icon"><Icon aria-hidden="true" /></span>
+                  <h3>{seg.label}</h3>
+                  <p>{seg.desc}</p>
+                </div>
+              </Link>;
+            })}
           </div>
         </div>
       </section>
 
-      {/* ── PROCESS ── */}
+      {/* â”€â”€ PROCESS â”€â”€ */}
       <section className="home-process">
         <div >
           <div >
@@ -282,16 +284,16 @@ export default function HomePage() {
           </div>
           <div >
             {[
-              { step: "01", label: "Understand", icon: "🎯", desc: "We listen to your energy needs and site requirements." },
-              { step: "02", label: "Analyse", icon: "📊", desc: "Load analysis, site assessment and feasibility study." },
-              { step: "03", label: "Recommend", icon: "💡", desc: "Customised system design and product selection." },
-              { step: "04", label: "Implement", icon: "⚙️", desc: "Professional installation and commissioning." },
-              { step: "05", label: "Support", icon: "🛡️", desc: "Ongoing monitoring, maintenance and after-sales care." },
+              { step: "01", label: "Understand", icon: Target, desc: "We listen to your energy needs and site requirements." },
+              { step: "02", label: "Analyse", icon: BarChart3, desc: "Load analysis, site assessment and feasibility study." },
+              { step: "03", label: "Recommend", icon: Lightbulb, desc: "Customised system design and product selection." },
+              { step: "04", label: "Implement", icon: Settings, desc: "Professional installation and commissioning." },
+              { step: "05", label: "Support", icon: ShieldCheck, desc: "Ongoing monitoring, maintenance and after-sales care." },
             ].map((item, i, arr) => (
               <div key={item.step} >
                 <div >
                   <div >
-                    <span >{item.icon}</span>
+                    <item.icon aria-hidden="true" />
                   </div>
                   <div >{item.step}</div>
                   <div >{item.label}</div>
@@ -306,14 +308,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── ECOSYSTEM ── */}
+      {/* â”€â”€ ECOSYSTEM â”€â”€ */}
       <section className="home-ecosystem">
         <div >
           <div >
             <p >The Ecosystem</p>
-            <h2 >Generate → Store → Power → Move</h2>
+            <h2 >Generate â†’ Store â†’ Power â†’ Move</h2>
             <p >
-              A connected clean energy loop — solar panels generate power, batteries store it, inverters distribute it, and EV chargers use it.
+              A connected clean energy loop â€” solar panels generate power, batteries store it, inverters distribute it, and EV chargers use it.
             </p>
           </div>
           <div >
@@ -338,7 +340,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CHANNEL PARTNER CTA ── */}
+      {/* â”€â”€ CHANNEL PARTNER CTA â”€â”€ */}
       <section className="home-channel">
         <div >
           <div >
@@ -346,7 +348,7 @@ export default function HomePage() {
               <p >Partner With Us</p>
               <h2 >Become a Channel Partner</h2>
               <p >
-                Dealers, distributors, installers, EPC companies and business partners — join the VLOXIA energy network and grow together.
+                Dealers, distributors, installers, EPC companies and business partners â€” join the VLOXIA energy network and grow together.
               </p>
             </div>
             <Link
@@ -385,7 +387,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── ENQUIRY SECTION ── */}
+      {/* â”€â”€ ENQUIRY SECTION â”€â”€ */}
       <section className="home-enquiry">
         <div >
           <div >
@@ -456,3 +458,5 @@ function EnquiryForm() {
     </form>
   );
 }
+
+

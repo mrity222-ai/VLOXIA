@@ -380,12 +380,16 @@ body header.fixed > div > div > div > button svg { width: 19px; }
 .home-industries > div > div:last-child { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 12px; }
 .home-industries > div > div:last-child > a { display: block; padding: 20px 12px; text-align: center; border: 1px solid var(--line); transition: .2s; }
 .home-industries > div > div:last-child > a:hover { border-color: var(--teal-dark); background: #f3fffd; }
-.home-industries > div > div:last-child > a > div:first-child { font-size: 27px; }
+.home-industries > div > div:last-child > a > div:first-child { display:grid;place-items:center;width:44px;height:44px;margin:0 auto 12px;color:#078e83;background:#e3f9f5;border:1px solid #c5eee7; }
+.home-industry-icon svg { width:21px;height:21px; }
+.home-industries > div > div:last-child > a { min-height:138px;border-radius:3px; }
+.home-industries > div > div:last-child > a:hover > div:first-child { color:#032a2a;background:#b8f3e9; }
 .home-industries h3 { margin: 8px 0 2px; font-size: 13px; }
 .home-industries p { margin: 0; color: var(--muted); font-size: 10px; }
 .home-process > div > div:last-child { display: flex; justify-content: space-between; gap: 14px; }
 .home-process > div > div:last-child > div { display: flex; align-items: flex-start; gap: 10px; }
 .home-process > div > div:last-child > div > div:first-child > div:first-child { display: grid; place-items: center; width: 48px; height: 48px; background: var(--ink); color: var(--teal); }
+.home-process > div > div:last-child > div > div:first-child > div:first-child svg { width:22px;height:22px; }
 .home-process > div > div:last-child > div > div:first-child > div:nth-child(2) { margin-top: 9px; color: #078e83; font-size: 9px; font-weight: 800; }
 .home-process > div > div:last-child > div > div:first-child > div:nth-child(3) { font-size: 13px; font-weight: 800; }
 .home-process > div > div:last-child > div > div:first-child > div:nth-child(4) { max-width: 125px; color: var(--muted); font-size: 10px; }
@@ -651,3 +655,161 @@ body main.content-page .content-button:hover { color:#042321;background:#48ead8;
 .site-mega-menu button:hover { color: white; }
 .site-mega-menu button[class*="bg-white"] { background: rgba(0,217,194,.1); }
 .site-mega-menu .text-white\/40, .site-mega-menu .text-white\/50 { color: rgba(226,239,237,.58); }
+
+/* Homepage: photographic industry tiles */
+.home-industries > div > div:last-child { grid-template-columns:repeat(5,minmax(0,1fr));gap:12px; }
+.home-industries > div > div:last-child > .home-industry-card { position:relative;isolation:isolate;display:flex;align-items:flex-end;min-width:0;min-height:270px;overflow:hidden;padding:0;color:#fff;background:#04191d;border:1px solid rgba(4,33,34,.12);text-align:left; }
+.home-industry-image { z-index:-2;object-fit:cover;object-position:center;transition:transform .45s ease; }
+.home-industry-shade { position:absolute;z-index:-1;inset:0;background:linear-gradient(180deg,rgba(3,21,24,.04) 12%,rgba(3,21,24,.22) 42%,rgba(3,21,24,.9) 100%);transition:background .25s; }
+.home-industries > div > div:last-child > .home-industry-card > .home-industry-shade { display:block;width:auto;height:auto;margin:0;place-items:initial; }
+.home-industry-copy { position:relative;z-index:1;width:100%;padding:15px 13px 16px; }
+.home-industries .home-industry-icon { display:grid;place-items:center;width:30px;height:30px;margin:0 0 11px;color:#042321;background:var(--teal);border:0;border-radius:2px; }
+.home-industry-icon svg { width:16px;height:16px; }
+.home-industries .home-industry-card h3 { margin:0 0 4px;color:#fff;font-size:14px;font-weight:800;line-height:1.25; }
+.home-industries .home-industry-card p { margin:0;color:rgba(255,255,255,.78);font-size:9px;line-height:1.45; }
+.home-industries .home-industry-card:hover { border-color:var(--teal);background:#04191d; }
+.home-industries .home-industry-card:hover .home-industry-image { transform:scale(1.06); }
+@media(max-width:680px) {
+  .home-industries > div > div:last-child { grid-auto-columns:minmax(82px,22vw);grid-auto-flow:column;grid-template-columns:none;gap:8px;overflow-x:auto;padding:0 0 8px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:rgba(0,191,174,.55) transparent;-webkit-overflow-scrolling:touch; }
+  .home-industries > div > div:last-child > .home-industry-card { min-height:178px;aspect-ratio:.68/1;scroll-snap-align:start; }
+  .home-industry-copy { padding:11px 8px; }
+  .home-industries .home-industry-icon { width:25px;height:25px;margin-bottom:8px; }
+  .home-industry-icon svg { width:14px;height:14px; }
+  .home-industries .home-industry-card h3 { font-size:11px; }
+  .home-industries .home-industry-card p { font-size:8px; }
+}
+
+/* Animated EV charging hero */
+.home-hero.ev-promo-hero { position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(340px,.83fr) 1.17fr;align-items:center;min-height:min(760px,calc(100svh - 64px));overflow:hidden;padding:64px max(24px,calc((100vw - 1220px)/2));background:radial-gradient(ellipse at 15% 84%,rgba(0,217,194,.13),transparent 32%),linear-gradient(112deg,#f5f8f7 0%,#f1f5f4 53%,#e9efed 100%);color:#082427;}
+.home-hero.ev-promo-hero::before,.home-hero.ev-promo-hero::after { content:none;display:none; }
+.home-hero.ev-promo-hero > div:first-child,.home-hero.ev-promo-hero > div:nth-child(2),.home-hero.ev-promo-hero > div:nth-child(3) { display:block; }
+.ev-promo-visual { position:absolute;z-index:-1;inset:0 0 0 36%;overflow:hidden;animation:evVisualEnter .9s cubic-bezier(.2,.7,.2,1) both; }
+.ev-promo-image { object-fit:cover;object-position:center 53%; }
+.ev-promo-visual-shade { position:absolute;inset:0;background:linear-gradient(90deg,#f3f6f5 0%,rgba(243,246,245,.88) 8%,rgba(243,246,245,.2) 36%,rgba(3,21,24,.03) 70%),linear-gradient(0deg,rgba(3,21,24,.31),transparent 36%); }
+.ev-promo-ring { position:absolute;aspect-ratio:1;border:1px solid rgba(255,255,255,.48);border-radius:50%;pointer-events:none; }
+.ev-promo-ring-one { width:min(46vw,600px);right:5%;top:5%; }
+.ev-promo-ring-two { width:min(56vw,730px);right:0;top:-3%;border-color:rgba(0,217,194,.23); }
+.ev-promo-content { position:relative;z-index:2;grid-column:1;max-width:540px;padding-block:34px;animation:evTextEnter .65s .08s cubic-bezier(.2,.7,.2,1) both; }
+.ev-promo-eyebrow { display:flex;align-items:center;gap:9px;margin-bottom:19px;color:#078e83;font-size:10px;font-weight:850;letter-spacing:.17em;text-transform:uppercase; }
+.ev-promo-eyebrow > span { width:7px;height:7px;border-radius:50%;background:#00bfae;box-shadow:0 0 0 5px rgba(0,191,174,.13); }
+.home-hero.ev-promo-hero h1 { max-width:520px;margin:0;color:#0a2528;font-size:clamp(48px,6vw,78px);font-weight:650;line-height:.99;letter-spacing:-.065em; }
+.home-hero.ev-promo-hero h1 span { color:#009e91; }
+.home-hero.ev-promo-hero .ev-promo-description { max-width:430px;margin:19px 0 24px;color:#586d6f;font-size:13px;line-height:1.75; }
+.ev-promo-cta { display:inline-flex;align-items:center;justify-content:center;gap:11px;min-height:44px;padding:0 16px;color:#f5ffff!important;background:#082a2d;border:1px solid #082a2d;font-size:9px;font-weight:850;letter-spacing:.075em;text-decoration:none;text-transform:uppercase;transition:background .2s,color .2s,transform .2s; }
+.ev-promo-cta:hover { color:#082a2d!important;background:var(--teal);border-color:var(--teal);transform:translateY(-2px); }
+.ev-promo-cta svg { width:15px;height:15px; }
+.ev-promo-features { display:grid;gap:12px;margin-top:38px; }
+.ev-promo-features > div { display:flex;align-items:center;gap:11px;max-width:360px;animation:evTextEnter .5s ease both; }
+.ev-promo-features > div:nth-child(2) { animation-delay:.15s; }
+.ev-feature-mark { display:grid;place-items:center;flex:0 0 auto;width:34px;height:34px;color:#087f75;background:#e0f8f4;border:1px solid #b9e8df;border-radius:50%; }
+.ev-feature-mark svg { width:15px;height:15px; }
+.ev-promo-features b,.ev-promo-proof b { display:block;color:#17383a;font-size:10px;font-weight:850; }
+.ev-promo-features small,.ev-promo-proof small { display:block;margin-top:3px;color:#748487;font-size:9px;line-height:1.4; }
+.ev-promo-proof { display:flex;align-items:center;gap:11px;margin-top:26px;padding-top:17px;border-top:1px solid rgba(8,42,45,.14); }
+.ev-proof-avatars { display:flex;align-items:center;padding-left:2px; }
+.ev-proof-avatars i { display:grid;place-items:center;width:25px;height:25px;margin-left:-3px;color:#063034;background:#c9f4ed;border:2px solid #f2f6f5;border-radius:50%;font-size:7px;font-style:normal;font-weight:900; }
+.ev-proof-avatars i:nth-child(2) { color:white;background:#087f75; }
+.ev-proof-avatars i:nth-child(3) { color:white;background:#0b292c; }
+.ev-promo-stat { position:absolute;z-index:2;top:13%;right:max(28px,calc((100vw - 1220px)/2));display:grid;gap:5px;min-width:150px;padding:13px 15px;background:rgba(255,255,255,.84);border:1px solid rgba(255,255,255,.85);box-shadow:0 14px 36px rgba(3,21,24,.09);backdrop-filter:blur(10px);animation:evTextEnter .6s .38s ease both; }
+.ev-promo-stat b { color:#133639;font-size:10px; }
+.ev-promo-stat small { display:block;margin-top:3px;color:#718184;font-size:8px;line-height:1.4; }
+.ev-stat-pulse { position:absolute;top:15px;right:14px;width:7px;height:7px;border-radius:50%;background:#00bfae;box-shadow:0 0 0 0 rgba(0,191,174,.45);animation:evPulse 2s infinite; }
+.ev-promo-image-caption { position:absolute;right:max(28px,calc((100vw - 1220px)/2));bottom:12%;display:flex;align-items:center;gap:8px;padding:9px 12px;color:white;background:rgba(3,21,24,.7);border:1px solid rgba(255,255,255,.24);font-size:9px;font-weight:700;letter-spacing:.04em;backdrop-filter:blur(8px); }
+.ev-promo-image-caption svg { width:14px;height:14px;color:var(--teal); }
+.ev-promo-scroll { position:absolute;right:24px;bottom:22px;display:flex;align-items:center;gap:8px;color:#567073;font-size:8px;font-weight:800;letter-spacing:.13em;text-decoration:none; }
+.ev-promo-scroll svg { width:14px;height:14px;color:#078e83;animation:evArrowBob 1.6s ease-in-out infinite; }
+@keyframes evTextEnter { from { opacity:0;transform:translateY(16px); } to { opacity:1;transform:translateY(0); } }
+@keyframes evVisualEnter { from { opacity:0;transform:scale(1.035); } to { opacity:1;transform:scale(1); } }
+@keyframes evPulse { 70% { box-shadow:0 0 0 7px rgba(0,191,174,0); } 100% { box-shadow:0 0 0 0 rgba(0,191,174,0); } }
+@keyframes evArrowBob { 0%,100% { transform:translateY(-2px); } 50% { transform:translateY(3px); } }
+@media(max-width:900px) {
+  .home-hero.ev-promo-hero { grid-template-columns:minmax(300px,.92fr) 1.08fr;padding-inline:32px; }
+  .ev-promo-visual { inset-inline-start:32%; }
+  .home-hero.ev-promo-hero h1 { font-size:clamp(46px,7.4vw,66px); }
+  .ev-promo-stat { right:24px; }
+}
+@media(max-width:680px) {
+  .home-hero.ev-promo-hero { display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;align-content:start;gap:0;min-height:0;padding:82px 20px 50px;background:#f3f6f5; }
+  .ev-promo-content { grid-column:1;grid-row:1;max-width:none;padding:14px 0 20px; }
+  .home-hero.ev-promo-hero h1 { max-width:420px;font-size:clamp(43px,12vw,58px); }
+  .ev-promo-eyebrow { margin-bottom:14px;font-size:9px; }
+  .ev-promo-description { max-width:390px;margin:15px 0 18px;font-size:12px; }
+  .ev-promo-features { grid-template-columns:1fr 1fr;gap:10px;margin-top:22px; }
+  .ev-promo-features > div { align-items:flex-start;gap:8px; }
+  .ev-feature-mark { width:29px;height:29px; }
+  .ev-promo-features b { font-size:9px; }
+  .ev-promo-features small { font-size:8px; }
+  .ev-promo-proof { margin-top:18px;padding-top:13px; }
+  .ev-promo-visual { position:relative;z-index:0;grid-column:1;grid-row:2;inset:auto;width:100%;height:auto;min-height:200px;aspect-ratio:1.32/1;border:1px solid rgba(8,42,45,.1);box-shadow:0 14px 36px rgba(3,21,24,.12); }
+  .ev-promo-image { object-position:center 56%; }
+  .ev-promo-visual-shade { background:linear-gradient(0deg,rgba(3,21,24,.28),transparent 46%); }
+  .ev-promo-ring-one { width:82vw;right:-4%;top:3%; }
+  .ev-promo-ring-two { width:96vw;right:-10%;top:-4%; }
+  .ev-promo-stat { top:auto;right:30px;bottom:102px;min-width:130px;padding:10px 12px; }
+  .ev-promo-image-caption { right:12px;bottom:12px;font-size:8px; }
+  .ev-promo-scroll { right:20px;bottom:15px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .ev-promo-hero *, .ev-promo-hero *::before, .ev-promo-hero *::after { animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important; }
+}
+
+/* Six benefit cards around a central EV charging illustration. */
+.home-advantages { position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 56%,#fff 0%,#f3f7f6 55%,#eef4f2 100%); }
+.home-advantages::before { content:"";position:absolute;left:50%;top:42%;width:600px;height:600px;border:1px solid rgba(0,191,174,.1);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none; }
+.home-advantages-inner { position:relative;z-index:1;max-width:1220px;margin:auto; }
+.home-advantages-heading { margin:0 auto 36px!important;text-align:center; }
+.home-advantages-heading > p { margin:0 0 9px;color:#078e83;font-size:10px;font-weight:850;letter-spacing:.16em;text-transform:uppercase; }
+.home-advantages-heading h2 { margin:0;color:#092529;font-size:clamp(28px,3.5vw,42px);font-weight:650;letter-spacing:-.045em; }
+.home-advantage-layout { display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,.68fr) minmax(0,1fr);gap:20px;align-items:center; }
+.home-advantage-column { display:grid;gap:13px; }
+.home-advantage-card { position:relative;display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:start;min-height:112px;padding:17px 16px;background:rgba(255,255,255,.78);border:1px solid #e0eae7;box-shadow:0 9px 25px rgba(3,21,24,.035);transition:transform .22s,border-color .22s,box-shadow .22s; }
+.home-advantage-card:hover { transform:translateY(-3px);border-color:rgba(0,191,174,.55);box-shadow:0 14px 32px rgba(3,21,24,.08); }
+.home-advantage-number { display:grid;place-items:center;width:38px;height:38px;color:#078e83;background:#e1f8f4;border:1px solid #c4ebe4;border-radius:50%;font-size:12px;font-weight:850; }
+.home-advantage-card h3 { margin:2px 0 6px;color:#0a2c30;font-size:13px;font-weight:800;line-height:1.35; }
+.home-advantage-card p { margin:0;color:#66797b;font-size:10px;line-height:1.6; }
+.home-charger-art { position:relative;display:grid;place-items:center;min-height:405px;isolation:isolate; }
+.home-charger-halo { position:absolute;z-index:-1;width:260px;height:260px;border:1px solid rgba(0,191,174,.17);border-radius:50%;box-shadow:0 0 0 28px rgba(0,191,174,.035),0 0 0 57px rgba(0,191,174,.025);animation:chargerHalo 5s ease-in-out infinite; }
+.home-charger-device { position:relative;z-index:2;width:122px;height:315px;padding:15px 12px 14px;background:linear-gradient(105deg,#8e9b9c 0%,#f8fbfa 18%,#d6e0de 50%,#fff 76%,#829193 100%);border:1px solid rgba(35,67,68,.4);border-radius:30px 30px 20px 20px;box-shadow:inset 5px 0 9px rgba(255,255,255,.82),inset -5px 0 10px rgba(3,21,24,.16),0 25px 42px rgba(3,21,24,.19);animation:chargerFloat 4.5s ease-in-out infinite; }
+.home-charger-top { position:absolute;left:50%;top:8px;width:34px;height:5px;transform:translateX(-50%);background:#536669;border-radius:5px; }
+.home-charger-top span { position:absolute;right:-7px;top:-1px;width:4px;height:4px;background:#00bfae;border-radius:50%;box-shadow:0 0 8px #00bfae; }
+.home-charger-screen { display:grid;place-items:center;width:74px;height:89px;margin:13px auto 13px;background:linear-gradient(145deg,#071b1e,#143b3e);border:5px solid #becac8;border-radius:9px;box-shadow:inset 0 0 16px rgba(0,217,194,.16); }
+.home-charger-screen svg { width:30px;height:30px;color:var(--teal);filter:drop-shadow(0 0 7px rgba(0,217,194,.6)); }
+.home-charger-light { width:32px;height:3px;margin:0 auto 15px;background:#00bfae;border-radius:4px;box-shadow:0 0 8px rgba(0,191,174,.75); }
+.home-charger-port { display:grid;place-items:center;width:39px;height:39px;margin:auto;border:4px solid #829393;border-radius:50%;background:#e3eae8;box-shadow:inset 0 0 0 5px #c3cecc; }
+.home-charger-port span { width:12px;height:12px;background:#17383a;border-radius:50%; }
+.home-charger-brand { margin-top:14px;color:#087f75;text-align:center;font-size:9px;font-weight:900;letter-spacing:.1em; }
+.home-charger-brand small { display:block;margin-top:3px;color:#617477;font-size:6px;letter-spacing:.14em; }
+.home-charger-cable { position:absolute;z-index:1;top:112px;left:calc(50% + 40px);width:70px;height:153px;border:5px solid #263e40;border-left-color:transparent;border-bottom-color:transparent;border-radius:0 56px 0 0;transform:rotate(4deg); }
+.home-charger-connector { position:absolute;z-index:3;top:239px;left:calc(50% + 82px);width:23px;height:45px;background:linear-gradient(90deg,#172e31,#587073 52%,#10282b);border:1px solid #0f2427;border-radius:5px 8px 7px 3px;transform:rotate(-15deg);box-shadow:0 7px 12px rgba(3,21,24,.25); }
+.home-charger-connector::before { content:"";position:absolute;top:-8px;left:5px;width:12px;height:11px;background:#bbc7c5;border:1px solid #526567;border-radius:3px 3px 0 0; }
+.home-charger-connector span { position:absolute;left:4px;top:15px;width:13px;height:3px;background:var(--teal);border-radius:3px; }
+.home-charger-base { position:absolute;z-index:1;bottom:33px;width:164px;height:15px;background:linear-gradient(90deg,#9aa8a7,#f5f9f8 25%,#bfccca 76%,#859392);border:1px solid #a4b2b0;border-radius:50%;box-shadow:0 11px 18px rgba(3,21,24,.12); }
+.home-charger-ground-glow { position:absolute;bottom:26px;width:240px;height:28px;background:rgba(0,191,174,.12);border-radius:50%;filter:blur(12px); }
+@keyframes chargerFloat { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-7px); } }
+@keyframes chargerHalo { 0%,100% { transform:scale(.96);opacity:.65; } 50% { transform:scale(1.04);opacity:1; } }
+@media(max-width:900px) {
+  .home-advantage-layout { grid-template-columns:repeat(2,minmax(0,1fr));gap:14px; }
+  .home-advantage-column { gap:11px; }
+  .home-charger-art { grid-column:1/-1;grid-row:2;min-height:355px; }
+  .home-advantage-card { min-height:110px;grid-template-columns:34px 1fr;gap:9px;padding:14px 12px; }
+  .home-advantage-number { width:32px;height:32px;font-size:10px; }
+}
+@media(max-width:680px) {
+  .home-advantages { padding:54px 18px!important; }
+  .home-advantages-heading { margin-bottom:19px!important; }
+  .home-advantage-layout { display:flex;flex-direction:column;align-items:stretch;gap:12px; }
+  .home-charger-art { order:-1;min-height:300px;margin:-6px 0 2px; }
+  .home-charger-device { transform:scale(.88); }
+  .home-charger-cable { transform:scale(.88) rotate(4deg); }
+  .home-charger-connector { transform:scale(.88) rotate(-15deg); }
+  .home-advantage-column { gap:9px; }
+  .home-advantage-column:first-child { order:1; }
+  .home-advantage-column:last-child { order:2; }
+  .home-advantage-card { min-height:0;grid-template-columns:35px 1fr;gap:10px;padding:13px 12px; }
+  .home-advantage-card h3 { font-size:12px; }
+  .home-advantage-card p { font-size:10px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .home-charger-device,.home-charger-halo { animation:none; }
+  .home-advantage-card { transition:none; }
+}
