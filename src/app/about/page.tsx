@@ -1,5 +1,6 @@
-import { ArrowRight, Eye, Target, Heart } from "lucide-react";
+import { ArrowRight, Eye, Target, Heart, Zap } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata = {
   title: "About Us | VLOXIA Systems LLP",
@@ -10,15 +11,64 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <main className="content-page about-page">
-      {/* Hero */}
-      <section className="content-hero">
-        <div className="content-hero-glow" />
-        <div className="content-hero-inner">
-          <p className="content-eyebrow">About Us</p>
-          <h1>Who We Are</h1>
-          <p>
-            A technology-driven clean energy company committed to powering India&apos;s sustainable future through integrated EV, Solar, Storage and Power solutions.
-          </p>
+      {/* ── FUTURE CHARGED HERO SECTION (MATCHING REFERENCE) ── */}
+      <section className="relative overflow-hidden bg-gradient-to-r from-[#179c96] via-[#2dc4a5] to-[#c7f4ea] min-h-[500px] lg:min-h-[560px] flex items-center pt-10 pb-12">
+        {/* Ambient subtle glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.25),transparent_60%)] pointer-events-none" />
+
+        <div className="container-xl relative z-10 w-full mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            {/* Left Column: Headline, Speed Badge, Subtitle & Button */}
+            <div className="lg:col-span-6 text-white space-y-6">
+              {/* Dynamic Title with Speed-Charge Graphic */}
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white uppercase drop-shadow-sm font-sans">
+                  Future
+                </span>
+                {/* Speed Charge Icon */}
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00e676] text-[#032421] shadow-lg shadow-[#00e676]/30 animate-pulse">
+                  <span className="w-2.5 h-0.5 bg-[#032421] rounded-full" />
+                  <span className="w-3.5 h-0.5 bg-[#032421] rounded-full" />
+                  <Zap className="w-5 h-5 fill-current" />
+                </div>
+                <span className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white uppercase drop-shadow-sm block w-full font-sans">
+                  Charged
+                </span>
+              </div>
+
+              {/* Subtitle */}
+              <p className="text-white/95 text-base sm:text-lg max-w-md font-medium leading-relaxed drop-shadow-xs">
+                Seamless charging for the electric era.
+                <br />
+                Built for speed, reliability, and ease.
+              </p>
+
+              {/* Action Button */}
+              <div>
+                <Link
+                  href="/solutions/ev-charging"
+                  className="inline-flex items-center justify-center px-8 py-3.5 bg-[#00e676] hover:bg-[#00c853] text-[#032421] font-black text-sm rounded-md shadow-lg shadow-[#00e676]/25 hover:shadow-xl transition-all duration-200"
+                >
+                  Start Charging
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column / Visual: EV Charger Pedestal + White Electric Vehicle */}
+            <div className="lg:col-span-6 relative flex items-center justify-center">
+              <div className="relative w-full aspect-[16/9] lg:aspect-[16/10] max-w-[620px] rounded-2xl overflow-hidden shadow-2xl border border-white/40">
+                <Image
+                  src="/about-hero-ev.png"
+                  alt="Future Charged EV Infrastructure"
+                  fill
+                  priority
+                  className="object-cover object-center"
+                />
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -114,11 +164,11 @@ export default function AboutPage() {
       <section className="content-cta-section">
         <div className="content-cta">
           <div>
-          <h2>Ready to Start Your Energy Journey?</h2>
-          <p>Talk to our experts and get a customised energy solution designed for your needs.</p>
-          <Link href="/contact" className="content-button">
-            Contact Us <ArrowRight aria-hidden="true" />
-          </Link>
+            <h2>Ready to Start Your Energy Journey?</h2>
+            <p>Talk to our experts and get a customised energy solution designed for your needs.</p>
+            <Link href="/contact" className="content-button">
+              Contact Us <ArrowRight aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>
