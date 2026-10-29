@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
+import IndustryMarqueeSlider from "@/components/IndustryMarqueeSlider";
 
 export default function PublicShellWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -15,12 +16,13 @@ export default function PublicShellWrapper({ children }: { children: React.React
     return <main>{children}</main>;
   }
 
-  // Standard Public website with Header, Cart Drawer and Footer
+  // Standard Public website with Header, Cart Drawer, Global Industry Slider, and Footer
   return (
     <>
       <Header />
       <CartDrawer />
       <main>{children}</main>
+      <IndustryMarqueeSlider />
       <Footer />
     </>
   );

@@ -813,3 +813,25 @@ body main.content-page .content-button:hover { color:#042321;background:#48ead8;
   .home-charger-device,.home-charger-halo { animation:none; }
   .home-advantage-card { transition:none; }
 }
+
+
+/* ── LEFT-TO-RIGHT CONTINUOUS MARQUEE SLIDER ── */
+@keyframes slide-ltr {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-slide-ltr {
+  display: flex;
+  width: max-content;
+  animation: slide-ltr 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-slide-ltr:hover {
+  animation-play-state: paused;
+}
