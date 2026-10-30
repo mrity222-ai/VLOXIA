@@ -8,7 +8,7 @@ export default function OrderSuccessPage({
   searchParams: Promise<{ orderId?: string; paymentId?: string }>;
 }) {
   return (
-    <Suspense fallback={<main ><div >Loading receipt...</div></main>}>
+    <Suspense fallback={<main className="thank-you-page"><div className="thank-you-card">Loading receipt...</div></main>}>
       <OrderSuccessContent searchParams={searchParams} />
     </Suspense>
   );
@@ -24,14 +24,14 @@ async function OrderSuccessContent({
   const paymentId = params.paymentId || `pay_${Date.now()}`;
 
   return (
-    <main >
-      <section >
+    <main className="content-page thank-you-page order-success-page">
+      <section className="thank-you-card order-receipt">
           {/* Success Check */}
-          <div >
+          <div className="thank-you-icon">
             <CheckCircle2 aria-hidden="true" />
           </div>
 
-          <span >
+          <span className="content-eyebrow">
             Payment Verified & Confirmed
           </span>
 
@@ -44,7 +44,7 @@ async function OrderSuccessContent({
           </p>
 
           {/* Receipt Box */}
-          <div >
+          <div className="order-receipt-details">
             <div>
               <span>Order Reference:</span>
               <span>{orderId}</span>
@@ -64,7 +64,7 @@ async function OrderSuccessContent({
           </div>
 
           {/* Contact Support */}
-          <div >
+          <div className="order-support">
             <p>Our dispatch executive will call you to confirm site delivery location.</p>
             <div >
               <a href="tel:+918178810456">
@@ -80,16 +80,16 @@ async function OrderSuccessContent({
           </div>
 
           {/* Actions */}
-          <div >
+          <div className="order-actions">
             <Link
               href="/shop"
-              
+              className="content-button"
             >
               Continue Shopping
             </Link>
             <Link
               href="/"
-              
+              className="order-home-link"
             >
               Back to Home <ArrowRight aria-hidden="true" />
             </Link>

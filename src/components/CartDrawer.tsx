@@ -105,7 +105,7 @@ export default function CartDrawer() {
           contact: customer.phone,
         },
         theme: {
-          color: "#00c853",
+          color: "#2563eb",
         },
         handler: async function (response: any) {
           // Verify on backend

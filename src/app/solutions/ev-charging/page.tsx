@@ -10,21 +10,21 @@ export const metadata = {
 
 export default function EVChargingPage() {
   return (
-    <main >
+    <main className="content-page solution-page">
       {/* Hero */}
-      <section >
-        <div  />
-        <div  />
-        <div >
+      <section className="content-hero solution-hero">
+        <div className="content-hero-glow" />
+        <div className="solution-hero-orb" />
+        <div className="content-hero-inner">
           <div>
-            <p >Solutions / EV Charging</p>
+            <p className="content-eyebrow">Solutions / EV Charging</p>
             <h1>
               EV Charging <span>Infrastructure</span>
             </h1>
-            <p >
+            <p className="solution-hero-copy">
               Complete electric vehicle charging solutions — from home wallboxes to commercial hubs and public networks — powered by certified technology and designed for India&apos;s EV ecosystem.
             </p>
-            <Link href="/contact" >
+            <Link href="/contact" className="content-button">
               Get a Charging Quote <ArrowRight aria-hidden="true" />
             </Link>
           </div>
@@ -35,13 +35,13 @@ export default function EVChargingPage() {
       <AcDcChargerShowcase />
 
       {/* Charger Types Detailed Comparison */}
-      <section >
-        <div >
-          <div >
-            <p >Product Range</p>
+      <section className="content-section">
+        <div className="content-container">
+          <div className="content-section-heading">
+            <p className="content-eyebrow">Product Range</p>
             <h2>Charging Solutions for Every Need</h2>
           </div>
-          <div >
+          <div className="solution-card-grid">
             {[
               {
                 title: "AC Chargers (Level 2)",
@@ -54,12 +54,12 @@ export default function EVChargingPage() {
                 title: "DC Fast Chargers",
                 badge: "30 kW – 120 kW+",
                 points: ["Commercial & highway charging", "Fleet depot rapid charging", "Public charging stations", "Multi-connector: CCS2, CHAdeMO, Type 2", "Smart load management"],
-                color: "border-orange-200 hover:border-orange-400",
-                badgeColor: "bg-orange-50 text-orange-600",
+                color: "border-blue-200 hover:border-blue-400",
+                badgeColor: "bg-blue-50 text-blue-600",
               },
             ].map((item) => (
-              <div key={item.title} >
-                <div >
+              <div key={item.title} className="solution-card">
+                <div className="solution-card-heading">
                   <h3>{item.title}</h3>
                   <span>{item.badge}</span>
                 </div>
@@ -78,7 +78,7 @@ export default function EVChargingPage() {
       </section>
 
       {/* Applications */}
-      <section >
+      <section className="content-section solution-applications">
         <div>
           <div>
             <p>Applications</p>
@@ -105,7 +105,7 @@ export default function EVChargingPage() {
       <FeaturedProducts compact eyebrow="EV Charging Products" title="Find Your EV Charger" description="Compare home and commercial chargers listed in the VLOXIA marketplace." productIds={["ev-home-7kw", "ev-comm-22kw", "ev-dc-30kw"]} />
 
       {/* Partner */}
-      <section >
+      <section className="content-section solution-partner">
         <div>
           <div>
             <div>
@@ -121,13 +121,13 @@ export default function EVChargingPage() {
       </section>
 
       {/* CTA */}
-      <section >
-        <div >
+      <section className="content-cta-section">
+        <div className="content-cta">
           <div>
-            <p >Ready to Deploy?</p>
+            <p className="content-eyebrow">Ready to Deploy?</p>
             <h2>Power Your Location with EV Charging</h2>
             <p>Get in touch for a site assessment, technical recommendation and custom commercial proposal.</p>
-            <Link href="/contact" >
+            <Link href="/contact" className="content-button">
               Request a Consultation <ArrowRight aria-hidden="true" />
             </Link>
           </div>

@@ -33,7 +33,7 @@ export default async function AdminDashboardPage() {
       value: `₹${(totalRevenue._sum.totalAmount || 0).toLocaleString("en-IN")}`,
       sub: "Processed via Razorpay",
       icon: DollarSign,
-      color: "text-emerald-600 bg-emerald-50",
+      color: "text-blue-600 bg-blue-50",
     },
     {
       name: "E-Commerce Orders",
@@ -47,14 +47,14 @@ export default async function AdminDashboardPage() {
       value: inquiryCount.toString(),
       sub: "Forms & B2B requests",
       icon: Inbox,
-      color: "text-purple-600 bg-purple-50",
+      color: "text-blue-600 bg-blue-50",
     },
     {
       name: "Products in Catalog",
       value: productCount.toString(),
       sub: "Active clean energy SKUs",
       icon: Package,
-      color: "text-orange-600 bg-orange-50",
+      color: "text-blue-600 bg-blue-50",
     },
   ];
 

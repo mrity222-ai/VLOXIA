@@ -8,9 +8,9 @@ export const metadata = {
 
 export default function ThankYouPage() {
   return (
-    <main >
-    <section >
-      <div >
+    <main className="content-page thank-you-page">
+    <section className="thank-you-card">
+      <div className="thank-you-icon">
           <CheckCircle aria-hidden="true" />
         </div>
         <h1>Thank You for Your Enquiry!</h1>
@@ -20,7 +20,7 @@ export default function ThankYouPage() {
         <p>
           For urgent matters, call or WhatsApp us directly:
         </p>
-        <div >
+        <div className="thank-you-contact">
           <a href="tel:+918178810456">
             <Phone aria-hidden="true" /> +91 8178810456
           </a>
@@ -28,7 +28,7 @@ export default function ThankYouPage() {
             <Mail aria-hidden="true" /> vloxiasystems@gmail.com
           </a>
         </div>
-        <Link href="/" >
+        <Link href="/" className="content-button">
           Back to Home <ArrowRight aria-hidden="true" />
         </Link>
     </section>

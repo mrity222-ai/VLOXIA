@@ -51,11 +51,11 @@ const industries = [
 
 export default function IndustriesPage() {
   return (
-    <main >
-      <section >
-        <div  />
-        <div >
-          <p >Industries</p>
+    <main className="content-page industries-page">
+      <section className="content-hero">
+        <div className="content-hero-glow" />
+        <div className="content-hero-inner">
+          <p className="content-eyebrow">Industries</p>
           <h1>Industries We Serve</h1>
           <p>
             From individual homes to large industrial campuses — VLOXIA delivers clean energy solutions tailored to every sector.
@@ -63,28 +63,28 @@ export default function IndustriesPage() {
         </div>
       </section>
 
-      <section >
-        <div >
+      <section className="content-section industries-section">
+        <div className="content-container industry-list">
           {industries.map((ind) => (
-            <div key={ind.id} id={ind.id} >
-              <div >
-                <div >
+            <div key={ind.id} id={ind.id} className="industry-card">
+              <div className="industry-label">
+                <div className="industry-icon">
                   {ind.icon}
                 </div>
-                <div >{ind.title}</div>
-                <div >{ind.subtitle}</div>
+                <div className="industry-name">{ind.title}</div>
+                <div className="industry-subtitle">{ind.subtitle}</div>
               </div>
-              <div >
+              <div className="industry-content">
                 <h2>{ind.title} Energy Solutions</h2>
                 <p>{ind.desc}</p>
-                <div >
+                <div className="industry-tags">
                   {ind.solutions.map((s) => (
                     <span key={s}>
                       {s}
                     </span>
                   ))}
                 </div>
-                <Link href="/contact" >
+                <Link href="/contact" className="content-text-link">
                   Get a Solution for {ind.title} <ArrowRight aria-hidden="true" />
                 </Link>
               </div>
@@ -93,11 +93,11 @@ export default function IndustriesPage() {
         </div>
       </section>
 
-      <section >
-        <div >
+      <section className="content-cta-section">
+        <div className="content-cta">
           <h2>Your Industry, Our Expertise</h2>
           <p>Don&apos;t see your specific use case? Talk to our experts — we design custom solutions for unique requirements.</p>
-          <Link href="/contact" >
+          <Link href="/contact" className="content-button">
             Discuss Your Requirements <ArrowRight aria-hidden="true" />
           </Link>
         </div>

@@ -30,14 +30,14 @@ export default function ShopPage() {
       : PRODUCTS.filter((p) => p.category === selectedCategory);
 
   return (
-    <main >
+    <main className="shop-page">
       {/* ── HERO BANNER ── */}
-      <section >
-        <div  />
-        <div  />
+      <section className="shop-hero">
+        <div className="shop-hero-glow" />
+        <div className="shop-hero-orb" />
 
-        <div >
-          <div >
+        <div className="shop-hero-inner">
+          <div className="shop-eyebrow">
             <Zap aria-hidden="true" />
             VLOXIA Direct Clean Energy Marketplace
           </div>
@@ -50,7 +50,7 @@ export default function ShopPage() {
           </p>
 
           {/* Quick Perks */}
-          <div >
+          <div className="shop-perks">
             <span>
               <ShieldCheck aria-hidden="true" />
               Up to 10 Years Warranty
@@ -68,10 +68,10 @@ export default function ShopPage() {
       </section>
 
       {/* ── FILTER TABS & STICKY CART BAR ── */}
-      <section >
-        <div >
+      <section className="shop-toolbar">
+        <div className="shop-toolbar-inner">
           {/* Category Tabs */}
-          <div  role="tablist" aria-label="Product categories">
+          <div className="shop-filter-tabs" role="tablist" aria-label="Product categories">
             {[
               { id: "all", label: "All Hardware" },
               { id: "ev-charging", label: "⚡ EV Chargers (AC/DC)" },
@@ -81,7 +81,7 @@ export default function ShopPage() {
               <button
                 key={tab.id}
                 onClick={() => setSelectedCategory(tab.id)}
-                
+                className={`shop-filter${selectedCategory === tab.id ? " is-active" : ""}`}
               >
                 {tab.label}
               </button>
@@ -91,39 +91,39 @@ export default function ShopPage() {
           {/* Floating Cart Trigger Button */}
           <button
             onClick={() => setIsCartOpen(true)}
-            
+            className="shop-cart-button"
           >
             <ShoppingCart aria-hidden="true" />
             <span>Cart ({totalItems})</span>
-            <span ></span>
+            <span className="shop-cart-divider"></span>
             <span>View & Checkout ↗</span>
           </button>
         </div>
       </section>
 
       {/* ── PRODUCT GRID ── */}
-      <section >
-        <div >
-          <div >
+      <section className="shop-products-section">
+        <div className="shop-content-width">
+          <div className="shop-product-grid">
             {filteredProducts.map((product) => (
               <div
                 key={product.id}
-                
+                className="shop-product-card"
               >
                 {/* Image & Badge */}
-                <div >
+                <div className="shop-product-image">
                   <Image
                     src={product.image}
                     alt={product.name}
                     fill
-                    
+                    className="shop-product-photo"
                   />
                   {product.badge && (
-                    <div >
+                    <div className="shop-product-badge">
                       {product.badge}
                     </div>
                   )}
-                  <div >
+                  <div className="shop-rating">
                     <Star aria-hidden="true" />
                     <span>{product.rating}</span>
                     <span>({product.reviewsCount})</span>
@@ -131,20 +131,20 @@ export default function ShopPage() {
                 </div>
 
                 {/* Content */}
-                <div >
+                <div className="shop-product-info">
                   <div>
-                    <div >
+                    <div className="shop-category-label">
                       {product.categoryLabel}
                     </div>
                     <h3>
                       {product.name}
                     </h3>
-                    <p >
+                    <p className="shop-tagline">
                       {product.tagline}
                     </p>
 
                     {/* Key Specs Pill */}
-                    <div >
+                    <div className="shop-specs">
                       {Object.entries(product.specs)
                         .slice(0, 3)
                         .map(([k, v]) => (
@@ -157,32 +157,32 @@ export default function ShopPage() {
                   </div>
 
                   {/* Price & Action */}
-                  <div >
-                    <div >
-                      <span >
+                  <div className="shop-product-footer">
+                    <div className="shop-price-group">
+                      <span className="shop-price">
                         ₹{product.price.toLocaleString("en-IN")}
                       </span>
                       {product.originalPrice && (
-                        <span >
+                        <span className="shop-old-price">
                           ₹{product.originalPrice.toLocaleString("en-IN")}
                         </span>
                       )}
-                      <span >
+                      <span className="shop-tax-note">
                         Incl. 18% GST
                       </span>
                     </div>
 
-                    <div >
+                    <div className="shop-actions">
                       <button
                         onClick={() => setActiveProductModal(product)}
-                        
+                        className="shop-details-button"
                       >
                         <Info aria-hidden="true" />
                         Details
                       </button>
                       <button
                         onClick={() => addToCart(product, 1)}
-                        
+                        className="shop-buy-button"
                       >
                         <ShoppingCart aria-hidden="true" />
                         Buy Now
@@ -197,11 +197,11 @@ export default function ShopPage() {
       </section>
 
       {/* ── B2B BULK PURCHASE CALLOUT ── */}
-      <section >
-        <div >
-          <div >
+      <section className="shop-b2b">
+        <div className="shop-content-width">
+          <div className="shop-b2b-inner">
             <div>
-              <div >
+              <div className="shop-category-label">
                 Commercial & Bulk Projects
               </div>
               <h2>
@@ -214,7 +214,7 @@ export default function ShopPage() {
             </div>
             <Link
               href="/contact"
-              
+              className="shop-b2b-link"
             >
               Request B2B Quote <ArrowRight aria-hidden="true" />
             </Link>
@@ -224,44 +224,44 @@ export default function ShopPage() {
 
       {/* ── QUICK VIEW / DETAILS MODAL ── */}
       {activeProductModal && (
-        <div >
+        <div className="shop-modal-overlay">
           <div
-            
+            className="shop-modal-backdrop"
             onClick={() => setActiveProductModal(null)}
           />
 
-          <div >
+          <div className="shop-modal">
             <button
               onClick={() => setActiveProductModal(null)}
-              
+              className="shop-modal-close"
             >
               ✕
             </button>
 
-            <div >
-              <div >
+            <div className="shop-modal-main">
+              <div className="shop-modal-image">
                 <Image
                   src={activeProductModal.image}
                   alt={activeProductModal.name}
                   fill
-                  
+                  className="shop-product-photo"
                 />
               </div>
 
               <div>
-                <span >
+                <span className="shop-category-label">
                   {activeProductModal.categoryLabel}
                 </span>
                 <h3>
                   {activeProductModal.name}
                 </h3>
-                <p >{activeProductModal.tagline}</p>
-                <div >
+                <p className="shop-tagline">{activeProductModal.tagline}</p>
+                <div className="shop-price">
                   ₹{activeProductModal.price.toLocaleString("en-IN")}
                 </div>
 
-                <div >Warranty & Support:</div>
-                <div >
+                <div className="shop-warranty-label">Warranty & Support:</div>
+                <div className="shop-warranty">
                   🛡️ {activeProductModal.warranty}
                 </div>
 
@@ -270,7 +270,7 @@ export default function ShopPage() {
                     addToCart(activeProductModal, 1);
                     setActiveProductModal(null);
                   }}
-                  
+                  className="shop-buy-button shop-modal-buy"
                 >
                   <ShoppingCart aria-hidden="true" />
                   Add to Cart & Checkout
@@ -279,7 +279,7 @@ export default function ShopPage() {
             </div>
 
             {/* Highlights */}
-            <div >
+            <div className="shop-highlights">
               <h4>
                 Key Features & Highlights
               </h4>

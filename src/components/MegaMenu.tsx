@@ -215,15 +215,15 @@ export default function MegaMenu({ onClose }: { onClose: () => void }) {
 
   return (
     <div
-      
+      className="site-mega-menu absolute top-full left-0 right-0 bg-[#040e1d]/98 backdrop-blur-2xl border-t border-b border-white/10 shadow-2xl transition-all duration-200 z-50 text-white"
       onMouseLeave={onClose}
     >
-      <div >
-        <div >
+      <div className="container-xl py-8">
+        <div className="grid grid-cols-12 gap-8">
           
           {/* ── LEFT VERTICAL CATEGORY TABS (4 Cols) ── */}
-          <div >
-            <div >
+          <div className="col-span-12 lg:col-span-4 border-r border-white/10 pr-0 lg:pr-6 space-y-1.5">
+            <div className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-3 px-3">
               Solution Verticals
             </div>
 
@@ -234,43 +234,49 @@ export default function MegaMenu({ onClose }: { onClose: () => void }) {
                   key={cat.id}
                   onClick={() => setActiveCategoryId(cat.id)}
                   onMouseEnter={() => setActiveCategoryId(cat.id)}
-                  
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-left text-sm font-semibold transition-all duration-150 ${
+                    isActive
+                      ? "bg-white/[0.08] text-[#2563eb] border-l-4 border-[#2563eb] shadow-md pl-3.5"
+                      : "text-white/70 hover:text-white hover:bg-white/[0.04]"
+                  }`}
                 >
                   <span>{cat.name}</span>
                   <ArrowRight
-                    
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isActive ? "text-[#2563eb] translate-x-1" : "text-white/20"
+                    }`}
                   />
                 </button>
               );
             })}
 
-            <div >
+            <div className="pt-6 px-3">
               <Link
                 href="/shop"
                 onClick={onClose}
-                
+                className="inline-flex items-center gap-2 text-xs font-bold text-[#2563eb] hover:underline"
               >
                 <span>Browse Clean Energy Marketplace</span>
-                <ArrowUpRight  />
+                <ArrowUpRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
 
           {/* ── RIGHT DYNAMIC VISUAL CARDS GRID (8 Cols) ── */}
-          <div >
+          <div className="col-span-12 lg:col-span-8 flex flex-col justify-between pl-0 lg:pl-2">
             <div>
               {/* Category Subheading */}
-              <div >
-                <span >
+              <div className="mb-6">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#2563eb]">
                   {activeCategory.name}
                 </span>
-                <h3 >
+                <h3 className="text-xl font-bold text-white mt-0.5">
                   {activeCategory.tagline}
                 </h3>
               </div>
 
               {/* 4 Cards Grid */}
-              <div >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {activeCategory.items.map((item, idx) => {
                   const Icon = item.icon;
                   return (
@@ -278,31 +284,31 @@ export default function MegaMenu({ onClose }: { onClose: () => void }) {
                       key={idx}
                       href={item.href}
                       onClick={onClose}
-                      
+                      className="group p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/5 hover:border-[#2563eb]/40 transition-all duration-200 flex flex-col justify-between"
                     >
                       <div>
-                        <div >
-                          <div >
-                            <Icon  />
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="w-8 h-8 rounded-lg bg-[#2563eb]/15 border border-[#2563eb]/30 flex items-center justify-center text-[#2563eb] group-hover:scale-105 transition-transform">
+                            <Icon className="w-4 h-4" />
                           </div>
                           {item.badge && (
-                            <span >
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/[0.06] text-[#2563eb] border border-white/10 uppercase">
                               {item.badge}
                             </span>
                           )}
                         </div>
 
-                        <h4 >
+                        <h4 className="font-bold text-sm text-white group-hover:text-[#2563eb] transition-colors leading-tight mb-1.5">
                           {item.title}
                         </h4>
-                        <p >
+                        <p className="text-white/50 text-xs leading-relaxed">
                           {item.description}
                         </p>
                       </div>
 
-                      <div >
+                      <div className="flex items-center gap-1 text-[11px] font-bold text-[#2563eb] mt-4 opacity-75 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
                         <span>Explore Solution</span>
-                        <ArrowRight  />
+                        <ArrowRight className="w-3 h-3" />
                       </div>
                     </Link>
                   );
@@ -311,12 +317,12 @@ export default function MegaMenu({ onClose }: { onClose: () => void }) {
             </div>
 
             {/* Bottom Strip */}
-            <div >
+            <div className="pt-6 mt-6 border-t border-white/10 flex items-center justify-between text-xs text-white/40">
               <span>Backed by Tata EZ Power & certified OEM technology</span>
               <Link
                 href="/contact"
                 onClick={onClose}
-                
+                className="text-white hover:text-[#2563eb] font-semibold transition-colors"
               >
                 Request Custom Site Assessment ↗
               </Link>
