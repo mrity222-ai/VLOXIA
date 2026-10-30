@@ -5,22 +5,26 @@ import Image from "next/image";
 export const metadata = {
   title: "About Us | VLOXIA Systems LLP",
   description:
-    "Learn about VLOXIA Systems LLP — our vision, mission, values and approach to delivering integrated clean energy solutions across India.",
+    "Learn about VLOXIA Systems LLP, its EV charging infrastructure, solar, lithium storage and power solutions for homes, businesses and fleets across India.",
 };
 
 export default function AboutPage() {
   return (
     <main className="content-page about-page">
       {/* ── FUTURE CHARGED HERO SECTION (MATCHING REFERENCE) ── */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#179c96] via-[#2dc4a5] to-[#c7f4ea] min-h-[500px] lg:min-h-[560px] flex items-center pt-10 pb-12">
-        {/* Ambient subtle glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.25),transparent_60%)] pointer-events-none" />
+      <section className="about-ev-hero">
+        <Image
+          src="/Modern EV Charging.png"
+          alt="Electric vehicle connected to a modern charging station"
+          fill
+          priority
+          sizes="100vw"
+          className="about-ev-background"
+        />
+        <div className="about-ev-overlay" aria-hidden="true" />
 
-        <div className="container-xl relative z-10 w-full mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            {/* Left Column: Headline, Speed Badge, Subtitle & Button */}
-            <div className="lg:col-span-6 text-white space-y-6">
+        <div className="about-ev-content">
+            <div className="about-ev-copy">
               {/* Dynamic Title with Speed-Charge Graphic */}
               <div className="flex flex-wrap items-center gap-3">
                 <span className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white uppercase drop-shadow-sm font-sans">
@@ -54,21 +58,6 @@ export default function AboutPage() {
                 </Link>
               </div>
             </div>
-
-            {/* Right Column / Visual: EV Charger Pedestal + White Electric Vehicle */}
-            <div className="lg:col-span-6 relative flex items-center justify-center">
-              <div className="relative w-full aspect-[16/9] lg:aspect-[16/10] max-w-[620px] rounded-2xl overflow-hidden shadow-2xl border border-white/40">
-                <Image
-                  src="/about-hero-ev.png"
-                  alt="Future Charged EV Infrastructure"
-                  fill
-                  priority
-                  className="object-cover object-center"
-                />
-              </div>
-            </div>
-
-          </div>
         </div>
       </section>
 
@@ -80,13 +69,13 @@ export default function AboutPage() {
               <p className="content-eyebrow">Company Overview</p>
               <h2>VLOXIA Systems LLP</h2>
               <p>
-                VLOXIA Systems LLP is a Delhi-based clean energy solutions company operating across four verticals: EV Charging Infrastructure, Solar Energy Systems, Lithium Battery Storage and Power Solutions.
+                VLOXIA Systems LLP is a Delhi-based clean energy company working across EV charging infrastructure, solar energy, lithium storage and power solutions for customers across India.
               </p>
               <p>
-                Founded with a mission to accelerate India&apos;s transition to clean, reliable and affordable energy, VLOXIA combines OEM-grade technology with a deeply consultative approach to deliver end-to-end energy systems tailored to each client&apos;s unique requirements.
+                For electric mobility, VLOXIA helps homes, workplaces, commercial sites and fleets plan suitable charging infrastructure—from AC wallboxes to commercial and fast-charging setups. The team considers site needs, charger selection, installation planning and ongoing support.
               </p>
               <p>
-                From individual residences seeking energy independence to large industrial campuses optimising energy costs, VLOXIA serves the full spectrum of India&apos;s energy transition.
+                VLOXIA also brings solar, storage and power systems together where they fit the customer&apos;s needs. Its consultative approach and OEM technology partnerships support practical, tailored clean-energy projects.
               </p>
             </div>
             <div className="about-facts">
@@ -103,6 +92,30 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Technology Partners */}
+      <section className="content-section about-partners">
+        <div className="content-container">
+          <div className="about-partners-heading">
+            <p className="content-eyebrow">Technology Partners</p>
+            <h2>Our Technology Partners</h2>
+            <p>We collaborate with established OEM brands to deliver reliable, certified products.</p>
+          </div>
+          <div className="about-partner-cards">
+            <div>
+              <strong>TATA EZ POWER</strong>
+              <span>EV Charging Technology</span>
+            </div>
+            <div>
+              <strong>+ More Partners</strong>
+              <span>Expanding Portfolio</span>
+            </div>
+          </div>
+          <Link href="/partners" className="about-partners-link">
+            View All Partners <ArrowRight aria-hidden="true" />
+          </Link>
         </div>
       </section>
 

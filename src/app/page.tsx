@@ -1,6 +1,7 @@
 ﻿"use client";
 import Link from "next/link";
 import Image from "next/image";
+import FeaturedProducts from "@/components/FeaturedProducts";
 import { ArrowRight, Zap, Sun, Battery, Power, ChevronDown, House, Building2, Factory, CarFront, Landmark, Target, BarChart3, Lightbulb, Settings, ShieldCheck } from "lucide-react";
 
 const solutions = [
@@ -217,30 +218,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* â”€â”€ PARTNERS â”€â”€ */}
-      <section className="home-partners">
-        <div >
-          <p >Technology Partners</p>
-          <h2 >Our Technology Partners</h2>
-          <p >
-            We collaborate with established OEM brands to deliver reliable, certified products.
-          </p>
-          <div >
-            <div >
-              <div >TATA EZ POWER</div>
-              <div >EV Charging Technology</div>
-            </div>
-            <div >
-              <div >+ More Partners</div>
-              <div >Expanding Portfolio</div>
-            </div>
-          </div>
-          <Link href="/partners" >
-            View All Partners <ArrowRight  />
-          </Link>
-        </div>
-      </section>
-
       {/* â”€â”€ INDUSTRIES â”€â”€ */}
       <section className="home-industries">
         <div >
@@ -274,6 +251,12 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <FeaturedProducts
+        title="Shop Clean Energy Products"
+        description="Explore popular EV chargers, lithium storage and power products from the VLOXIA marketplace."
+        productIds={["ev-home-7kw", "ev-comm-22kw", "batt-lifepo4-5kwh", "inverter-hybrid-5kw"]}
+      />
 
       {/* â”€â”€ PROCESS â”€â”€ */}
       <section className="home-process">

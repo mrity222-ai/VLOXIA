@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import FeaturedProducts from "@/components/FeaturedProducts";
 
 export const metadata = {
   title: "Power Solutions | VLOXIA Systems LLP",
@@ -72,6 +73,8 @@ export default function PowerSolutionsPage() {
           </div>
         </div>
       </section>
+
+      <FeaturedProducts compact eyebrow="Power Products" title="Explore Power Equipment" description="Browse marketplace equipment for hybrid solar, battery backup and integrated power." productIds={["inverter-hybrid-5kw", "batt-lifepo4-5kwh", "batt-lifepo4-2kwh"]} />
 
       <section className="content-cta-section">
         <div className="content-cta">

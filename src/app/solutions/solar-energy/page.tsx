@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import FeaturedProducts from "@/components/FeaturedProducts";
 
 export const metadata = {
   title: "Solar Energy Solutions | VLOXIA Systems LLP",
@@ -92,6 +93,8 @@ export default function SolarEnergyPage() {
           </div>
         </div>
       </section>
+
+      <FeaturedProducts compact eyebrow="Solar & Power Product" title="Explore Solar-Ready Power" description="The current marketplace listing for solar setups is a hybrid inverter with dual MPPT and lithium battery support." productIds={["inverter-hybrid-5kw"]} />
 
       <section className="content-cta-section">
         <div className="content-cta">

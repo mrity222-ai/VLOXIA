@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import FeaturedProducts from "@/components/FeaturedProducts";
 
 export const metadata = {
   title: "Energy Storage & Lithium | VLOXIA Systems LLP",
@@ -75,6 +76,8 @@ export default function EnergyStoragePage() {
           </div>
         </div>
       </section>
+
+      <FeaturedProducts compact eyebrow="Lithium Storage Products" title="Explore Battery Options" description="Compare the lithium storage products currently available in the VLOXIA marketplace." productIds={["batt-lifepo4-5kwh", "batt-lifepo4-2kwh"]} />
 
       <section className="content-cta-section">
         <div className="content-cta">
