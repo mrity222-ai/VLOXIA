@@ -9,33 +9,33 @@ export const metadata = {
 
 export default function SolarEnergyPage() {
   return (
-    <main className="content-page solution-page">
-      <section className="content-hero solution-hero">
-        <div className="content-hero-glow" />
-        <div className="solution-hero-orb" />
-        <div className="content-hero-inner">
+    <main >
+      <section >
+        <div  />
+        <div  />
+        <div >
           <div>
-            <p className="content-eyebrow">Solutions / Solar Energy</p>
+            <p >Solutions / Solar Energy</p>
             <h1>
               Solar Energy <span>Systems</span>
             </h1>
-            <p className="solution-hero-copy">
+            <p >
               Harness the power of the sun with high-efficiency rooftop and ground-mounted solar systems designed for residential, commercial and industrial applications.
             </p>
-            <Link href="/contact" className="content-button">
+            <Link href="/contact" >
               Get a Solar Quote <ArrowRight aria-hidden="true" />
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="content-section">
-        <div className="content-container">
-          <div className="content-section-heading">
-            <p className="content-eyebrow">Solar Solutions</p>
+      <section >
+        <div >
+          <div >
+            <p >Solar Solutions</p>
             <h2>The Right Solar System for Every Scale</h2>
           </div>
-          <div className="solution-card-grid">
+          <div >
             {[
               {
                 icon: "🏠",
@@ -56,7 +56,7 @@ export default function SolarEnergyPage() {
                 points: ["Zero-export configurations", "Backup during grid outages", "Maximise self-consumption", "Intelligent energy management"],
               },
             ].map((item) => (
-              <div key={item.title} className="solution-card">
+              <div key={item.title} >
                 <div >{item.icon}</div>
                 <h3 >{item.title}</h3>
                 <p >{item.desc}</p>
@@ -73,7 +73,7 @@ export default function SolarEnergyPage() {
         </div>
       </section>
 
-      <section className="content-section solution-benefits">
+      <section >
         <div >
           <div >
             <h2 >Why Solar Makes Financial Sense</h2>
@@ -96,12 +96,12 @@ export default function SolarEnergyPage() {
 
       <FeaturedProducts compact eyebrow="Solar & Power Product" title="Explore Solar-Ready Power" description="The current marketplace listing for solar setups is a hybrid inverter with dual MPPT and lithium battery support." productIds={["inverter-hybrid-5kw"]} />
 
-      <section className="content-cta-section">
-        <div className="content-cta">
+      <section >
+        <div >
           <div>
           <h2>Ready to Go Solar?</h2>
           <p>Our solar experts will assess your site, design the optimal system and handle everything from permits to commissioning.</p>
-          <Link href="/contact" className="content-button">
+          <Link href="/contact" >
             Get Free Solar Assessment <ArrowRight aria-hidden="true" />
           </Link>
           </div>

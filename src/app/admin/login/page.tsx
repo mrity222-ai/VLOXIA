@@ -58,7 +58,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="admin-login">
+    <div >
       {/* Ambient background glows */}
       <div  />
       <div  />

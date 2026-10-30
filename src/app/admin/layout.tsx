@@ -63,9 +63,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
 
   return (
-    <div className="admin-shell">
+    <div >
       {/* ── DESKTOP SIDEBAR ── */}
-      <aside className="admin-sidebar">
+      <aside >
         {/* Brand */}
         <div >
           <Link href="/admin" >
@@ -175,9 +175,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       )}
 
       {/* ── MAIN CONTENT AREA ── */}
-      <div className="admin-main">
+      <div >
         {/* Top Navbar */}
-        <header className="admin-topbar">
+        <header >
           <div >
             <button
               onClick={() => setSidebarOpen(true)}
@@ -208,7 +208,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </header>
 
         {/* Canvas */}
-        <main className="admin-content">{children}</main>
+        <main >{children}</main>
       </div>
     </div>
   );

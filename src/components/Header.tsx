@@ -79,46 +79,40 @@ export default function Header() {
 
   return (
     <>
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-200">
-      <div className="w-full px-6 lg:px-12">
-        <div className="flex items-center justify-between h-14 lg:h-16">
+    <header >
+      <div >
+        <div >
           
           {/* Left: Tesla-style Minimal Clean Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="inline-flex items-center group">
+          <div >
+            <Link href="/" >
               <Image
                 src="/vloxia-logo.png"
                 alt="VLOXIA Systems LLP"
                 width={140}
                 height={42}
-                className="h-8 lg:h-9 w-auto object-contain transition-opacity duration-200 group-hover:opacity-85"
+                
                 priority
               />
             </Link>
           </div>
 
           {/* Center: Tesla-Style Centered Clean Navigation */}
-          <nav className="hidden lg:flex items-center justify-center space-x-1">
+          <nav >
             {navItems.map((item) =>
               item.isMegaMenu ? (
                 <div
                   key={item.label}
-                  className="relative"
+                  
                   onMouseEnter={() => setMegaMenuOpen(true)}
                 >
                   <button
                     onClick={() => setMegaMenuOpen(!megaMenuOpen)}
-                    className={`flex items-center gap-1 px-3.5 py-1.5 text-[14px] font-medium rounded-md transition-all duration-150 ${
-                      megaMenuOpen
-                        ? "bg-black/[0.08] text-[#00c853]"
-                        : "text-[#171a20] hover:bg-black/[0.05]"
-                    }`}
+                    
                   >
                     <span>{item.label}</span>
                     <ChevronDown
-                      className={`w-3 h-3 text-[#5c5e62] transition-transform duration-200 ${
-                        megaMenuOpen ? "rotate-180 text-[#00c853]" : ""
-                      }`}
+                      
                     />
                   </button>
                 </div>
@@ -127,7 +121,7 @@ export default function Header() {
                   key={item.label}
                   href={item.href}
                   onMouseEnter={() => setMegaMenuOpen(false)}
-                  className="px-3.5 py-1.5 text-[14px] font-medium text-[#171a20] hover:bg-black/[0.05] rounded-md transition-all duration-150"
+                  
                 >
                   {item.label}
                 </Link>
@@ -136,43 +130,43 @@ export default function Header() {
           </nav>
 
           {/* Right: Tesla-Style Icon Buttons (Help, Language/Globe, Profile & Cart) */}
-          <div className="hidden lg:flex items-center space-x-1">
+          <div >
             {/* Help / Contact Icon */}
             <Link
               href="/contact"
               title="Help & Contact"
-              className="p-2 text-[#171a20] hover:bg-black/[0.05] rounded-full transition-colors"
+              
             >
-              <HelpCircle className="w-5 h-5 stroke-[1.6]" />
+              <HelpCircle  />
             </Link>
 
             {/* Region / Globe Icon */}
             <button
               title="India (EN)"
-              className="p-2 text-[#171a20] hover:bg-black/[0.05] rounded-full transition-colors"
+              
             >
-              <Globe className="w-5 h-5 stroke-[1.6]" />
+              <Globe  />
             </button>
 
             {/* User / Partner Account Icon */}
             <Link
               href="/partners#channel-partner"
               title="Channel Partner / Account"
-              className="p-2 text-[#171a20] hover:bg-black/[0.05] rounded-full transition-colors"
+              
             >
-              <User className="w-5 h-5 stroke-[1.6]" />
+              <User  />
             </Link>
 
             {/* Cart Icon with Live Count Badge */}
             <button
               onClick={() => setIsCartOpen(true)}
               title="Shopping Cart"
-              className="relative p-2 text-[#171a20] hover:bg-black/[0.05] rounded-full transition-colors ml-1"
+              
               aria-label="View Cart"
             >
-              <ShoppingCart className="w-5 h-5 stroke-[1.6]" />
+              <ShoppingCart  />
               {totalItems > 0 && (
-                <span className="absolute top-0.5 right-0.5 bg-[#00c853] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                <span >
                   {totalItems}
                 </span>
               )}
@@ -180,28 +174,28 @@ export default function Header() {
           </div>
 
           {/* Mobile Right Controls */}
-          <div className="flex items-center gap-1 lg:hidden">
+          <div >
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2 text-[#171a20] hover:bg-black/[0.05] rounded-full transition-colors"
+              
               aria-label="View Cart"
             >
-              <ShoppingCart className="w-5 h-5 stroke-[1.6]" />
+              <ShoppingCart  />
               {totalItems > 0 && (
-                <span className="absolute top-0 right-0 bg-[#00c853] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                <span >
                   {totalItems}
                 </span>
               )}
             </button>
 
             <button
-              className="p-2 text-[#171a20] hover:bg-black/[0.05] rounded-md transition-colors"
+              
               onClick={toggleMobileMenu}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               aria-controls="mobile-navigation"
             >
-              {mobileOpen ? <X className="w-6 h-6 stroke-[1.8]" /> : <Menu className="w-6 h-6 stroke-[1.8]" />}
+              {mobileOpen ? <X  /> : <Menu  />}
             </button>
           </div>
 
@@ -213,28 +207,28 @@ export default function Header() {
     </header>
 
     {mobileOpen && (
-      <div className="mobile-menu-overlay">
+      <div >
         <button
-          className="mobile-menu-backdrop"
+          
           type="button"
           aria-label="Close navigation menu"
           onClick={closeMobileMenu}
         />
-        <nav id="mobile-navigation" className="mobile-menu-panel" aria-label="Mobile navigation">
-          <div className="mobile-menu-links">
+        <nav id="mobile-navigation"  aria-label="Mobile navigation">
+          <div >
             {navItems.map((item) => item.isMegaMenu ? (
-              <div className="mobile-menu-group" key={item.label}>
+              <div  key={item.label}>
                 <button
                   type="button"
-                  className="mobile-menu-trigger"
+                  
                   aria-expanded={mobileSolutionsOpen}
                   onClick={() => setMobileSolutionsOpen((open) => !open)}
                 >
                   <span>{item.label}</span>
-                  <ChevronDown className={mobileSolutionsOpen ? "is-rotated" : ""} />
+                  <ChevronDown  />
                 </button>
                 {mobileSolutionsOpen && (
-                  <div className="mobile-submenu">
+                  <div >
                     {mobileSolutionLinks.map((solution) => (
                       <Link key={solution.href} href={solution.href} onClick={closeMobileMenu}>
                         {solution.label}
@@ -245,7 +239,7 @@ export default function Header() {
               </div>
             ) : (
               <Link
-                className="mobile-menu-link"
+                
                 key={item.label}
                 href={item.href}
                 onClick={closeMobileMenu}
@@ -254,7 +248,7 @@ export default function Header() {
               </Link>
             ))}
           </div>
-          <div className="mobile-menu-footer">
+          <div >
             <Link href="/contact" onClick={closeMobileMenu}>
               <HelpCircle /> Help & Contact
             </Link>

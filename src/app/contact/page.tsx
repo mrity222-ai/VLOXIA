@@ -7,11 +7,11 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="content-page contact-page">
-      <section className="content-hero">
-        <div className="content-hero-glow" />
-        <div className="content-hero-inner">
-          <p className="content-eyebrow">Get In Touch</p>
+    <main >
+      <section >
+        <div  />
+        <div >
+          <p >Get In Touch</p>
           <h1>Contact Us</h1>
           <p>
             Ready to start your energy journey? Our experts are here to help — reach out for a consultation, quotation or partnership enquiry.
@@ -19,29 +19,29 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="content-section">
-        <div className="content-container">
-          <div className="contact-grid">
+      <section >
+        <div >
+          <div >
             {/* Contact Info */}
             <div>
-              <h2 className="content-card-title">Get in Touch</h2>
-              <div className="contact-details">
+              <h2 >Get in Touch</h2>
+              <div >
                 {[
                   { Icon: MapPin, label: "Registered Office", value: "A3/55, Sector 15, Rohini, Delhi – 110089" },
                   { Icon: Phone, label: "Phone / WhatsApp", value: "+91 8178810456", href: "tel:+918178810456" },
                   { Icon: Mail, label: "Email", value: "vloxiasystems@gmail.com", href: "mailto:vloxiasystems@gmail.com" },
                   { Icon: Clock, label: "Business Hours", value: "Mon – Sat: 9:00 AM – 7:00 PM IST" },
                 ].map(({ Icon, label, value, href }) => (
-                  <div key={label} className="contact-detail">
-                    <div className="contact-icon">
+                  <div key={label} >
+                    <div >
                       <Icon aria-hidden="true" />
                     </div>
                     <div>
-                      <div className="contact-label">{label}</div>
+                      <div >{label}</div>
                       {href ? (
                         <a href={href}>{value}</a>
                       ) : (
-                        <div className="contact-value">{value}</div>
+                        <div >{value}</div>
                       )}
                     </div>
                   </div>
@@ -49,7 +49,7 @@ export default function ContactPage() {
               </div>
 
               {/* Map placeholder */}
-              <div className="contact-map">
+              <div >
                 <div>
                   <MapPin aria-hidden="true" />
                   <p>Sector 15, Rohini, Delhi – 110089</p>
@@ -57,7 +57,7 @@ export default function ContactPage() {
                     href="https://maps.google.com/?q=Sector+15+Rohini+Delhi"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="content-text-link"
+                    
                   >
                     View on Google Maps ↗
                   </a>
@@ -67,9 +67,9 @@ export default function ContactPage() {
 
             {/* Enquiry Form */}
             <div>
-              <h2 className="content-card-title">Send an Enquiry</h2>
-              <form className="contact-form">
-                <div className="contact-form-row">
+              <h2 >Send an Enquiry</h2>
+              <form >
+                <div >
                   <div>
                     <label>Full Name *</label>
                     <input type="text" placeholder="Your full name" />

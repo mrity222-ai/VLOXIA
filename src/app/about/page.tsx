@@ -10,39 +10,39 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="content-page about-page">
+    <main >
       {/* ── FUTURE CHARGED HERO SECTION (MATCHING REFERENCE) ── */}
-      <section className="about-ev-hero">
+      <section >
         <Image
           src="/Modern EV Charging.png"
           alt="Electric vehicle connected to a modern charging station"
           fill
           priority
           sizes="100vw"
-          className="about-ev-background"
+          
         />
-        <div className="about-ev-overlay" aria-hidden="true" />
+        <div  aria-hidden="true" />
 
-        <div className="about-ev-content">
-            <div className="about-ev-copy">
+        <div >
+            <div >
               {/* Dynamic Title with Speed-Charge Graphic */}
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white uppercase drop-shadow-sm font-sans">
+              <div >
+                <span >
                   Future
                 </span>
                 {/* Speed Charge Icon */}
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00e676] text-[#032421] shadow-lg shadow-[#00e676]/30 animate-pulse">
-                  <span className="w-2.5 h-0.5 bg-[#032421] rounded-full" />
-                  <span className="w-3.5 h-0.5 bg-[#032421] rounded-full" />
-                  <Zap className="w-5 h-5 fill-current" />
+                <div >
+                  <span  />
+                  <span  />
+                  <Zap  />
                 </div>
-                <span className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white uppercase drop-shadow-sm block w-full font-sans">
+                <span >
                   Charged
                 </span>
               </div>
 
               {/* Subtitle */}
-              <p className="text-white/95 text-base sm:text-lg max-w-md font-medium leading-relaxed drop-shadow-xs">
+              <p >
                 Seamless charging for the electric era.
                 <br />
                 Built for speed, reliability, and ease.
@@ -52,7 +52,7 @@ export default function AboutPage() {
               <div>
                 <Link
                   href="/solutions/ev-charging"
-                  className="inline-flex items-center justify-center px-8 py-3.5 bg-[#00e676] hover:bg-[#00c853] text-[#032421] font-black text-sm rounded-md shadow-lg shadow-[#00e676]/25 hover:shadow-xl transition-all duration-200"
+                  
                 >
                   Start Charging
                 </Link>
@@ -62,11 +62,11 @@ export default function AboutPage() {
       </section>
 
       {/* Company Overview */}
-      <section className="content-section about-overview">
-        <div className="content-container">
-          <div className="about-overview-grid">
+      <section >
+        <div >
+          <div >
             <div>
-              <p className="content-eyebrow">Company Overview</p>
+              <p >Company Overview</p>
               <h2>VLOXIA Systems LLP</h2>
               <p>
                 VLOXIA Systems LLP is a Delhi-based clean energy company working across EV charging infrastructure, solar energy, lithium storage and power solutions for customers across India.
@@ -78,7 +78,7 @@ export default function AboutPage() {
                 VLOXIA also brings solar, storage and power systems together where they fit the customer&apos;s needs. Its consultative approach and OEM technology partnerships support practical, tailored clean-energy projects.
               </p>
             </div>
-            <div className="about-facts">
+            <div >
               {[
                 { label: "Registered Office", value: "A3/55, Sector 15, Rohini, Delhi – 110089" },
                 { label: "Business Verticals", value: "EV Charging · Solar Energy · Energy Storage · Power Solutions" },
@@ -96,14 +96,14 @@ export default function AboutPage() {
       </section>
 
       {/* Technology Partners */}
-      <section className="content-section about-partners">
-        <div className="content-container">
-          <div className="about-partners-heading">
-            <p className="content-eyebrow">Technology Partners</p>
+      <section >
+        <div >
+          <div >
+            <p >Technology Partners</p>
             <h2>Our Technology Partners</h2>
             <p>We collaborate with established OEM brands to deliver reliable, certified products.</p>
           </div>
-          <div className="about-partner-cards">
+          <div >
             <div>
               <strong>TATA EZ POWER</strong>
               <span>EV Charging Technology</span>
@@ -113,19 +113,19 @@ export default function AboutPage() {
               <span>Expanding Portfolio</span>
             </div>
           </div>
-          <Link href="/partners" className="about-partners-link">
+          <Link href="/partners" >
             View All Partners <ArrowRight aria-hidden="true" />
           </Link>
         </div>
       </section>
 
       {/* Vision, Mission, Commitment */}
-      <section className="content-section content-soft">
-        <div className="content-container">
-          <div className="content-section-heading">
-            <p className="content-eyebrow">What Guides Us</p><h2>Our Purpose</h2>
+      <section >
+        <div >
+          <div >
+            <p >What Guides Us</p><h2>Our Purpose</h2>
           </div>
-          <div className="purpose-grid">
+          <div >
             {[
               {
                 Icon: Eye,
@@ -144,7 +144,7 @@ export default function AboutPage() {
               },
             ].map(({ Icon, label, text }) => (
               <div key={label}>
-                <div className="purpose-icon">
+                <div >
                   <Icon aria-hidden="true" />
                 </div>
                 <h3>{label}</h3>
@@ -156,17 +156,17 @@ export default function AboutPage() {
       </section>
 
       {/* Brand Promise */}
-      <section className="content-cta-section">
-        <div className="content-cta">
+      <section >
+        <div >
           <div>
-            <p className="content-eyebrow">Brand Promise</p>
+            <p >Brand Promise</p>
             <h2>
               &ldquo;We don&apos;t just sell energy products — we build energy solutions.&rdquo;
             </h2>
             <p >
               Every engagement begins with understanding your unique energy context. We analyse your requirements, recommend the right combination of technologies, implement with precision and support you long after installation.
             </p>
-            <Link href="/approach" className="content-button">
+            <Link href="/approach" >
               Our Solution Approach <ArrowRight aria-hidden="true" />
             </Link>
           </div>
@@ -174,12 +174,12 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="content-cta-section">
-        <div className="content-cta">
+      <section >
+        <div >
           <div>
             <h2>Ready to Start Your Energy Journey?</h2>
             <p>Talk to our experts and get a customised energy solution designed for your needs.</p>
-            <Link href="/contact" className="content-button">
+            <Link href="/contact" >
               Contact Us <ArrowRight aria-hidden="true" />
             </Link>
           </div>

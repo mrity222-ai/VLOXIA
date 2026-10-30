@@ -23,30 +23,30 @@ export default function FeaturedProducts({
     : PRODUCTS.slice(0, 4);
 
   return (
-    <section className={`featured-products${compact ? " featured-products-compact" : ""}`}>
-      <div className="featured-products-inner">
-        <div className="featured-products-heading">
+    <section >
+      <div >
+        <div >
           <div>
-            <p className="featured-products-eyebrow">{eyebrow}</p>
+            <p >{eyebrow}</p>
             <h2>{title}</h2>
-            <p className="featured-products-description">{description}</p>
+            <p >{description}</p>
           </div>
-          <Link className="featured-products-all" href="/shop">
+          <Link  href="/shop">
             View all products <ArrowRight aria-hidden="true" />
           </Link>
         </div>
-        <div className="featured-products-grid">
+        <div >
           {items.map((product) => (
-            <article className="featured-product-card" key={product.id}>
-              <Link className="featured-product-image" href="/shop" aria-label={`View ${product.name}`}>
+            <article  key={product.id}>
+              <Link  href="/shop" aria-label={`View ${product.name}`}>
                 <Image src={product.image} alt={product.name} fill sizes="(max-width: 640px) 84vw, (max-width: 1000px) 42vw, 24vw" />
-                {product.badge && <span className="featured-product-badge">{product.badge}</span>}
+                {product.badge && <span >{product.badge}</span>}
               </Link>
-              <div className="featured-product-content">
-                <span className="featured-product-category">{product.categoryLabel}</span>
+              <div >
+                <span >{product.categoryLabel}</span>
                 <h3><Link href="/shop">{product.name}</Link></h3>
                 <p>{product.tagline}</p>
-                <div className="featured-product-bottom">
+                <div >
                   <strong>₹{product.price.toLocaleString("en-IN")}</strong>
                   <Link href="/shop" aria-label={`Shop ${product.name}`}><ShoppingBag aria-hidden="true" /> Shop</Link>
                 </div>

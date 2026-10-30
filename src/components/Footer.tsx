@@ -4,7 +4,7 @@ import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="site-footer">
+    <footer >
       {/* Decorative Ambient Curve (Tata Power Signature Graphic) */}
       <div  />
       <div  />
