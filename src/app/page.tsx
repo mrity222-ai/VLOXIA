@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import FeaturedProducts from "@/components/FeaturedProducts";
+import HowItWorksProcess from "@/components/HowItWorksProcess";
 import { ArrowRight, Zap, Sun, Battery, Power, ChevronDown, House, Building2, Factory, CarFront, Landmark, Target, BarChart3, Lightbulb, Settings, ShieldCheck } from "lucide-react";
 
 const solutions = [
@@ -256,38 +257,9 @@ export default function HomePage() {
         productIds={["ev-home-7kw", "ev-comm-22kw", "batt-lifepo4-5kwh", "inverter-hybrid-5kw"]}
       />
 
-      {/* â”€â”€ PROCESS â”€â”€ */}
-      <section>
-        <div >
-          <div >
-            <p >How We Work</p>
-            <h2 >Our Solution Process</h2>
-          </div>
-          <div >
-            {[
-              { step: "01", label: "Understand", icon: Target, desc: "We listen to your energy needs and site requirements." },
-              { step: "02", label: "Analyse", icon: BarChart3, desc: "Load analysis, site assessment and feasibility study." },
-              { step: "03", label: "Recommend", icon: Lightbulb, desc: "Customised system design and product selection." },
-              { step: "04", label: "Implement", icon: Settings, desc: "Professional installation and commissioning." },
-              { step: "05", label: "Support", icon: ShieldCheck, desc: "Ongoing monitoring, maintenance and after-sales care." },
-            ].map((item, i, arr) => (
-              <div key={item.step} >
-                <div >
-                  <div >
-                    <item.icon aria-hidden="true" />
-                  </div>
-                  <div >{item.step}</div>
-                  <div >{item.label}</div>
-                  <div >{item.desc}</div>
-                </div>
-                {i < arr.length - 1 && (
-                  <ArrowRight  />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            {/* ── HOW IT WORKS PROCESS ── */}
+      <HowItWorksProcess />
+
 
             {/* â”€â”€ CHANNEL PARTNER CTA â”€â”€ */}
       <section>

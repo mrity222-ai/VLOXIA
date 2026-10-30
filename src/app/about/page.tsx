@@ -1,6 +1,7 @@
 import { ArrowRight, Eye, Target, Heart, Zap } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import HowItWorksProcess from "@/components/HowItWorksProcess";
 
 export const metadata = {
   title: "About Us | VLOXIA Systems LLP",
@@ -154,6 +155,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* ── HOW IT WORKS PROCESS ── */}
+      <HowItWorksProcess />
 
       {/* Brand Promise */}
       <section className="content-cta-section">
