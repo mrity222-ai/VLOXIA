@@ -1,100 +1,105 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import FeaturedProducts from "@/components/FeaturedProducts";
+import ServicePageTemplate, { ServicePageData } from "@/components/ServicePageTemplate";
 
 export const metadata = {
-  title: "Solar Energy Solutions | VLOXIA Systems LLP",
-  description: "Residential, commercial and industrial solar energy systems, rooftop installations and solar-plus-storage solutions by VLOXIA Systems LLP.",
+  title: "Solar Energy EPC Solutions | VLOXIA Systems LLP",
+  description:
+    "Turnkey rooftop solar, commercial ground mounts, and high-efficiency bifacial solar engineering by VLOXIA Systems LLP.",
+};
+
+const solarEnergyData: ServicePageData = {
+  categoryEyebrow: "SOLUTIONS",
+  heroTitle: "Services to Support Solar Energy Independence",
+  heroSubtitle:
+    "We present innovative turnkey solar engineering solutions to drastically lower grid tariffs and empower India's homes, commercial campuses, and industries with clean renewable power.",
+  heroImage: "/Industries/Commercial.png",
+  heroImageAlt: "Commercial Solar Rooftop EPC by VLOXIA",
+  quoteLink: "/contact?service=solar-energy",
+  whyPartnerTitle: "Why Should You Partner?",
+  whyPartnerSubtitle:
+    "Get a detailed understanding of the features we offer in our solar energy EPC services, tailored to your site specifications and energy consumption patterns.",
+  whyPartnerCards: [
+    {
+      iconText: "☀️",
+      title: "Tier-1 Module Verification",
+      desc: "Top-tier ALMM-listed monocrystalline bifacial solar modules ensuring maximum generation even during low irradiance or cloudy monsoon conditions.",
+    },
+    {
+      iconText: "📦",
+      title: "Stock Supply Guarantee",
+      desc: "Direct procurement partnerships with leading Tier-1 panel and string inverter manufacturers ensuring on-time project execution without supply delays.",
+    },
+    {
+      iconText: "📑",
+      title: "MNRE Subsidy & Policy Guidance",
+      desc: "Comprehensive documentation handling for PM Surya Ghar Muft Bijli Yojana, state net-metering approvals, CEIG electrical clearances, and DISCOM grid sync.",
+    },
+    {
+      iconText: "🛠️",
+      title: "Field Engineering Assistance",
+      desc: "Licensed solar structural engineers deploy hot-dip galvanized mounting structures engineered to withstand 150+ km/h cyclone wind speeds.",
+    },
+  ],
+  productsTitle: "Various Solutions Available at VLOXIA Solar Services",
+  productsSubtitle:
+    "Learn more about our residential rooftop systems, commercial carport structures, and megawatt-scale industrial solar parks.",
+  products: [
+    {
+      title: "Residential Rooftop Solar & Hybrid Systems (1 kW – 10 kW)",
+      desc: "High-efficiency rooftop solar installations paired with smart hybrid inverters and net-metering synchronization to cut home electricity bills by up to 80%.",
+      image: "/Industries/Residential.png",
+      tag: "Residential & Societies",
+      href: "/contact?service=residential-solar",
+    },
+    {
+      title: "Commercial & Industrial Solar Parks (10 kW – 1 MW+)",
+      desc: "Turnkey MW-scale solar EPC for manufacturing units, educational institutions, and logistics warehouses with accelerated depreciation and ESG compliance.",
+      image: "/Industries/Industrial.png",
+      tag: "Commercial & MW Industrial",
+      href: "/contact?service=commercial-solar",
+    },
+  ],
+  howToTitle: "How to Deploy VLOXIA Solar Energy Services",
+  howToSubtitle:
+    "Accelerate your transition to solar energy by registering for our comprehensive 3-step turnkey deployment process.",
+  categoryTags: [
+    "Commercial & Industrial Plants",
+    "Independent Homes & Villas",
+    "Educational & Healthcare Campuses",
+  ],
+  deploymentSteps: [
+    {
+      number: "01",
+      title: "Prepare Electricity Bills & Rooftop Layout",
+      desc: "Share your past 6-12 months electricity bills, sanctioned load details, and high-level rooftop or ground terrace dimensions.",
+      points: [
+        "Monthly kWh consumption check",
+        "Sanctioned load vs. solar ratio",
+        "Rooftop shadow-free area measurement",
+      ],
+    },
+    {
+      number: "02",
+      title: "3D Shadow Analysis & Engineering Proposal",
+      desc: "Our solar architects generate 3D shadow simulation models, tilt-angle calculations, and guaranteed generation estimates with detailed ROI projections.",
+      points: [
+        "PVSyst generation modeling",
+        "Structural wind load certification",
+        "3 to 4-year payback projection",
+      ],
+    },
+    {
+      number: "03",
+      title: "Turnkey EPC & Bi-Directional Grid Sync",
+      desc: "Complete civil and electrical mounting, string inverter synchronization, DISCOM bi-directional net-meter testing, and live commissioning.",
+      points: [
+        "DISCOM net-meter installation",
+        "CEIG safety certificate filing",
+        "25-Year performance warranty handover",
+      ],
+    },
+  ],
 };
 
 export default function SolarEnergyPage() {
-  return (
-    <main className="content-page solution-page">
-      <section className="content-hero solution-hero">
-        <div className="content-hero-glow" />
-        <div className="solution-hero-orb" />
-        <div className="content-hero-inner">
-          <div>
-            <p className="content-eyebrow">Solutions / Solar Energy</p>
-            <h1>
-              Solar Energy <span>Systems</span>
-            </h1>
-            <p className="solution-hero-copy">
-              Harness the power of the sun with high-efficiency rooftop and ground-mounted solar systems designed for residential, commercial and industrial applications.
-            </p>
-            <Link href="/contact" className="content-button">
-              Get a Solar Quote <ArrowRight aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="content-section">
-        <div className="content-container">
-          <div className="content-section-heading">
-            <p className="content-eyebrow">Solar Solutions</p>
-            <h2>The Right Solar System for Every Scale</h2>
-          </div>
-          <div className="solution-card-grid">
-            {[
-              {
-                icon: "🏠",
-                title: "Residential Solar",
-                desc: "1 kW – 10 kW rooftop systems for homes and apartments. Reduce electricity bills and achieve energy independence.",
-                points: ["Grid-tied & off-grid options", "Net metering compatible", "Battery storage add-on", "Subsidy assistance"],
-              },
-              {
-                icon: "🏢",
-                title: "Commercial & Industrial",
-                desc: "10 kW – 1 MW+ rooftop and ground-mounted systems for businesses, factories and campuses.",
-                points: ["Peak shaving & demand management", "OPEX & CAPEX models", "PPA financing available", "Remote monitoring"],
-              },
-              {
-                icon: "🔋",
-                title: "Solar + Storage",
-                desc: "Combine solar generation with lithium battery storage for uninterrupted clean energy — day and night.",
-                points: ["Zero-export configurations", "Backup during grid outages", "Maximise self-consumption", "Intelligent energy management"],
-              },
-            ].map((item) => (
-              <div key={item.title} className="solution-card">
-                <div >{item.icon}</div>
-                <h3 >{item.title}</h3>
-                <p >{item.desc}</p>
-                <ul>
-                  {item.points.map((p) => (
-                    <li key={p}>
-                      <span aria-hidden="true" />{p}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="content-section solution-benefits">
-        <div >
-          <div >
-            <h2 >Why Solar Makes Financial Sense</h2>
-          </div>
-          <div >
-            {[
-              { value: "25+", label: "Year system lifespan" },
-              { value: "30-50%", label: "Electricity bill reduction" },
-              { value: "5-7 Yrs", label: "Typical payback period" },
-              { value: "₹0", label: "Fuel cost — sun is free" },
-            ].map((s) => (
-              <div key={s.label} >
-                <div >{s.value}</div>
-                <div >{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <FeaturedProducts compact eyebrow="Solar & Power Product" title="Explore Solar-Ready Power" description="The current marketplace listing for solar setups is a hybrid inverter with dual MPPT and lithium battery support." productIds={["inverter-hybrid-5kw"]} />
-    </main>
-  );
+  return <ServicePageTemplate data={solarEnergyData} />;
 }

@@ -1,83 +1,105 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import FeaturedProducts from "@/components/FeaturedProducts";
+import ServicePageTemplate, { ServicePageData } from "@/components/ServicePageTemplate";
 
 export const metadata = {
-  title: "Energy Storage & Lithium | VLOXIA Systems LLP",
-  description: "Lithium battery systems, integrated inverters, backup power and energy storage solutions by VLOXIA Systems LLP.",
+  title: "Energy Storage & Lithium BESS Services | VLOXIA Systems LLP",
+  description:
+    "LiFePO4 lithium battery energy storage systems, modular inverters, and commercial peak-shaving BESS by VLOXIA Systems LLP.",
+};
+
+const energyStorageData: ServicePageData = {
+  categoryEyebrow: "SOLUTIONS",
+  heroTitle: "Services to Support Energy Storage & Lithium BESS",
+  heroSubtitle:
+    "We present next-generation LiFePO4 battery energy storage systems engineered for instantaneous power switchover, high cycle life, and intelligent commercial peak shaving.",
+  heroImage: "/Industries/Industrial.png",
+  heroImageAlt: "VLOXIA Lithium BESS Energy Storage Installation",
+  quoteLink: "/contact?service=energy-storage",
+  whyPartnerTitle: "Why Should You Partner?",
+  whyPartnerSubtitle:
+    "Get a detailed understanding of the advanced safety, thermal stability, and long cycle life features offered across our lithium energy storage portfolio.",
+  whyPartnerCards: [
+    {
+      iconText: "🔋",
+      title: "LiFePO4 Safety Verification",
+      desc: "Prismatic Lithium Iron Phosphate (LiFePO4) chemistry with zero thermal runaway risk, rated for over 6,000 deep discharge cycles at 90% DoD.",
+    },
+    {
+      iconText: "📦",
+      title: "Stock Supply Guarantee",
+      desc: "Standard 5.12 kWh / 100Ah wall-mount battery modules and containerized BESS racks in ready warehouse stock for rapid nationwide dispatch.",
+    },
+    {
+      iconText: "⚡",
+      title: "Peak Shaving & Tariff Arbitrage",
+      desc: "Intelligent energy management software automatically charges during off-peak tariff hours and discharges during peak kVAh penalty windows.",
+    },
+    {
+      iconText: "🛠️",
+      title: "Active BMS & Cloud Telemetry",
+      desc: "Automated multi-point temperature monitoring, cell-level active voltage balancing, and cloud diagnostics delivering 24/7 preventive alerts.",
+    },
+  ],
+  productsTitle: "Various Products Available at VLOXIA Storage Services",
+  productsSubtitle:
+    "Explore our modular residential battery packs, integrated inverter-battery consoles, and utility-scale containerized BESS solutions.",
+  products: [
+    {
+      title: "VLOXIA All-in-One Integrated Hybrid Lithium System",
+      desc: "Sleek wall-mounted unit combining pure sine wave inverter and modular 5.12 kWh LiFePO4 battery pack with seamless instant grid switchover.",
+      image: "/ev-wallbox-clean.png",
+      tag: "Residential & Small Commercial",
+      href: "/shop",
+    },
+    {
+      title: "Containerized Commercial & Industrial BESS (20 kWh – 1 MWh+)",
+      desc: "Utility-grade containerized battery storage with built-in HVAC, aerosol fire suppression, and SCADA monitoring for factories and microgrids.",
+      image: "/Industries/Institutional.png",
+      tag: "Commercial & Microgrids",
+      href: "/contact?service=commercial-bess",
+    },
+  ],
+  howToTitle: "How to Deploy VLOXIA Energy Storage Services",
+  howToSubtitle:
+    "Seamlessly integrate lithium energy storage into your existing solar array or grid connection with our structured 3-step deployment.",
+  categoryTags: [
+    "Commercial & Industrial BESS",
+    "Residential & Home Power Backup",
+    "Microgrids & Remote Facilities",
+  ],
+  deploymentSteps: [
+    {
+      number: "01",
+      title: "Analyze Load Profile & Outage Criticality",
+      desc: "Provide your peak connected load (kW), critical vs. non-critical circuit distribution, and required backup duration during power cuts.",
+      points: [
+        "Critical load segregation",
+        "Peak inrush current assessment",
+        "Target autonomous runtime (hrs)",
+      ],
+    },
+    {
+      number: "02",
+      title: "Battery Chemistry & Inverter Compatibility Sizing",
+      desc: "We engineer the optimal kWh capacity, match low-voltage / high-voltage inverter architectures, and calibrate BMS communication protocols (CAN/RS485).",
+      points: [
+        "Inverter CAN/RS485 protocol matching",
+        "Thermal enclosure & airflow design",
+        "Payback via demand charge reduction",
+      ],
+    },
+    {
+      number: "03",
+      title: "Drop-In Installation & Automatic Failover Testing",
+      desc: "Certified electrical installation, sub-10ms automatic switchover testing, BMS commissioning, and client mobile dashboard activation.",
+      points: [
+        "Automatic transfer switch (ATS) validation",
+        "Emergency battery disconnect test",
+        "10-Year performance warranty certification",
+      ],
+    },
+  ],
 };
 
 export default function EnergyStoragePage() {
-  return (
-    <main className="content-page solution-page">
-      <section className="content-hero solution-hero">
-        <div className="content-hero-glow" />
-        <div className="solution-hero-orb" />
-        <div className="content-hero-inner">
-          <div>
-            <p className="content-eyebrow">Solutions / Energy Storage</p>
-            <h1>
-              Energy Storage <span>& Lithium</span>
-            </h1>
-            <p className="solution-hero-copy">
-              Advanced lithium battery systems for backup power, solar storage and energy independence — engineered for safety, longevity and intelligent energy management.
-            </p>
-            <Link href="/contact" className="content-button">
-              Get a Storage Quote <ArrowRight aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="content-section">
-        <div className="content-container">
-          <div className="content-section-heading">
-            <p className="content-eyebrow">Product Range</p>
-            <h2>Lithium Storage Systems</h2>
-          </div>
-          <div className="solution-card-grid">
-            {[
-              { icon: "🔋", title: "Home Battery Systems", desc: "2.5 kWh – 20 kWh lithium batteries for residential backup and solar storage with smart home integration." },
-              { icon: "🏭", title: "Commercial BESS", desc: "Scalable Battery Energy Storage Systems (BESS) from 20 kWh to MWh scale for commercial and industrial load management." },
-              { icon: "⚡", title: "Integrated Inverter+Battery", desc: "All-in-one hybrid inverter and lithium battery units for seamless solar, grid and backup power management." },
-              { icon: "🌐", title: "Off-Grid Systems", desc: "Complete off-grid energy systems combining solar generation, lithium storage and inverter for remote locations." },
-              { icon: "🏗️", title: "Peak Shaving", desc: "Industrial BESS for demand charge reduction, load shifting and grid independence during peak tariff hours." },
-              { icon: "🛡️", title: "UPS & Critical Power", desc: "Lithium-based UPS systems for data centres, hospitals and critical infrastructure requiring zero downtime." },
-            ].map((item) => (
-              <div key={item.title} className="solution-card">
-                <div >{item.icon}</div>
-                <h3 >{item.title}</h3>
-                <p >{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="content-section solution-benefits">
-        <div >
-          <div >
-            <h2 >Why Lithium Over Lead-Acid?</h2>
-          </div>
-          <div >
-            {[
-              ["5,000+ cycles", "vs ~500 cycles for lead-acid"],
-              ["95%+ efficiency", "vs ~80% for lead-acid"],
-              ["50% lighter", "for the same energy capacity"],
-              ["Zero maintenance", "sealed, no acid checks needed"],
-              ["10-year warranty", "with proven degradation curves"],
-              ["Safe chemistry", "LiFePO4 — thermally stable"],
-            ].map(([val, desc]) => (
-              <div key={val} >
-                <div >{val}</div>
-                <div >{desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <FeaturedProducts compact eyebrow="Lithium Storage Products" title="Explore Battery Options" description="Compare the lithium storage products currently available in the VLOXIA marketplace." productIds={["batt-lifepo4-5kwh", "batt-lifepo4-2kwh"]} />
-    </main>
-  );
+  return <ServicePageTemplate data={energyStorageData} />;
 }

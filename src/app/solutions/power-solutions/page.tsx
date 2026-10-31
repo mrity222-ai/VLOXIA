@@ -1,80 +1,105 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import FeaturedProducts from "@/components/FeaturedProducts";
+import ServicePageTemplate, { ServicePageData } from "@/components/ServicePageTemplate";
 
 export const metadata = {
-  title: "Power Solutions | VLOXIA Systems LLP",
-  description: "Inverters, power backup, power management and integrated energy solutions by VLOXIA Systems LLP.",
+  title: "Power Continuity & Hybrid Inverter Services | VLOXIA Systems LLP",
+  description:
+    "Pure sine wave solar hybrid inverters, sub-10ms critical UPS backup, and cross-technology energy management by VLOXIA Systems LLP.",
+};
+
+const powerSolutionsData: ServicePageData = {
+  categoryEyebrow: "SOLUTIONS",
+  heroTitle: "Services to Support Continuous Power Solutions",
+  heroSubtitle:
+    "We present advanced power conditioning, hybrid inverter systems, and uninterrupted backup infrastructure engineered to eliminate costly operational downtime.",
+  heroImage: "/Industries/Institutional.png",
+  heroImageAlt: "VLOXIA Critical Power Backup & Inverter Systems",
+  quoteLink: "/contact?service=power-solutions",
+  whyPartnerTitle: "Why Should You Partner?",
+  whyPartnerSubtitle:
+    "Get a detailed understanding of the power factor correction, harmonic filtering, and true zero-switchover capabilities engineered into our power systems.",
+  whyPartnerCards: [
+    {
+      iconText: "🔌",
+      title: "Pure Sine Wave Integrity",
+      desc: "Grid-grade clean AC output with total harmonic distortion (THD) < 2.5%, safeguarding high-precision diagnostic and semiconductor machinery.",
+    },
+    {
+      iconText: "⚡",
+      title: "Sub-10ms Critical Switchover",
+      desc: "Ultra-fast transfer times ensuring server racks, medical electronics, and sensitive PLCs operate continuously without rebooting.",
+    },
+    {
+      iconText: "🔄",
+      title: "Hybrid Multi-Source Orchestration",
+      desc: "Smart microcontrollers balance solar generation, grid power, battery reserves, and diesel generator synchronizing automatically.",
+    },
+    {
+      iconText: "🛠️",
+      title: "Field Diagnostic & 24/7 Support",
+      desc: "Dedicated power quality engineers deploy on-site to perform harmonic spectrum analysis, earth fault tracking, and proactive maintenance.",
+    },
+  ],
+  productsTitle: "Various Solutions Available at VLOXIA Power Services",
+  productsSubtitle:
+    "Explore our solar hybrid inverter range, online UPS backup systems, and integrated energy management hardware.",
+  products: [
+    {
+      title: "VLOXIA Solar Hybrid Inverter Series (Dual MPPT)",
+      desc: "High-voltage single and three-phase hybrid inverters engineered with dual MPPT trackers, customizable export control, and built-in lithium BMS communications.",
+      image: "/ev-wallbox-isolated.png",
+      tag: "Residential & Commercial",
+      href: "/shop",
+    },
+    {
+      title: "Enterprise Critical Power Backup & Online UPS",
+      desc: "True online double-conversion UPS infrastructure delivering zero-transfer-time protection for hospitals, data centres, and industrial control rooms.",
+      image: "/Industries/Industrial.png",
+      tag: "Hospitals & Mission-Critical",
+      href: "/contact?service=ups-backup",
+    },
+  ],
+  howToTitle: "How to Deploy VLOXIA Power Solutions",
+  howToSubtitle:
+    "Ensure uninterrupted power continuity for your facility by following our structured 3-step power engineering process.",
+  categoryTags: [
+    "Healthcare & Hospitals",
+    "IT & Data Centre Infrastructure",
+    "Commercial & Industrial Operations",
+  ],
+  deploymentSteps: [
+    {
+      number: "01",
+      title: "Audit Connected Loads & Power Factor",
+      desc: "Evaluate your facility's single-phase vs. three-phase load balance, power factor penalties, inrush motor loads, and harmonic distortion levels.",
+      points: [
+        "Harmonic distortion analysis (THD)",
+        "Phase balance verification",
+        "Sensitive equipment isolation",
+      ],
+    },
+    {
+      number: "02",
+      title: "System Sizing & Switchgear Architecture",
+      desc: "We design the dual-conversion inverter topology, specify automatic transfer switch (ATS) ratings, and integrate lithium battery banks.",
+      points: [
+        "ATS & bypass switchgear sizing",
+        "Battery autonomous runtime calculation",
+        "Earthing & neutral grounding design",
+      ],
+    },
+    {
+      number: "03",
+      title: "Turnkey Commissioning & Full-Load Testing",
+      desc: "On-site switchgear installation, full simulated grid outage test, thermal imaging of all busbars, and 24/7 telemetry handover.",
+      points: [
+        "Simulated 100% load cutoff test",
+        "Thermal busbar imaging",
+        "Annual maintenance contract (AMC) setup",
+      ],
+    },
+  ],
 };
 
 export default function PowerSolutionsPage() {
-  return (
-    <main className="content-page solution-page">
-      <section className="content-hero solution-hero">
-        <div className="content-hero-glow" />
-        <div className="solution-hero-orb" />
-        <div className="content-hero-inner">
-          <div>
-            <p className="content-eyebrow">Solutions / Power Solutions</p>
-            <h1>
-              Power <span>Solutions</span>
-            </h1>
-            <p className="solution-hero-copy">
-              Reliable inverters, power backup systems and integrated energy management solutions — ensuring uninterrupted power for every application.
-            </p>
-            <Link href="/contact" className="content-button">
-              Get a Power Quote <ArrowRight aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="content-section">
-        <div className="content-container">
-          <div className="content-section-heading">
-            <p className="content-eyebrow">Our Range</p>
-            <h2>Power Products & Solutions</h2>
-          </div>
-          <div className="solution-card-grid">
-            {[
-              {
-                icon: "⚡",
-                title: "Inverters & Hybrid Inverters",
-                points: ["Solar hybrid inverters — grid, solar & battery management", "String inverters for commercial & industrial solar", "Micro-inverters for shaded or complex rooftops", "Single-phase & three-phase variants"],
-              },
-              {
-                icon: "🔌",
-                title: "Power Backup Systems",
-                points: ["Home & office UPS with lithium battery", "Online and offline UPS configurations", "Generator integration & ATS switching", "Critical power for servers, medical and security systems"],
-              },
-              {
-                icon: "📊",
-                title: "Power Management",
-                points: ["Energy monitoring & analytics dashboards", "Load scheduling & demand management", "Smart metering integration", "Remote monitoring & alerts"],
-              },
-              {
-                icon: "🔗",
-                title: "Integrated Energy Solutions",
-                points: ["Solar + Storage + EV Charging — one integrated system", "Microgrid design and deployment", "Energy audit and optimisation", "SCADA & building management integration"],
-              },
-            ].map((item) => (
-              <div key={item.title} className="solution-card">
-                <div >{item.icon}</div>
-                <h3 >{item.title}</h3>
-                <ul>
-                  {item.points.map((p) => (
-                    <li key={p}>
-                      <span aria-hidden="true" />{p}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <FeaturedProducts compact eyebrow="Power Products" title="Explore Power Equipment" description="Browse marketplace equipment for hybrid solar, battery backup and integrated power." productIds={["inverter-hybrid-5kw", "batt-lifepo4-5kwh", "batt-lifepo4-2kwh"]} />
-    </main>
-  );
+  return <ServicePageTemplate data={powerSolutionsData} />;
 }
