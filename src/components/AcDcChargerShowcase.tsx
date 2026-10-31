@@ -210,7 +210,7 @@ export default function AcDcChargerShowcase() {
 
               <Link
                 href="/shop"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-bold text-xs shadow-md shadow-[#2563eb]/20 transition-all"
+                className="inline-flex items-center gap-2.5 px-8 py-3 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] hover:from-[#1d4ed8] hover:to-[#1e40af] text-white font-extrabold text-xs uppercase tracking-wider shadow-[0_12px_28px_-6px_rgba(37,99,235,0.5),0_4px_12px_rgba(37,99,235,0.28)] hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-6px_rgba(37,99,235,0.65),0_6px_16px_rgba(37,99,235,0.35)] active:translate-y-0 transition-all duration-200"
               >
                 <span>View Models in Shop</span>
                 <ArrowRight className="w-3.5 h-3.5" />

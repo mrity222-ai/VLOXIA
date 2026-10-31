@@ -53,7 +53,7 @@ export default function AboutPage() {
               <div>
                 <Link
                   href="/solutions/ev-charging"
-                  className="inline-flex items-center justify-center px-8 py-3.5 bg-[#2563eb] hover:bg-[#2563eb] text-[#ffffff] font-black text-sm rounded-md shadow-lg shadow-[#2563eb]/25 hover:shadow-xl transition-all duration-200"
+                  className="inline-flex items-center justify-center px-9 py-3.5 bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] hover:from-[#1d4ed8] hover:to-[#1e40af] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-full shadow-[0_12px_28px_-6px_rgba(37,99,235,0.5),0_4px_12px_rgba(37,99,235,0.28)] hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-6px_rgba(37,99,235,0.65),0_6px_16px_rgba(37,99,235,0.35)] active:translate-y-0 transition-all duration-200"
                 >
                   Start Charging
                 </Link>

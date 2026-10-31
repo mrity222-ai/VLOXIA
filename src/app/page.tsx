@@ -38,55 +38,56 @@ const solutions = [
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="home-page">
       {/* Homepage hero */}
-      <section>
-        <div aria-hidden="true">
+      <section className="home-hero ev-promo-hero">
+        <div className="ev-promo-visual" aria-hidden="true">
           <Image
             src="/Industries/Mobility.png"
             alt=""
             fill
             priority
             sizes="(max-width: 680px) 100vw, 62vw"
+            className="ev-promo-image"
           />
-          <div />
-          <div />
-          <div />
-          <div><Zap aria-hidden="true" /> Built for electric mobility</div>
+          <div className="ev-promo-visual-shade" />
+          <div className="ev-promo-ring ev-promo-ring-one" />
+          <div className="ev-promo-ring ev-promo-ring-two" />
+          <div className="ev-promo-image-caption"><Zap aria-hidden="true" /> Built for electric mobility</div>
         </div>
 
-        <div>
-          <div><span /> VLOXIA EV CHARGING</div>
+        <div className="ev-promo-content">
+          <div className="ev-promo-eyebrow"><span /> VLOXIA EV CHARGING</div>
           <h1>Fueling the <span>Next Electric Era.</span></h1>
-          <p>
+          <p className="ev-promo-description">
             Charging that fits seamlessly into your life. We provide intelligent, high-speed power solutions designed for the mobility of tomorrow.
           </p>
-          <Link href="/solutions/ev-charging">
+          <Link href="/solutions/ev-charging" className="ev-promo-cta">
             Find your charging solution <ArrowRight aria-hidden="true" />
           </Link>
 
-          <div>
-            <div><span><Zap aria-hidden="true" /></span><span><b>Fast Charging</b><small>Power up at home, work or on the move.</small></span></div>
-            <div><span><ShieldCheck aria-hidden="true" /></span><span><b>Certified & Reliable</b><small>Trusted technology with dependable support.</small></span></div>
+          <div className="ev-promo-features">
+            <div><span className="ev-feature-mark"><Zap aria-hidden="true" /></span><span><b>Fast Charging</b><small>Power up at home, work or on the move.</small></span></div>
+            <div><span className="ev-feature-mark"><ShieldCheck aria-hidden="true" /></span><span><b>Certified & Reliable</b><small>Trusted technology with dependable support.</small></span></div>
           </div>
 
-          <div>
-            <span aria-hidden="true"><i>V</i><i>EV</i><i>+</i></span>
+          <div className="ev-promo-proof">
+            <span className="ev-proof-avatars" aria-hidden="true"><i>V</i><i>EV</i><i>+</i></span>
             <span><b>Powering the transition</b><small>Clean energy solutions across India</small></span>
           </div>
         </div>
 
-        <div><span /><b>Smart charging</b><small>Designed around your journey</small></div>
-        <a href="#solutions" aria-label="Scroll to solutions"><span>SCROLL TO EXPLORE</span><ChevronDown aria-hidden="true" /></a>
+        <div className="ev-promo-stat"><span className="ev-stat-pulse" /><b>Smart charging</b><small>Designed around your journey</small></div>
+        <a href="#solutions" className="ev-promo-scroll" aria-label="Scroll to solutions"><span>SCROLL TO EXPLORE</span><ChevronDown aria-hidden="true" /></a>
       </section>
 
-      <section aria-label="VLOXIA clean energy promise">
+      <section aria-label="VLOXIA clean energy promise" className="feature-rail">
         <p>Smarter energy for homes, businesses and mobility.</p>
         <Link href="/solutions/ev-charging">Explore VLOXIA solutions <ArrowRight /></Link>
       </section>
 
       {/* â”€â”€ COMPANY INTRO â”€â”€ */}
-      <section>
+      <section className="home-intro">
         <div >
           <div >
             <div>
@@ -134,7 +135,7 @@ export default function HomePage() {
       </section>
 
       {/* â”€â”€ FOUR SOLUTIONS â”€â”€ */}
-      <section id="solutions">
+      <section id="solutions" className="home-solutions">
         <div >
           <div >
             <p >
@@ -167,49 +168,49 @@ export default function HomePage() {
       </section>
 
       {/* â”€â”€ WHY VLOXIA â”€â”€ */}
-      <section>
-        <div>
-          <div>
+      <section className="home-advantages">
+        <div className="home-advantages-inner">
+          <div className="home-advantages-heading">
             <p>Our Edge</p>
             <h2>Why Choose VLOXIA?</h2>
           </div>
-          <div>
-            <div>
+          <div className="home-advantage-layout">
+            <div className="home-advantage-column">
             {[
               { n: "01", title: "Technology-Led Approach", desc: "We source from leading OEMs and integrate proven global technology into every solution." },
               { n: "02", title: "Multiple Energy Verticals", desc: "EV, Solar, Storage and Power â€” one partner for your entire clean energy journey." },
               { n: "03", title: "Customised Recommendations", desc: "Site assessment, load analysis and tailored system design for every client." },
             ].map((item) => (
-              <article key={item.n}>
-                <span>{item.n}</span>
+              <article key={item.n} className="home-advantage-card">
+                <span className="home-advantage-number">{item.n}</span>
                 <div><h3>{item.title}</h3><p>{item.desc}</p></div>
               </article>
             ))}
             </div>
 
-            <div aria-hidden="true">
-              <div />
-              <div>
-                <div><span /></div>
-                <div><Zap /></div>
-                <div />
-                <div><span /></div>
-                <div>VLOXIA <small>EV CHARGE</small></div>
+            <div className="home-charger-art" aria-hidden="true">
+              <div className="home-charger-halo" />
+              <div className="home-charger-device">
+                <div className="home-charger-top"><span /></div>
+                <div className="home-charger-screen"><Zap /></div>
+                <div className="home-charger-light" />
+                <div className="home-charger-port"><span /></div>
+                <div className="home-charger-brand">VLOXIA <small>EV CHARGE</small></div>
               </div>
-              <div />
-              <div><span /></div>
-              <div />
-              <div />
+              <div className="home-charger-cable" />
+              <div className="home-charger-connector"><span /></div>
+              <div className="home-charger-base" />
+              <div className="home-charger-ground-glow" />
             </div>
 
-            <div>
+            <div className="home-advantage-column">
             {[
               { n: "04", title: "OEM Ecosystem", desc: "Direct technology partnerships ensuring product quality, warranty and support." },
               { n: "05", title: "Scalable Systems", desc: "Solutions designed to scale with your growth â€” from single home to large industrial campus." },
               { n: "06", title: "Channel Network", desc: "Expanding dealer, distributor and installer network across India." },
             ].map((item) => (
-              <article key={item.n}>
-                <span>{item.n}</span>
+              <article key={item.n} className="home-advantage-card">
+                <span className="home-advantage-number">{item.n}</span>
                 <div><h3>{item.title}</h3><p>{item.desc}</p></div>
               </article>
             ))}
@@ -219,7 +220,7 @@ export default function HomePage() {
       </section>
 
       {/* â”€â”€ INDUSTRIES â”€â”€ */}
-      <section>
+      <section className="home-industries">
         <div >
           <div >
             <p >Who We Serve</p>
@@ -237,11 +238,12 @@ export default function HomePage() {
               return <Link
                 key={seg.label}
                 href={`/industries#${seg.label.toLowerCase()}`}
+                className="home-industry-card"
               >
-                <Image src={seg.image} alt={`${seg.label} energy solutions`} fill sizes="(max-width: 680px) 70vw, (max-width: 1100px) 32vw, 20vw" />
-                <div />
-                <div>
-                  <span><Icon aria-hidden="true" /></span>
+                <Image src={seg.image} alt={`${seg.label} energy solutions`} fill sizes="(max-width: 680px) 70vw, (max-width: 1100px) 32vw, 20vw" className="home-industry-image" />
+                <div className="home-industry-shade" />
+                <div className="home-industry-copy">
+                  <span className="home-industry-icon"><Icon aria-hidden="true" /></span>
                   <h3>{seg.label}</h3>
                   <p>{seg.desc}</p>
                 </div>
@@ -262,7 +264,7 @@ export default function HomePage() {
 
 
             {/* â”€â”€ CHANNEL PARTNER CTA â”€â”€ */}
-      <section>
+      <section className="home-channel">
         <div >
           <div >
             <div>
@@ -282,13 +284,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section>
-        <div>
-          <p>Need to know</p>
+      <section className="home-faq">
+        <div className="section-heading">
+          <p className="eyebrow">Need to know</p>
           <h2>Frequently asked questions</h2>
           <p>Some quick answers about choosing and planning a clean energy system.</p>
         </div>
-        <div>
+        <div className="faq-list">
           <details><summary>Which VLOXIA solutions can I enquire about?</summary><p>We work across EV charging, solar energy, lithium storage and power solutions. You can enquire about one solution or a combination.</p></details>
           <details><summary>Can solutions be planned for homes and businesses?</summary><p>Yes. We work with residential, commercial, industrial and institutional customers, and tailor recommendations to each site.</p></details>
           <details><summary>How do I get a recommendation for my site?</summary><p>Share your location, customer type and energy requirement through the enquiry form. Our team can follow up to understand your needs.</p></details>
@@ -296,12 +298,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section>
-        <div>
-          <div><p>Explore VLOXIA</p><h2>Find the right energy solution</h2></div>
+      <section className="home-guides">
+        <div className="section-heading section-heading-row">
+          <div><p className="eyebrow">Explore VLOXIA</p><h2>Find the right energy solution</h2></div>
           <Link href="/solutions/ev-charging">View all solutions <ArrowRight /></Link>
         </div>
-        <div>
+        <div className="guide-grid">
           <Link href="/solutions/ev-charging"><span>EV CHARGING</span><h3>Charging for homes, workplaces and fleets</h3><p>Explore AC and DC charging options for different sites and use cases.</p><b>Explore EV charging <ArrowRight /></b></Link>
           <Link href="/solutions/solar-energy"><span>SOLAR ENERGY</span><h3>Generate power from your rooftop</h3><p>Learn about solar systems for residential, commercial and industrial needs.</p><b>Explore solar <ArrowRight /></b></Link>
           <Link href="/solutions/energy-storage"><span>ENERGY STORAGE</span><h3>Store energy for when you need it</h3><p>See lithium storage options for backup power and energy management.</p><b>Explore storage <ArrowRight /></b></Link>
