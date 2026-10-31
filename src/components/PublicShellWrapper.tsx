@@ -18,14 +18,14 @@ export default function PublicShellWrapper({ children }: { children: React.React
     return <main>{children}</main>;
   }
 
-  // Standard Public website with Header, Cart Drawer, Modern CTA, Industry Slider, and Footer
+  // Standard Public website: Header -> Cart Drawer -> Page Content -> Industry Slider -> Modern CTA (sabse last) -> Footer
   return (
     <>
       <Header />
       <CartDrawer />
       <main>{children}</main>
-      {!isFormOrSuccessPage && <ModernCtaSection />}
       <IndustryMarqueeSlider />
+      {!isFormOrSuccessPage && <ModernCtaSection />}
       <Footer />
     </>
   );
