@@ -82,23 +82,27 @@ export default function AdminInquiriesPage() {
   });
 
   return (
-    <div >
-      <div >
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 >Customer Inquiries & Partner Leads</h2>
-          <p >Track and respond to quotations, general enquiries and dealer requests</p>
+          <h2 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">
+            Customer Inquiries & Partner Leads
+          </h2>
+          <p className="text-xs sm:text-sm text-gray-500 mt-1">
+            Track and respond to quotations, general enquiries and dealer requests.
+          </p>
         </div>
         <button
           onClick={exportCSV}
-          
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-colors shrink-0"
         >
-          <Download  />
+          <Download className="w-4 h-4 text-gray-500" />
           <span>Export CSV / Excel</span>
         </button>
       </div>
 
       {/* Filter Tabs */}
-      <div >
+      <div className="flex flex-wrap items-center gap-2">
         {[
           { id: "all", label: "All Inquiries" },
           { id: "QUOTE", label: "Quotation Requests" },
@@ -108,7 +112,11 @@ export default function AdminInquiriesPage() {
           <button
             key={tab.id}
             onClick={() => setTypeFilter(tab.id)}
-            
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              typeFilter === tab.id
+                ? "bg-blue-600 text-white shadow-xs"
+                : "bg-white text-gray-600 border border-gray-200/80 hover:bg-gray-50"
+            }`}
           >
             {tab.label}
           </button>
@@ -116,51 +124,65 @@ export default function AdminInquiriesPage() {
       </div>
 
       {/* Table */}
-      <div >
-        <div >
-          <table >
+      <div className="bg-white rounded-2xl border border-gray-200/80 shadow-xs overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
             <thead>
-              <tr >
-                <th >Contact</th>
-                <th >Solution / Segment</th>
-                <th >Requirement / Message</th>
-                <th >Lead Status</th>
-                <th >Quick Connect</th>
-                <th >Action</th>
+              <tr className="bg-gray-50/80 border-b border-gray-200 text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4">Contact</th>
+                <th className="px-6 py-4">Solution / Segment</th>
+                <th className="px-6 py-4">Requirement / Message</th>
+                <th className="px-6 py-4">Lead Status</th>
+                <th className="px-6 py-4">Quick Connect</th>
+                <th className="px-6 py-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody >
+            <tbody className="divide-y divide-gray-100 text-sm">
               {loading ? (
                 <tr>
-                  <td colSpan={6} >Loading leads...</td>
+                  <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
+                    <div className="flex flex-col items-center justify-center gap-2">
+                      <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                      <span className="text-xs font-semibold">Loading leads...</span>
+                    </div>
+                  </td>
                 </tr>
               ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={6} >No inquiry records found.</td>
+                  <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
+                    <Inbox className="w-10 h-10 mx-auto text-gray-300 mb-2" />
+                    <p className="text-xs font-semibold">No inquiry records found.</p>
+                  </td>
                 </tr>
               ) : (
                 filtered.map((inq) => (
-                  <tr key={inq.id} >
-                    <td >
-                      <div >{inq.fullName}</div>
-                      {inq.companyName && <div >{inq.companyName}</div>}
-                      <div >{inq.phone}</div>
-                      <div >{inq.city || "Not specified"}</div>
+                  <tr key={inq.id} className="hover:bg-slate-50/80 transition-colors">
+                    <td className="px-6 py-4">
+                      <div className="text-xs sm:text-sm font-bold text-gray-900">{inq.fullName}</div>
+                      {inq.companyName && (
+                        <div className="text-[11px] font-medium text-gray-500">{inq.companyName}</div>
+                      )}
+                      <div className="text-xs text-blue-600 font-mono mt-0.5">{inq.phone}</div>
+                      <div className="text-[11px] text-gray-400">{inq.city || "Not specified"}</div>
                     </td>
-                    <td >
-                      <span >
+                    <td className="px-6 py-4">
+                      <span className="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold bg-blue-50 text-blue-700">
                         {inq.solution || inq.type}
                       </span>
-                      {inq.customerType && <div >{inq.customerType}</div>}
+                      {inq.customerType && (
+                        <div className="text-[11px] text-gray-400 mt-1">{inq.customerType}</div>
+                      )}
                     </td>
-                    <td >
-                      <p >{inq.message}</p>
+                    <td className="px-6 py-4 max-w-sm">
+                      <p className="text-xs text-gray-600 line-clamp-3 leading-relaxed">
+                        {inq.message}
+                      </p>
                     </td>
-                    <td >
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <select
                         value={inq.status}
                         onChange={(e) => handleStatusChange(inq.id, e.target.value)}
-                        
+                        className="text-xs font-bold px-2.5 py-1.5 rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:border-blue-500"
                       >
                         <option value="NEW">New</option>
                         <option value="IN_REVIEW">In Discussion</option>
@@ -168,33 +190,33 @@ export default function AdminInquiriesPage() {
                         <option value="CLOSED">Won / Closed</option>
                       </select>
                     </td>
-                    <td >
-                      <div >
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="inline-flex items-center gap-1.5">
                         <a
                           href={`https://wa.me/${inq.phone.replace(/[^0-9]/g, "")}`}
                           target="_blank"
                           rel="noreferrer"
                           title="WhatsApp Chat"
-                          
+                          className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors border border-emerald-200/60"
                         >
-                          <MessageSquare  />
+                          <MessageSquare className="w-3.5 h-3.5" />
                         </a>
                         <a
                           href={`tel:${inq.phone}`}
                           title="Call"
-                          
+                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors border border-blue-200/60"
                         >
-                          <Phone  />
+                          <Phone className="w-3.5 h-3.5" />
                         </a>
                       </div>
                     </td>
-                    <td >
+                    <td className="px-6 py-4 text-right whitespace-nowrap">
                       <button
                         onClick={() => handleDelete(inq.id)}
-                        
+                        className="p-2 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
                         title="Delete Lead"
                       >
-                        <Trash2  />
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </td>
                   </tr>
