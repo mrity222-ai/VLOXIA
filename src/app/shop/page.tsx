@@ -13,13 +13,13 @@ import {
   ShieldCheck,
   Truck,
   Sparkles,
-  SlidersHorizontal,
   ChevronDown,
   X,
   Zap,
   Battery,
   Sun,
   ArrowRight,
+  Eye,
 } from "lucide-react";
 
 interface ShopProduct extends StaticProduct {
@@ -38,6 +38,7 @@ export default function ShopPage() {
   const [sortBy, setSortBy] = useState<string>("featured");
   const [inStockOnly, setInStockOnly] = useState<boolean>(false);
   const [wishlist, setWishlist] = useState<Set<string>>(new Set());
+  const [visibleCount, setVisibleCount] = useState<number>(8);
 
   // Modal State for 5-Image Gallery & Quick View
   const [activeModalProduct, setActiveModalProduct] = useState<ShopProduct | null>(null);
@@ -124,6 +125,8 @@ export default function ShopPage() {
       if (sortBy === "rating") return b.rating - a.rating;
       return 0; // featured
     });
+
+  const displayedProducts = filteredProducts.slice(0, visibleCount);
 
   return (
     <div className="bg-[#fcfdfd] min-h-screen pt-28 pb-20 select-none text-gray-900 font-sans antialiased">
@@ -316,14 +319,14 @@ export default function ShopPage() {
               Clean Energy Hardware For You!
             </h2>
             <p className="text-xs text-gray-500 mt-1">
-              Showing {filteredProducts.length} verified products with direct manufacturer warranty
+              Showing {displayedProducts.length} of {filteredProducts.length} verified products with direct manufacturer warranty
             </p>
           </div>
         </div>
 
         {/* ── 4-COLUMN PRODUCT GRID (MATCHES REFERENCE SCREEN CARDS) ── */}
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => {
+          {displayedProducts.map((product) => {
             const isWishlisted = wishlist.has(product.id);
             return (
               <div
@@ -405,8 +408,21 @@ export default function ShopPage() {
                   </div>
                 </div>
 
-                {/* Outline Pill Button ("Add to Cart") */}
-                <div className="pt-4 px-1">
+                {/* DUAL ACTION BUTTONS: "View Details" & "Add to Cart" */}
+                <div className="pt-4 px-1 grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openProductModal(product);
+                    }}
+                    className="py-2.5 px-2 sm:px-3 rounded-full border border-gray-300 hover:border-gray-900 text-gray-700 hover:text-gray-900 font-bold text-[11px] uppercase tracking-wider transition-all text-center flex items-center justify-center gap-1 bg-white hover:bg-gray-50 shadow-2xs"
+                    title="View Details & 5-Image Gallery"
+                  >
+                    <Eye className="w-3.5 h-3.5 text-gray-500" />
+                    <span>Details</span>
+                  </button>
+
                   <button
                     type="button"
                     onClick={(e) => {
@@ -414,15 +430,34 @@ export default function ShopPage() {
                       addToCart(product, 1);
                       setIsCartOpen(true);
                     }}
-                    className="w-full py-2.5 px-5 rounded-full border border-gray-900 text-gray-900 font-extrabold text-xs uppercase tracking-wider hover:bg-gray-900 hover:text-white transition-all text-center flex items-center justify-center gap-2"
+                    className="py-2.5 px-2 sm:px-3 rounded-full bg-gray-900 hover:bg-blue-600 text-white font-extrabold text-[11px] uppercase tracking-wider transition-all text-center flex items-center justify-center gap-1 shadow-sm"
+                    title="Add to Cart"
                   >
-                    Add to Cart
+                    <ShoppingCart className="w-3.5 h-3.5" />
+                    <span>Add to Cart</span>
                   </button>
                 </div>
               </div>
             );
           })}
         </section>
+
+        {/* ── "VIEW MORE" HARDWARE SECTION (MATCHES USER REQUEST) ── */}
+        {visibleCount < filteredProducts.length ? (
+          <div className="mt-12 flex flex-col items-center justify-center">
+            <button
+              onClick={() => setVisibleCount((prev) => prev + 8)}
+              className="px-8 py-3.5 rounded-full border-2 border-gray-900 hover:bg-gray-900 hover:text-white text-gray-900 font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center gap-2 shadow-xs hover:shadow-md"
+            >
+              <span>View More Hardware ({filteredProducts.length - visibleCount} more)</span>
+              <ChevronDown className="w-4 h-4" />
+            </button>
+          </div>
+        ) : (
+          <div className="mt-12 text-center text-xs text-gray-400 font-medium">
+            Showing all {filteredProducts.length} clean energy products
+          </div>
+        )}
 
         {/* ── B2B COMMERCIAL CALLOUT ── */}
         <section className="mt-16 p-8 sm:p-12 bg-gradient-to-r from-slate-900 via-slate-850 to-[#0a1628] rounded-[32px] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
