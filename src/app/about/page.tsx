@@ -158,37 +158,6 @@ export default function AboutPage() {
 
       {/* ── HOW IT WORKS PROCESS ── */}
       <HowItWorksProcess />
-
-      {/* Brand Promise */}
-      <section className="content-cta-section">
-        <div className="content-cta">
-          <div>
-            <p className="content-eyebrow">Brand Promise</p>
-            <h2>
-              &ldquo;We don&apos;t just sell energy products — we build energy solutions.&rdquo;
-            </h2>
-            <p >
-              Every engagement begins with understanding your unique energy context. We analyse your requirements, recommend the right combination of technologies, implement with precision and support you long after installation.
-            </p>
-            <Link href="/approach" className="content-button">
-              Our Solution Approach <ArrowRight aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="content-cta-section">
-        <div className="content-cta">
-          <div>
-            <h2>Ready to Start Your Energy Journey?</h2>
-            <p>Talk to our experts and get a customised energy solution designed for your needs.</p>
-            <Link href="/contact" className="content-button">
-              Contact Us <ArrowRight aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

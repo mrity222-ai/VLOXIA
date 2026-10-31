@@ -92,16 +92,6 @@ export default function IndustriesPage() {
           ))}
         </div>
       </section>
-
-      <section className="content-cta-section">
-        <div className="content-cta">
-          <h2>Your Industry, Our Expertise</h2>
-          <p>Don&apos;t see your specific use case? Talk to our experts — we design custom solutions for unique requirements.</p>
-          <Link href="/contact" className="content-button">
-            Discuss Your Requirements <ArrowRight aria-hidden="true" />
-          </Link>
-        </div>
-      </section>
     </main>
   );
 }

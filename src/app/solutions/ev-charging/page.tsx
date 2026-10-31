@@ -119,20 +119,6 @@ export default function EVChargingPage() {
           </div>
         </div>
       </section>
-
-      {/* CTA */}
-      <section className="content-cta-section">
-        <div className="content-cta">
-          <div>
-            <p className="content-eyebrow">Ready to Deploy?</p>
-            <h2>Power Your Location with EV Charging</h2>
-            <p>Get in touch for a site assessment, technical recommendation and custom commercial proposal.</p>
-            <Link href="/contact" className="content-button">
-              Request a Consultation <ArrowRight aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

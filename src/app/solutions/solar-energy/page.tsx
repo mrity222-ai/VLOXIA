@@ -95,18 +95,6 @@ export default function SolarEnergyPage() {
       </section>
 
       <FeaturedProducts compact eyebrow="Solar & Power Product" title="Explore Solar-Ready Power" description="The current marketplace listing for solar setups is a hybrid inverter with dual MPPT and lithium battery support." productIds={["inverter-hybrid-5kw"]} />
-
-      <section className="content-cta-section">
-        <div className="content-cta">
-          <div>
-          <h2>Ready to Go Solar?</h2>
-          <p>Our solar experts will assess your site, design the optimal system and handle everything from permits to commissioning.</p>
-          <Link href="/contact" className="content-button">
-            Get Free Solar Assessment <ArrowRight aria-hidden="true" />
-          </Link>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

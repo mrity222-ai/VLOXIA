@@ -75,16 +75,6 @@ export default function PowerSolutionsPage() {
       </section>
 
       <FeaturedProducts compact eyebrow="Power Products" title="Explore Power Equipment" description="Browse marketplace equipment for hybrid solar, battery backup and integrated power." productIds={["inverter-hybrid-5kw", "batt-lifepo4-5kwh", "batt-lifepo4-2kwh"]} />
-
-      <section className="content-cta-section">
-        <div className="content-cta">
-          <h2>Reliable Power, Always.</h2>
-          <p>From a single-phase home inverter to a multi-MW industrial power system — VLOXIA delivers the right power solution.</p>
-          <Link href="/contact" className="content-button">
-            Discuss Your Power Needs <ArrowRight aria-hidden="true" />
-          </Link>
-        </div>
-      </section>
     </main>
   );
 }

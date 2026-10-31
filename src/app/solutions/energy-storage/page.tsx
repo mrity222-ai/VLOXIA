@@ -78,18 +78,6 @@ export default function EnergyStoragePage() {
       </section>
 
       <FeaturedProducts compact eyebrow="Lithium Storage Products" title="Explore Battery Options" description="Compare the lithium storage products currently available in the VLOXIA marketplace." productIds={["batt-lifepo4-5kwh", "batt-lifepo4-2kwh"]} />
-
-      <section className="content-cta-section">
-        <div className="content-cta">
-          <div>
-          <h2>Store More. Depend Less on the Grid.</h2>
-          <p>Design your energy storage system with VLOXIA experts — we size, supply and commission your lithium battery solution.</p>
-          <Link href="/contact" className="content-button">
-            Plan My Storage System <ArrowRight aria-hidden="true" />
-          </Link>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
