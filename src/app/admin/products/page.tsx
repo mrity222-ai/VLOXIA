@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Plus, Search, Edit2, Trash2, CheckCircle2, XCircle, Package } from "lucide-react";
+import { Plus, Search, Edit2, Trash2, CheckCircle2, XCircle, Package, Images } from "lucide-react";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<any[]>([]);
@@ -27,6 +27,15 @@ export default function AdminProductsPage() {
     badge: "",
     isPublished: true,
   });
+
+  // Up to 5 product images state
+  const [images, setImages] = useState<string[]>([
+    "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=800&q=80",
+    "",
+    "",
+    "",
+    "",
+  ]);
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -61,6 +70,13 @@ export default function AdminProductsPage() {
       badge: "",
       isPublished: true,
     });
+    setImages([
+      "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=800&q=80",
+      "",
+      "",
+      "",
+      "",
+    ]);
     setModalOpen(true);
   };
 
@@ -80,25 +96,55 @@ export default function AdminProductsPage() {
       badge: p.badge || "",
       isPublished: p.isPublished,
     });
+
+    // Populate images array from imagesJson or fallback to p.image
+    let loadedImages: string[] = [];
+    if (p.imagesJson) {
+      try {
+        const parsed = JSON.parse(p.imagesJson);
+        if (Array.isArray(parsed)) {
+          loadedImages = parsed.filter((item: any) => typeof item === "string");
+        }
+      } catch (err) {}
+    }
+    if (loadedImages.length === 0 && p.image) {
+      loadedImages = [p.image];
+    }
+    const padded = [...loadedImages];
+    while (padded.length < 5) padded.push("");
+    setImages(padded.slice(0, 5));
+
     setModalOpen(true);
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      const cleanImages = images.filter((img) => img && img.trim() !== "");
+      const primaryImage =
+        cleanImages[0] ||
+        form.image ||
+        "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=800&q=80";
+
+      const payload = {
+        ...form,
+        image: primaryImage,
+        images: cleanImages.length > 0 ? cleanImages : [primaryImage],
+      };
+
       if (editingProduct) {
         // Edit
         await fetch(`/api/admin/products/${editingProduct.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify(payload),
         });
       } else {
         // Create
         await fetch("/api/admin/products", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify(payload),
         });
       }
       setModalOpen(false);
@@ -307,12 +353,12 @@ export default function AdminProductsPage() {
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
           <div className="fixed inset-0" onClick={() => setModalOpen(false)} />
-          <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl p-6 sm:p-8 my-8 z-10">
+          <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl p-6 sm:p-8 my-8 z-10 max-h-[92vh] overflow-y-auto">
             <h3 className="text-lg font-black text-gray-900 border-b border-gray-100 pb-3">
               {editingProduct ? "Edit Product Details" : "Add New Clean Energy Hardware"}
             </h3>
 
-            <form onSubmit={handleFormSubmit} className="mt-5 space-y-4">
+            <form onSubmit={handleFormSubmit} className="mt-5 space-y-5">
               <div>
                 <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
                   Product Title *
@@ -414,18 +460,139 @@ export default function AdminProductsPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
-                  Product Photo URL *
-                </label>
-                <input
-                  type="url"
-                  required
-                  value={form.image}
-                  onChange={(e) => setForm({ ...form, image: e.target.value })}
-                  placeholder="https://images.unsplash.com/..."
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
-                />
+              {/* ── 5 PRODUCT IMAGES SECTION (MATCHES USER REQUEST) ── */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Images className="w-4 h-4 text-blue-600" />
+                    <div>
+                      <label className="block text-xs font-black text-gray-900 uppercase tracking-wider">
+                        Product Images (Up to 5 Photos) *
+                      </label>
+                      <p className="text-[11px] text-gray-500 mt-0.5">
+                        Slot 1 is the main catalog cover photo. Slots 2–5 are additional gallery angles.
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[11px] font-bold text-blue-700 bg-blue-100/80 px-2.5 py-1 rounded-full shrink-0">
+                    {images.filter((img) => img && img.trim() !== "").length}/5 Images
+                  </span>
+                </div>
+
+                {/* 5 Thumbnail Visual Preview Grid */}
+                <div className="grid grid-cols-5 gap-2.5">
+                  {images.map((imgUrl, idx) => {
+                    const isFilled = imgUrl && imgUrl.trim() !== "";
+                    return (
+                      <div
+                        key={idx}
+                        className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all flex flex-col items-center justify-center group ${
+                          idx === 0
+                            ? "border-blue-500 bg-blue-50/40 shadow-xs"
+                            : isFilled
+                            ? "border-gray-200 bg-white shadow-xs"
+                            : "border-dashed border-gray-300 bg-white/70"
+                        }`}
+                      >
+                        {isFilled ? (
+                          <>
+                            <Image
+                              src={imgUrl}
+                              alt={`Slot ${idx + 1}`}
+                              fill
+                              sizes="80px"
+                              className="object-cover"
+                            />
+                            {/* Overlay remove button */}
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const next = [...images];
+                                next[idx] = "";
+                                setImages(next);
+                              }}
+                              className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/75 hover:bg-rose-600 text-white flex items-center justify-center text-[10px] transition-colors shadow-xs"
+                              title="Clear photo"
+                            >
+                              ✕
+                            </button>
+                          </>
+                        ) : (
+                          <div className="text-center p-1 pointer-events-none">
+                            <span className="text-lg text-gray-300 font-light block leading-none">+</span>
+                            <div className="text-[9px] font-bold text-gray-400 mt-1">Slot {idx + 1}</div>
+                          </div>
+                        )}
+
+                        {/* Badge for slot */}
+                        <div className="absolute bottom-1 left-1 pointer-events-none">
+                          <span
+                            className={`text-[8px] sm:text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded shadow-xs ${
+                              idx === 0
+                                ? "bg-blue-600 text-white"
+                                : "bg-black/65 text-white"
+                            }`}
+                          >
+                            {idx === 0 ? "Cover" : `#${idx + 1}`}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* 5 Individual URL Inputs */}
+                <div className="space-y-2 pt-2 border-t border-slate-200/80">
+                  {images.map((imgUrl, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <div className="w-18 shrink-0">
+                        <span
+                          className={`inline-block text-[10px] font-extrabold uppercase px-2 py-1.5 rounded-lg w-full text-center ${
+                            idx === 0
+                              ? "bg-blue-600 text-white shadow-xs"
+                              : "bg-gray-200/80 text-gray-700 font-bold"
+                          }`}
+                        >
+                          {idx === 0 ? "Cover *" : `Slot ${idx + 1}`}
+                        </span>
+                      </div>
+
+                      <div className="relative flex-1">
+                        <input
+                          type="url"
+                          required={idx === 0}
+                          value={imgUrl}
+                          onChange={(e) => {
+                            const next = [...images];
+                            next[idx] = e.target.value;
+                            setImages(next);
+                          }}
+                          placeholder={
+                            idx === 0
+                              ? "https://... (Main cover image URL - Required)"
+                              : `https://... (Additional gallery photo ${idx + 1} - Optional)`
+                          }
+                          className="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-blue-500 bg-white"
+                        />
+                      </div>
+
+                      {imgUrl && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const next = [...images];
+                            next[idx] = "";
+                            setImages(next);
+                          }}
+                          className="p-2 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors text-xs font-bold"
+                          title="Clear this photo"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <div>

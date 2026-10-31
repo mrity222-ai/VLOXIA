@@ -36,6 +36,7 @@ model Product {
   specsJson     String   @default("{}") // Stored as JSON string
   highlightsJson String  @default("[]") // Stored as JSON string
   image         String
+  imagesJson    String   @default("[]") // Stored as JSON string array of up to 5 images
   badge         String?
   isPublished   Boolean  @default(true)
   isFeatured    Boolean  @default(false)
