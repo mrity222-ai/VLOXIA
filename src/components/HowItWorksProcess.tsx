@@ -107,8 +107,7 @@ export default function HowItWorksProcess() {
         {/* ── STEP CARDS CAROUSEL (Matches Reference Layout) ── */}
         <div
           ref={scrollContainerRef}
-          className="flex items-stretch gap-6 overflow-x-auto pb-8 pt-2 scrollbar-none scroll-smooth"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className="flex items-stretch gap-6 overflow-x-auto pb-8 pt-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden scroll-smooth"
         >
           {steps.map((step, idx) => {
             const Icon = step.icon;
