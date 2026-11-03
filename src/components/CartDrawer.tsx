@@ -333,14 +333,16 @@ export default function CartDrawer() {
             <button
               onClick={handleRazorpayCheckout}
               disabled={isProcessing}
-              className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-blue-600/30 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-3.5 px-6 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 active:scale-95 transition-all flex items-center justify-center gap-2.5 disabled:opacity-50 group cursor-pointer"
             >
               {isProcessing ? (
                 <span>Initializing Secure Gateway...</span>
               ) : (
                 <>
                   <span>Pay with Razorpay 💳</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span className="w-5 h-5 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                    <ArrowRight className="w-3 h-3" />
+                  </span>
                 </>
               )}
             </button>

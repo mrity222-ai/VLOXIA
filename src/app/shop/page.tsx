@@ -430,7 +430,7 @@ export default function ShopPage() {
                       addToCart(product, 1);
                       setIsCartOpen(true);
                     }}
-                    className="py-2.5 px-2 sm:px-3 rounded-full bg-gray-900 hover:bg-blue-600 text-white font-extrabold text-[11px] uppercase tracking-wider transition-all text-center flex items-center justify-center gap-1 shadow-sm"
+                    className="py-2.5 px-2 sm:px-3 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-[11px] uppercase tracking-wider transition-all text-center flex items-center justify-center gap-1 shadow-sm active:scale-95"
                     title="Add to Cart"
                   >
                     <ShoppingCart className="w-3.5 h-3.5" />
@@ -474,9 +474,12 @@ export default function ShopPage() {
           </div>
           <Link
             href="/contact"
-            className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-extrabold text-xs uppercase tracking-wider rounded-full shadow-lg shadow-blue-600/30 transition-all shrink-0"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-xs uppercase tracking-wider rounded-full shadow-lg shadow-blue-600/30 transition-all shrink-0 group"
           >
-            Request B2B Quote
+            <span>Request B2B Quote</span>
+            <span className="w-5 h-5 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+              <ArrowRight className="w-3 h-3" />
+            </span>
           </Link>
         </section>
       </div>

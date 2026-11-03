@@ -329,10 +329,12 @@ export default function IndustriesPage() {
                 <div className="pt-2">
                   <Link
                     href={`/contact?industry=${ind.id}`}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors group"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-xs tracking-wide shadow-md shadow-blue-500/20 active:scale-95 transition-all group"
                   >
                     <span>Consult with an Industry Specialist</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    <span className="w-4 h-4 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                      <ArrowRight className="w-2.5 h-2.5" />
+                    </span>
                   </Link>
                 </div>
               </div>
@@ -439,11 +441,11 @@ export default function IndustriesPage() {
             <div className="flex-shrink-0">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white font-bold text-base shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-base shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-105 active:scale-95 transition-all duration-300 group"
               >
                 <span>To Schedule a Call</span>
-                <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                  <PhoneCall className="w-4 h-4 text-white" />
+                <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                  <ArrowRight className="w-4 h-4 text-white" />
                 </span>
               </Link>
             </div>

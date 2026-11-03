@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 interface ModernCtaSectionProps {
   title?: string;
@@ -14,7 +15,7 @@ export default function ModernCtaSection({
   title = "PREDICTABLE POWER FOR A",
   highlightText = "SUSTAINABLE FUTURE",
   subtitle = "Join homeowners and businesses who have already transitioned to affordable, reliable clean energy solutions.",
-  buttonText = "CONSULT THE EXPERTS",
+  buttonText = "Consult the Experts",
   buttonHref = "/contact",
 }: ModernCtaSectionProps) {
   return (
@@ -24,7 +25,7 @@ export default function ModernCtaSection({
           {/* Main Title */}
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-[#0a1628] uppercase leading-tight">
             {title}{" "}
-            <span className="text-[#00c853]">{highlightText}</span>
+            <span className="text-[#0066ff]">{highlightText}</span>
           </h2>
 
           {/* Subtitle */}
@@ -32,13 +33,16 @@ export default function ModernCtaSection({
             {subtitle}
           </p>
 
-          {/* Glowing Pill CTA Button (Matches Reference Image) */}
+          {/* Voltix Electric Blue Pill Button */}
           <div className="mt-8 flex justify-center">
             <Link
               href={buttonHref}
-              className="inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] hover:from-[#1d4ed8] hover:to-[#1e40af] text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-full shadow-[0_12px_28px_-6px_rgba(37,99,235,0.5),0_4px_12px_rgba(37,99,235,0.28)] hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-6px_rgba(37,99,235,0.65),0_6px_16px_rgba(37,99,235,0.35)] active:translate-y-0 transition-all duration-200"
+              className="inline-flex items-center gap-3 px-8 py-3.5 bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-sm rounded-full shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/40 hover:scale-105 active:scale-95 transition-all duration-200 group"
             >
-              {buttonText}
+              <span>{buttonText}</span>
+              <span className="w-6 h-6 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-0.5">
+                <ArrowRight className="w-3.5 h-3.5" />
+              </span>
             </Link>
           </div>
         </div>

@@ -9,6 +9,7 @@ import {
   MapPin,
   Globe,
   CheckCircle2,
+  ArrowRight,
 } from "lucide-react";
 
 export default function Footer() {
@@ -70,9 +71,12 @@ export default function Footer() {
                   />
                   <button
                     type="submit"
-                    className="bg-white hover:bg-slate-100 text-gray-900 font-extrabold text-xs uppercase tracking-wider px-6 py-2.5 rounded-full shadow-md transition-all shrink-0 hover:scale-105 active:scale-100"
+                    className="inline-flex items-center gap-1.5 bg-white hover:bg-slate-100 text-[#0066ff] font-bold text-xs uppercase tracking-wider px-5 py-2.5 rounded-full shadow-md transition-all shrink-0 hover:scale-105 active:scale-95 group cursor-pointer"
                   >
-                    Subscribe
+                    <span>Subscribe</span>
+                    <span className="w-4 h-4 rounded-full bg-[#0066ff]/10 text-[#0066ff] flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                      <ArrowRight className="w-2.5 h-2.5" />
+                    </span>
                   </button>
                 </div>
                 <p className="text-[11px] text-white/70 mt-2.5">

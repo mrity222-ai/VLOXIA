@@ -304,10 +304,12 @@ export default function AboutPage() {
             <div className="pt-2">
               <Link
                 href="/solutions/ev-charging"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-slate-950 text-white font-bold text-sm hover:bg-slate-800 transition-colors shadow-sm"
+                className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-xs sm:text-sm tracking-wide shadow-md shadow-blue-500/20 active:scale-95 transition-all group"
               >
                 <span>Discover Our Solutions</span>
-                <ArrowRight className="w-4 h-4" />
+                <span className="w-5 h-5 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                  <ArrowRight className="w-3 h-3" />
+                </span>
               </Link>
             </div>
           </div>
@@ -413,10 +415,12 @@ export default function AboutPage() {
             <div className="pt-3">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-slate-950 font-bold text-sm hover:bg-[#dcf836] transition-all hover:scale-105 active:scale-95 shadow-md"
+                className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-sm shadow-xl shadow-blue-600/30 hover:scale-105 active:scale-95 transition-all group"
               >
                 <span>Request a Consultation</span>
-                <ArrowRight className="w-4 h-4" />
+                <span className="w-6 h-6 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </span>
               </Link>
             </div>
           </div>

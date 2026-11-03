@@ -57,7 +57,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
   ];
 
   return (
-    <div className="bg-white text-slate-900 min-h-screen pt-28 pb-24 selection:bg-[#d9f99d] selection:text-black">
+    <div className="bg-white text-slate-900 min-h-screen pt-28 pb-24 selection:bg-[#0066ff] selection:text-white">
       {/* ─── 1. HERO SECTION ─── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -70,14 +70,15 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
               {data.heroSubtitle}
             </p>
 
+            {/* Action Buttons with Voltix Electric Blue Style */}
             <div className="flex flex-wrap items-center gap-4 pt-4">
               <Link
                 href={data.quoteLink}
-                className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-[#dcf836] text-black font-bold text-sm hover:bg-[#cdef2a] transition-all duration-200 shadow-sm hover:shadow-md group"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-sm shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/40 hover:scale-105 active:scale-95 transition-all duration-200 group"
               >
                 <span>Get a Quote</span>
-                <span className="w-6 h-6 rounded-full bg-black text-[#dcf836] flex items-center justify-center transition-transform group-hover:translate-x-0.5">
-                  <ArrowRight className="w-3.5 h-3.5" />
+                <span className="w-5 h-5 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                  <ArrowRight className="w-3 h-3" />
                 </span>
               </Link>
 
@@ -130,7 +131,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
               key={idx}
               className="p-7 rounded-2xl border border-slate-200/80 bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300 space-y-4"
             >
-              <div className="w-9 h-9 rounded-full bg-[#1b4332] text-white flex items-center justify-center font-bold text-xs tracking-wider shadow-sm">
+              <div className="w-9 h-9 rounded-full bg-[#0066ff]/10 text-[#0066ff] flex items-center justify-center font-bold text-xs tracking-wider shadow-sm">
                 {card.iconText || "✦"}
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-slate-950">
@@ -147,7 +148,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
       {/* ─── 3. VARIOUS SOLUTIONS / PRODUCTS AVAILABLE ─── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 border-t border-slate-100">
         <div className="space-y-4 mb-12">
-          <div className="inline-block px-3 py-1 rounded-md bg-[#dcf836] text-black text-xs font-bold uppercase tracking-wider">
+          <div className="inline-block px-3 py-1 rounded-md bg-blue-50 text-[#0066ff] text-xs font-bold uppercase tracking-wider border border-blue-100">
             {data.categoryEyebrow}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
@@ -189,7 +190,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                       <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                         Hardware &amp; CMS
                       </span>
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#0066ff]" />
                     </div>
                     <div className="space-y-1">
                       <div className="text-xl font-bold text-slate-900">
@@ -211,7 +212,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                 )}
               </div>
 
-              {/* Product Details Area */}
+              {/* Product Details Area with Voltix Link Button */}
               <div className="p-7 space-y-4 flex-1 flex flex-col justify-between">
                 <div>
                   <h3 className="text-xl font-bold text-slate-950 mb-2">
@@ -225,10 +226,12 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                 <div className="pt-2">
                   <Link
                     href={prod.href}
-                    className="inline-flex items-center gap-1.5 text-sm font-bold text-slate-950 hover:text-blue-600 transition-colors group"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-xs tracking-wide shadow-xs hover:shadow-md transition-all group"
                   >
                     <span>Learn More</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    <span className="w-4 h-4 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+                      <ArrowRight className="w-2.5 h-2.5" />
+                    </span>
                   </Link>
                 </div>
               </div>
@@ -257,9 +260,9 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                   key={idx}
                   type="button"
                   onClick={() => setSelectedTag(idx)}
-                  className={`block text-left text-sm font-semibold transition-colors py-1 ${
+                  className={`block text-left text-sm font-semibold transition-colors py-1 cursor-pointer ${
                     selectedTag === idx
-                      ? "text-slate-950 font-bold"
+                      ? "text-[#0066ff] font-bold"
                       : "text-slate-400 hover:text-slate-700"
                   }`}
                 >
@@ -279,27 +282,27 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                   key={idx}
                   className={`rounded-2xl transition-all duration-300 overflow-hidden border ${
                     isActive
-                      ? "bg-[#dcf836] border-[#dcf836] shadow-md"
+                      ? "bg-blue-50/60 border-blue-200 shadow-sm"
                       : "bg-white border-slate-200/80 hover:border-slate-300"
                   }`}
                 >
                   <button
                     type="button"
                     onClick={() => setActiveStep(idx)}
-                    className="w-full flex items-center justify-between p-5 text-left gap-4"
+                    className="w-full flex items-center justify-between p-5 text-left gap-4 cursor-pointer"
                     aria-expanded={isActive}
                   >
                     <div className="flex items-center gap-4">
                       <span
                         className={`text-sm sm:text-base font-extrabold ${
-                          isActive ? "text-black" : "text-slate-400"
+                          isActive ? "text-[#0066ff]" : "text-slate-400"
                         }`}
                       >
                         {step.number}
                       </span>
                       <span
                         className={`text-sm sm:text-base font-bold ${
-                          isActive ? "text-black" : "text-slate-900"
+                          isActive ? "text-slate-950" : "text-slate-900"
                         }`}
                       >
                         {step.title}
@@ -309,7 +312,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
                     <span
                       className={`w-6 h-6 rounded-full flex items-center justify-center transition-transform duration-300 ${
                         isActive
-                          ? "rotate-180 text-black"
+                          ? "rotate-180 text-[#0066ff]"
                           : "text-slate-400"
                       }`}
                     >
@@ -319,15 +322,15 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
 
                   {/* Expanded Step Body */}
                   {isActive && (
-                    <div className="px-5 pb-5 pt-0 text-sm text-slate-800 border-t border-black/10 mt-1 space-y-3">
+                    <div className="px-5 pb-5 pt-0 text-sm text-slate-700 border-t border-blue-100/80 mt-1 space-y-3">
                       <p className="leading-relaxed font-normal">
                         {step.desc}
                       </p>
                       {step.points && step.points.length > 0 && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                           {step.points.map((pt, pIdx) => (
-                            <div key={pIdx} className="flex items-center gap-2 text-xs font-semibold text-slate-900">
-                              <span className="w-1.5 h-1.5 rounded-full bg-black flex-shrink-0" />
+                            <div key={pIdx} className="flex items-center gap-2 text-xs font-semibold text-slate-800">
+                              <span className="w-1.5 h-1.5 rounded-full bg-[#0066ff] flex-shrink-0" />
                               <span>{pt}</span>
                             </div>
                           ))}
@@ -342,7 +345,7 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
         </div>
       </section>
 
-      {/* ─── 5. BOTTOM CTA STRIP ─── */}
+      {/* ─── 5. BOTTOM CTA STRIP WITH VOLTIX BUTTON ─── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="rounded-3xl bg-slate-950 text-white p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
           <div className="space-y-2 text-center md:text-left">
@@ -355,10 +358,12 @@ export default function ServicePageTemplate({ data }: { data: ServicePageData })
           </div>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#dcf836] text-black font-bold text-sm hover:bg-[#cdef2a] transition-all hover:scale-105 active:scale-95 shadow-md flex-shrink-0"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-sm shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/40 hover:scale-105 active:scale-95 transition-all flex-shrink-0 group"
           >
             <span>Talk to an Expert</span>
-            <ArrowRight className="w-4 h-4" />
+            <span className="w-5 h-5 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
+              <ArrowRight className="w-3 h-3" />
+            </span>
           </Link>
         </div>
       </section>
