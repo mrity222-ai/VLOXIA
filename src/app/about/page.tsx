@@ -1,709 +1,532 @@
-"use client";
-
-import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
   ArrowRight,
+  ShieldCheck,
   Zap,
   Sun,
   Battery,
-  ShieldCheck,
-  Eye,
-  Target,
-  Heart,
-  Cpu,
-  Radio,
-  Sparkles,
-  MapPin,
-  Phone,
-  Mail,
+  Building2,
   Award,
+  Users,
+  Compass,
+  CheckCircle2,
+  Mail,
+  Phone,
+  MapPin,
+  Sparkles,
 } from "lucide-react";
 
-interface ShowcaseItem {
-  id: string;
-  category: string;
-  title: string;
-  watermark: string;
-  tagline: string;
-  image: string;
-  specs: {
-    label: string;
-    value: string;
-  }[];
-}
+export const metadata = {
+  title: "About Us | VLOXIA Systems LLP",
+  description:
+    "Learn about VLOXIA Systems LLP, an engineering pioneer in EV charging infrastructure, solar energy, lithium BESS, and turnkey power solutions across India.",
+};
 
-const SHOWCASE_ITEMS: ShowcaseItem[] = [
+const STATS = [
+  { value: "48+", label: "Turnkey Projects" },
+  { value: "400+", label: "Trusted Partners" },
+  { value: "99.8%", label: "Client Retention Rate" },
+  { value: "150+", label: "EV Chargers Installed" },
+];
+
+const CATEGORY_TAGS = [
+  { icon: Zap, label: "EV Mobility" },
+  { icon: Sun, label: "Rooftop Solar" },
+  { icon: Battery, label: "Lithium BESS" },
+  { icon: Building2, label: "Commercial EPC" },
+  { icon: ShieldCheck, label: "HT Substation" },
+  { icon: Sparkles, label: "Smart Microgrids" },
+];
+
+const CORE_VALUES = [
   {
-    id: "ev-charging",
-    category: "EV CHARGERS",
-    title: "VLOXIA AC & DC Rapid Chargers",
-    watermark: "VLOXIA EV",
-    tagline: "High-capacity Type-2 wallboxes and ultra-fast dual-gun DC chargers.",
-    image: "/Modern EV Charging.png",
-    specs: [
-      { label: "Output Range", value: "3.3 kW – 120 kW+" },
-      { label: "Protocol Standard", value: "OCPP 1.6J Cloud" },
-      { label: "Charging Speed", value: "10–80% in 35 min" },
-      { label: "Uptime SLA", value: "99.8% Guaranteed" },
-    ],
+    icon: Sparkles,
+    title: "Commercial Innovation",
+    desc: "We engineer forward-thinking energy infrastructure using Tier-1 hardware, IoT cloud telemetry, and intelligent load-balancing algorithms.",
   },
   {
-    id: "solar-epc",
-    category: "SOLAR EPC",
-    title: "Commercial & Industrial Solar Parks",
-    watermark: "SOLAR EPC",
-    tagline: "Tier-1 monocrystalline bifacial panels with 25-year linear generation.",
-    image: "/Industries/Commercial.png",
-    specs: [
-      { label: "System Sizing", value: "10 kW – 1 MW+" },
-      { label: "Cell Technology", value: "Bifacial Mono PERC" },
-      { label: "Bill Reduction", value: "Up to 80% Tariff" },
-      { label: "Performance Life", value: "25-Year Warranty" },
-    ],
+    icon: ShieldCheck,
+    title: "Safety & Tier-1 Quality",
+    desc: "Rigorous compliance with CEIG safety standards, IEC/IEEE norms, and BIS certifications ensures safe, resilient operation 24/7/365.",
   },
   {
-    id: "lithium-bess",
-    category: "LITHIUM BESS",
-    title: "LiFePO4 Modular Energy Storage",
-    watermark: "BESS 5KWH",
-    tagline: "Prismatic LiFePO4 chemistry with zero thermal runaway and 6,000+ cycle life.",
-    image: "/Industries/Industrial.png",
-    specs: [
-      { label: "Module Capacity", value: "5.12 kWh / 100Ah" },
-      { label: "Chemistry Safety", value: "Zero Runaway LiFePO4" },
-      { label: "Cycle Longevity", value: "6,000+ Deep Cycles" },
-      { label: "DOD Rating", value: "90% Usable Energy" },
-    ],
+    icon: Award,
+    title: "Integrity & Transparency",
+    desc: "Transparent commercial pricing, accurate ROI modeling, and zero hidden costs form the bedrock of our client relationships.",
   },
   {
-    id: "power-backup",
-    category: "POWER BACKUP",
-    title: "Sub-10ms Critical Power UPS & Inverters",
-    watermark: "UPS POWER",
-    tagline: "Pure sine wave solar hybrid inverters ensuring zero downtime for critical loads.",
-    image: "/Industries/Institutional.png",
-    specs: [
-      { label: "Switchover Speed", value: "< 10ms Seamless" },
-      { label: "Waveform Quality", value: "Pure Sine Wave" },
-      { label: "Harmonic Distortion", value: "THD < 2.5%" },
-      { label: "Inverter Topology", value: "Dual MPPT Hybrid" },
-    ],
+    icon: Compass,
+    title: "Environmental Stewardship",
+    desc: "Every solar panel deployed and EV charger energized actively offsets carbon emissions, driving India toward net-zero targets.",
   },
 ];
 
-const CATEGORIES = ["ALL", "EV CHARGERS", "SOLAR EPC", "LITHIUM BESS", "POWER BACKUP"];
+const PROJECTS_GALLERY = [
+  {
+    title: "Commercial Corporate EV Hub",
+    location: "Gurugram, NCR",
+    image: "/Industries/Commercial.png",
+  },
+  {
+    title: "MW-Scale Industrial Solar EPC",
+    location: "Bhiwadi, Rajasthan",
+    image: "/Industries/Industrial.png",
+  },
+  {
+    title: "Fleet Depot Fast Charging Station",
+    location: "Delhi Logistics Hub",
+    image: "/Industries/Mobility.png",
+  },
+  {
+    title: "Smart Residential Housing Microgrid",
+    location: "Noida Sector 150",
+    image: "/Industries/Residential.png",
+  },
+  {
+    title: "Healthcare Critical Power & BESS",
+    location: "Rohini, New Delhi",
+    image: "/Industries/Institutional.png",
+  },
+  {
+    title: "Ultra-Fast Highway DC Charging Bay",
+    location: "Delhi-Jaipur Expressway",
+    image: "/Modern EV Charging.png",
+  },
+];
+
+const TEAM_MEMBERS = [
+  {
+    name: "Vikram Malhotra",
+    role: "Lead Electrical Architect",
+    specialty: "High-Tension Infrastructure",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "Arjun Sharma",
+    role: "Head of Solar EPC",
+    specialty: "MW-Scale Solar & Net-Metering",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "Aman Verma",
+    role: "EV Infrastructure Director",
+    specialty: "OCPP CMS & Fast Charging",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "David Hayes",
+    role: "Operations & Quality Lead",
+    specialty: "Site Audits & Commissioning",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80",
+  },
+];
 
 export default function AboutPage() {
-  const [activeCategory, setActiveCategory] = useState("ALL");
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const filteredItems =
-    activeCategory === "ALL"
-      ? SHOWCASE_ITEMS
-      : SHOWCASE_ITEMS.filter((item) => item.category === activeCategory);
-
-  const activeItem = filteredItems[currentIndex % filteredItems.length] || SHOWCASE_ITEMS[0];
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % filteredItems.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length);
-  };
-
-  const handleCategorySelect = (cat: string) => {
-    setActiveCategory(cat);
-    setCurrentIndex(0);
-  };
-
   return (
-    <main className="bg-white text-slate-900 overflow-hidden selection:bg-blue-600 selection:text-white">
-      {/* ─── 1. CINEMATIC DARK HERO WITH CURVED BOTTOM SCOOP ─── */}
-      <section className="relative bg-[#070b14] text-white pt-28 sm:pt-36 pb-20 sm:pb-32 overflow-hidden">
-        {/* Ambient Top Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-gradient-to-b from-blue-600/20 via-indigo-600/10 to-transparent blur-[120px] pointer-events-none" />
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-blue-400 tracking-wider uppercase backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5" />
-            VLOXIA Systems LLP
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white uppercase drop-shadow-md font-sans">
-            POWERING THE <br className="hidden sm:inline" />
-            FUTURE TODAY
-          </h1>
-
-          <p className="max-w-2xl mx-auto text-sm sm:text-base text-slate-300 font-normal leading-relaxed">
-            Delivering next-generation EV charging infrastructure, high-efficiency solar,
-            and lithium storage systems engineered for India&apos;s clean energy future.
+    <main className="bg-white text-slate-900 min-h-screen pt-28 pb-20 selection:bg-[#d9f99d] selection:text-black">
+      {/* ─── 1. HERO SECTION (MATCHING REFERENCE DESIGN) ─── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 pb-16">
+        {/* Top Eyebrow & Title Row */}
+        <div className="space-y-4 mb-10">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400">
+            About Our Company
           </p>
 
-          {/* Centered Hero Visual Frame */}
-          <div className="relative mx-auto mt-8 sm:mt-12 max-w-3xl aspect-[16/9] sm:aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 bg-slate-900/60 shadow-2xl">
-            <Image
-              src="/Modern EV Charging.png"
-              alt="VLOXIA Next-Gen Clean Energy & EV Charging"
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 1000px"
-              className="object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#070b14] via-transparent to-transparent opacity-80" />
-          </div>
-        </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div className="lg:col-span-8">
+              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-950 leading-[1.12]">
+                Journey towards the excellence
+              </h1>
+            </div>
 
-        {/* Bottom Curved Scoop Cutout Mask */}
-        <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none pointer-events-none">
-          <svg
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-            className="relative block w-full h-12 sm:h-20 text-white fill-current"
-          >
-            <path d="M0,0 C300,90 900,90 1200,0 L1200,120 L0,120 Z" />
-          </svg>
-        </div>
-
-        {/* Floating Down Arrow Circular Pill */}
-        <a
-          href="#showcase"
-          className="absolute -bottom-5 sm:-bottom-6 left-1/2 -translate-x-1/2 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#070b14] border-2 border-slate-700 text-white flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all duration-300 z-20 group"
-          aria-label="Scroll to showcase"
-        >
-          <ChevronDown className="w-5 h-5 text-slate-200 group-hover:translate-y-0.5 transition-transform" />
-        </a>
-      </section>
-
-      {/* ─── 2. INTERACTIVE SYSTEMS SHOWCASE & SPECS STRIP ─── */}
-      <section id="showcase" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 pb-16 sm:pb-24">
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
-          <div className="max-w-xl space-y-2">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950">
-              The Future of Energy &amp; Mobility
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-              Engineered to deliver high-yield performance, intelligent energy management, and seamless reliability across every home, business, and fleet.
-            </p>
-          </div>
-          <div>
-            <Link
-              href="/shop"
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-slate-950 text-white text-xs sm:text-sm font-bold hover:bg-slate-800 transition-all shadow-md group"
-            >
-              <span>See Our Products</span>
-              <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center transition-transform group-hover:translate-x-1">
-                <ArrowRight className="w-3 h-3 text-white" />
+            <div className="lg:col-span-4 lg:pl-6 space-y-2 border-l border-slate-200 pl-4 sm:pl-6">
+              <span className="inline-block px-3 py-1 rounded-md bg-amber-100 text-amber-900 text-xs font-black tracking-wider uppercase">
+                EST. 2024
               </span>
-            </Link>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                VLOXIA is an engineering pioneer delivering high-grade clean energy infrastructure,
+                rooftop solar systems, lithium storage, and smart EV charging installations with superior safety.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Pill Category Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              onClick={() => handleCategorySelect(cat)}
-              className={`px-4 sm:px-5 py-2 rounded-full text-xs font-bold tracking-wider transition-all duration-200 ${
-                activeCategory === cat
-                  ? "bg-slate-950 text-white shadow-md scale-105"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
-              }`}
-            >
-              {cat}
-            </button>
+        {/* Dual-Image Showcase Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 mb-10">
+          {/* Left Image (Residential / Home Charging) */}
+          <div className="md:col-span-5 relative h-72 sm:h-96 rounded-3xl overflow-hidden border border-slate-200/90 shadow-lg bg-slate-50 group">
+            <Image
+              src="/Industries/Residential.png"
+              alt="Residential clean energy by VLOXIA"
+              fill
+              className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 40vw"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute bottom-4 left-4 text-white">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 block">
+                Residential &amp; Societies
+              </span>
+              <span className="text-sm font-semibold">Home Energy Autonomy</span>
+            </div>
+          </div>
+
+          {/* Right Image (Commercial / Modern Campus Plaza) */}
+          <div className="md:col-span-7 relative h-72 sm:h-96 rounded-3xl overflow-hidden border border-slate-200/90 shadow-lg bg-slate-50 group">
+            <Image
+              src="/about-hero-ev.png"
+              alt="VLOXIA modern commercial engineering campus"
+              fill
+              className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 60vw"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute bottom-4 left-4 text-white">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-blue-400 block">
+                Commercial &amp; Enterprise
+              </span>
+              <span className="text-sm font-semibold">Turnkey Clean Power Infrastructure</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Narrative Paragraph */}
+        <div className="max-w-4xl mx-auto text-center space-y-3 mb-14">
+          <p className="text-base sm:text-xl font-medium text-slate-800 leading-relaxed">
+            VLOXIA Systems LLP is dedicated to superior clean energy engineering and electrical infrastructure.
+            With extensive field experience and certified OEM partnerships, we have become a trusted leader
+            in innovative, sustainable power practices across India.
+          </p>
+        </div>
+
+        {/* 4-Metric Statistics Bar */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 py-8 border-y border-slate-200">
+          {STATS.map((stat, idx) => (
+            <div key={idx} className="text-center space-y-1">
+              <div className="text-3xl sm:text-5xl font-extrabold text-slate-950 tracking-tight">
+                {stat.value}
+              </div>
+              <div className="text-xs sm:text-sm font-medium text-slate-500">
+                {stat.label}
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Big Showcase Frame with Monogram Watermark & Carousel Arrows */}
-        <div className="relative rounded-3xl bg-slate-50 border border-slate-200/80 p-6 sm:p-12 overflow-hidden shadow-sm">
-          {/* Faint Large Monogram Watermark */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-            <span className="text-[12vw] sm:text-[14vw] font-black text-slate-200/50 uppercase tracking-tighter">
-              {activeItem.watermark}
-            </span>
+        {/* Dark Category Tags Rolling/Pill Bar */}
+        <div className="mt-8">
+          <div className="bg-slate-950 text-white rounded-2xl p-4 flex flex-wrap items-center justify-center gap-4 sm:gap-8 shadow-md">
+            {CATEGORY_TAGS.map((tag, idx) => {
+              const Icon = tag.icon;
+              return (
+                <div key={idx} className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-200">
+                  <Icon className="w-4 h-4 text-[#dcf836]" />
+                  <span>{tag.label}</span>
+                </div>
+              );
+            })}
           </div>
+        </div>
+      </section>
 
-          {/* Carousel Arrows */}
-          <div className="absolute inset-y-0 left-3 sm:left-6 flex items-center z-10">
-            <button
-              type="button"
-              onClick={handlePrev}
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 border border-slate-200 text-slate-800 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all"
-              aria-label="Previous item"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-          </div>
-          <div className="absolute inset-y-0 right-3 sm:right-6 flex items-center z-10">
-            <button
-              type="button"
-              onClick={handleNext}
-              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 border border-slate-200 text-slate-800 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-all"
-              aria-label="Next item"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+      {/* ─── 2. WE BUILD TO LAST (SUSTAINABILITY & MISSION) ─── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 border-t border-slate-100">
+        <div className="space-y-3 mb-12">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400">
+            Our Mission
+          </p>
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950 max-w-2xl">
+            We Build to Last — For People, Communities, and the Planet
+          </h2>
+        </div>
 
-          {/* Centered Image */}
-          <div className="relative z-1 max-w-2xl mx-auto aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden shadow-lg border border-slate-200/90 bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* Left Solar Installation Photo */}
+          <div className="lg:col-span-5 relative h-80 sm:h-[420px] rounded-3xl overflow-hidden border border-slate-200 shadow-xl bg-slate-50">
             <Image
-              src={activeItem.image}
-              alt={activeItem.title}
+              src="/Industries/Commercial.png"
+              alt="High-yield commercial solar array"
               fill
-              className="object-cover object-center transition-all duration-700"
-              sizes="(max-width: 1024px) 100vw, 800px"
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 100vw, 45vw"
             />
           </div>
 
-          <div className="relative z-1 text-center mt-6 space-y-1">
-            <h3 className="text-xl sm:text-2xl font-bold text-slate-950">
-              {activeItem.title}
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-500 font-medium">
-              {activeItem.tagline}
-            </p>
-          </div>
+          {/* Right 3-Pillar List */}
+          <div className="lg:col-span-7 space-y-8">
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center flex-shrink-0 text-slate-900 font-bold">
+                  ✦
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-950">
+                    Sustainable by Design
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed mt-1">
+                    Every solar array and EV charging bay is architected for maximum energy yield, minimum transmission loss, and decades of environmental offset.
+                  </p>
+                </div>
+              </div>
 
-          {/* 4-Column Key Engineering Specs Bar */}
-          <div className="mt-8 pt-8 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {activeItem.specs.map((spec, sIdx) => (
-              <div
-                key={sIdx}
-                className={`space-y-1 ${
-                  sIdx < 3 ? "md:border-r md:border-slate-200/80" : ""
-                }`}
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center flex-shrink-0 text-slate-900 font-bold">
+                  ✦
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-950">
+                    Client-Centric Approach
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed mt-1">
+                    From preliminary site audits to customized financing models (CAPEX/OPEX), our engineers build solutions around your operational constraints.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center flex-shrink-0 text-slate-900 font-bold">
+                  ✦
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-950">
+                    Future-Ready Infrastructure
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed mt-1">
+                    Scalable modular battery energy storage (BESS) and OCPP 1.6J/2.0.1 smart charging hubs ready for India&apos;s accelerating EV transition.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <Link
+                href="/solutions/ev-charging"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-slate-950 text-white font-bold text-sm hover:bg-slate-800 transition-colors shadow-sm"
               >
-                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                  {spec.label}
-                </div>
-                <div className="text-base sm:text-lg font-extrabold text-slate-900">
-                  {spec.value}
-                </div>
-              </div>
-            ))}
+                <span>Discover Our Solutions</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ─── 3. SMART TELEMATICS & IOT BENTO GRID ─── */}
+      {/* ─── 3. FROM CONCEPT TO COMPLETION (PROJECT GALLERY) ─── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 border-t border-slate-100">
-        <div className="max-w-3xl mx-auto text-center space-y-4 mb-14">
-          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-950 leading-snug">
-            Your Energy Infrastructure Adapts And Evolves. Advanced IoT Telematics Learns Your Consumption Patterns While Intelligent CMS Creates A Seamless Connection Between You And Your Power.
-          </h2>
-        </div>
-
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          {/* Bento Card 1: Left Large HUD Card (7 cols) */}
-          <div className="lg:col-span-7 rounded-3xl bg-[#070b14] text-white p-6 sm:p-8 flex flex-col justify-between overflow-hidden relative shadow-xl border border-slate-800">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-
-            {/* Top Status Strip */}
-            <div className="flex items-center justify-between pb-6 border-b border-white/10 relative z-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
-                  Live OCPP Telematics
-                </span>
-              </div>
-              <div className="text-xs font-mono text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full border border-blue-500/20">
-                Hub ID: VLX-2026-IND
-              </div>
-            </div>
-
-            {/* Central HUD Metrics */}
-            <div className="py-8 relative z-1 space-y-6">
-              <div className="flex items-baseline justify-between">
-                <div>
-                  <div className="text-4xl sm:text-5xl font-black text-white font-mono tracking-tight">
-                    22.4 <span className="text-lg font-bold text-blue-400">kW</span>
-                  </div>
-                  <div className="text-xs text-slate-400 mt-1">
-                    Active Charging Throughput
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono">
-                    99.8%
-                  </div>
-                  <div className="text-xs text-slate-400 mt-1">
-                    Facility Grid Efficiency
-                  </div>
-                </div>
-              </div>
-
-              {/* Graphic Gauge Bar */}
-              <div className="space-y-2">
-                <div className="flex justify-between text-xs text-slate-400 font-medium">
-                  <span>Solar Generation Offset</span>
-                  <span className="text-white font-bold">78% Green Powered</span>
-                </div>
-                <div className="w-full h-2.5 rounded-full bg-white/10 overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 rounded-full w-[78%]" />
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom HUD Metadata */}
-            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 relative z-1 text-center">
-              <div>
-                <div className="text-xs text-slate-400">Peak Voltage</div>
-                <div className="text-sm font-bold text-white font-mono">415 V (3-Ph)</div>
-              </div>
-              <div>
-                <div className="text-xs text-slate-400">Cell Temp</div>
-                <div className="text-sm font-bold text-emerald-400 font-mono">27.4°C Safe</div>
-              </div>
-              <div>
-                <div className="text-xs text-slate-400">BMS Protocol</div>
-                <div className="text-sm font-bold text-blue-400 font-mono">CAN 2.0B</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Inset Bento Cards (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            {/* Bento Card 2: Modular LiFePO4 Inset */}
-            <div className="rounded-3xl bg-slate-50 border border-slate-200/80 p-6 flex flex-col justify-between shadow-sm flex-1">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-8 h-8 rounded-full bg-blue-600/10 text-blue-600 flex items-center justify-center">
-                  <Battery className="w-4 h-4" />
-                </div>
-                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                  Hardware Level
-                </span>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-slate-950 mb-1">
-                  Modular LiFePO4 Prismatic Cells
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                  Heavy-duty aluminium cell casings with individual thermal sensors to eliminate hot-spots and ensure zero thermal runaway risk.
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-semibold text-slate-700">
-                <span>Cycle Life: 6000+</span>
-                <span className="text-emerald-600 font-bold">100% Tested</span>
-              </div>
-            </div>
-
-            {/* Bento Card 3: Cloud Telematics & App */}
-            <div className="rounded-3xl bg-slate-50 border border-slate-200/80 p-6 flex flex-col justify-between shadow-sm flex-1">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-8 h-8 rounded-full bg-emerald-600/10 text-emerald-600 flex items-center justify-center">
-                  <Cpu className="w-4 h-4" />
-                </div>
-                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                  Cloud Software
-                </span>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-slate-950 mb-1">
-                  Automated Cloud Settlement &amp; CMS
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                  Real-time tariff allocation, UPI driver billing, and scheduled off-peak charging through our enterprise dashboard.
-                </p>
-              </div>
-              <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-semibold text-slate-700">
-                <span>Latency: &lt; 50ms</span>
-                <span className="text-blue-600 font-bold">OCPP 1.6J</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Bento Caption */}
-        <div className="mt-8 p-6 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h3 className="text-base font-bold text-slate-950">
-              Where Engineering Meets Innovation
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
-              Every VLOXIA charging station, solar park, and lithium storage pack is integrated with cloud telematics, remote diagnostics, and intelligent load-balancing algorithms.
-            </p>
-          </div>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-blue-600 hover:text-blue-700 whitespace-nowrap"
-          >
-            <span>Learn about our IoT stack</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-      </section>
-
-      {/* ─── 4. FOUR CORE STRATEGIC PILLARS ("BEYOND POWER") ─── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 border-t border-slate-100">
-        <div className="max-w-2xl mx-auto text-center space-y-2 mb-14">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950">
-            Beyond Power—Engineering The Future Forward
-          </h2>
-          <p className="text-sm sm:text-base text-slate-600 font-normal">
-            Four foundational pillars driving VLOXIA Systems LLP towards India&apos;s net-zero clean energy transition.
+        <div className="text-center space-y-3 mb-14 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400">
+            Gallery
           </p>
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950">
+            From Concept to Completion These are What We Made
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {/* Card 01 */}
-          <div className="p-7 rounded-3xl border border-slate-200/90 bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
-            <div className="space-y-4">
-              <span className="text-xs font-mono font-bold text-slate-400">01</span>
-              <h3 className="text-lg font-bold text-slate-950">
-                Cutting-Edge Technology
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                Tier-1 ALMM monocrystalline bifacial panels, certified OCPP 1.6J smart EV chargers, and pure sine wave hybrid inverters engineered for Indian grid conditions.
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-xs font-semibold text-slate-500">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Certified Tier-1</span>
-            </div>
-          </div>
+        {/* 6-Item Photo Collage Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {PROJECTS_GALLERY.map((proj, idx) => (
+            <div
+              key={idx}
+              className="group relative rounded-3xl overflow-hidden border border-slate-200/90 bg-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 h-72 sm:h-80"
+            >
+              <Image
+                src={proj.image}
+                alt={proj.title}
+                fill
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent transition-opacity" />
 
-          {/* Card 02 (Featured Dark Card with Glowing Icon Badge) */}
-          <div className="p-7 rounded-3xl bg-[#070b14] text-white shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-blue-500/30 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-36 h-36 bg-blue-500/20 rounded-full blur-2xl pointer-events-none" />
-
-            <div className="space-y-4 relative z-1">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-blue-400">02</span>
-                <span className="w-8 h-8 rounded-full bg-blue-600/30 text-blue-400 flex items-center justify-center">
-                  <Radio className="w-4 h-4" />
+              <div className="absolute bottom-5 left-5 right-5 text-white">
+                <span className="text-xs font-bold text-[#dcf836] uppercase tracking-wider block">
+                  {proj.location}
                 </span>
+                <h3 className="text-lg font-bold text-white mt-1">
+                  {proj.title}
+                </h3>
               </div>
-              <h3 className="text-lg font-bold text-white">
-                Intelligent CMS &amp; Telematics
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-                Automated driver RFID billing, real-time telemetry, remote cloud control, and dynamic multi-phase load balancing across charging bays.
-              </p>
             </div>
-
-            <div className="mt-6 pt-4 border-t border-white/10 relative z-1 flex items-center gap-1.5 text-xs font-semibold text-blue-400">
-              <Sparkles className="w-4 h-4" />
-              <span>24/7 Remote Telemetry</span>
-            </div>
-          </div>
-
-          {/* Card 03 */}
-          <div className="p-7 rounded-3xl border border-slate-200/90 bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
-            <div className="space-y-4">
-              <span className="text-xs font-mono font-bold text-slate-400">03</span>
-              <h3 className="text-lg font-bold text-slate-950">
-                Sustainable Innovation
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                High-density modular LiFePO4 battery storage systems eliminating diesel genset carbon emissions, coupled with certified zero-export solar synchronization.
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-xs font-semibold text-slate-500">
-              <Sun className="w-4 h-4 text-amber-500" />
-              <span>Zero-Carbon Ready</span>
-            </div>
-          </div>
-
-          {/* Card 04 */}
-          <div className="p-7 rounded-3xl border border-slate-200/90 bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300 flex flex-col justify-between">
-            <div className="space-y-4">
-              <span className="text-xs font-mono font-bold text-slate-400">04</span>
-              <h3 className="text-lg font-bold text-slate-950">
-                Turnkey Ownership Experience
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                Site audit, DISCOM load sanctioning, CEIG safety clearances, and pan-India 24/7 dedicated field technical support under long-term SLA.
-              </p>
-            </div>
-            <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-xs font-semibold text-slate-500">
-              <Award className="w-4 h-4 text-blue-600" />
-              <span>5-Year SLA Available</span>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* ─── 5. PRESERVED COMPANY OVERVIEW, FACTS & PURPOSE ─── */}
+      {/* ─── 4. CORE VALUES SECTION ─── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 border-t border-slate-100">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          {/* Left: Detailed Overview */}
-          <div className="lg:col-span-7 space-y-5">
-            <div className="inline-block px-3 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-bold uppercase tracking-wider">
-              Company Overview
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950">
-              VLOXIA Systems LLP
-            </h2>
-            <p className="text-base text-slate-600 leading-relaxed font-normal">
-              VLOXIA Systems LLP is a Delhi-based clean energy enterprise operating across EV charging infrastructure, solar energy systems, lithium energy storage (BESS), and power continuity solutions for clients across India.
-            </p>
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-              For electric mobility, VLOXIA helps residences, corporate parks, commercial complexes, and fleets plan and execute suitable charging bays—from smart AC wallboxes to high-capacity DC fast chargers. Our team handles electrical load audits, charger selection, civil installation, and ongoing cloud support.
-            </p>
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-              We also integrate solar generation, lithium battery backup, and power conditioning into unified, high-reliability microgrid systems.
-            </p>
-
-            {/* Technology Partners Callout */}
-            <div className="mt-6 p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                  Technology Partnerships
-                </span>
-                <span className="text-xs font-bold text-blue-600">OEM Network</span>
-              </div>
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-900 shadow-xs">
-                  TATA EZ POWER
-                </div>
-                <div className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-900 shadow-xs">
-                  Tier-1 Solar Inverter OEMs
-                </div>
-                <div className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-900 shadow-xs">
-                  LiFePO4 Cell Manufacturers
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: Key Facts Card */}
-          <div className="lg:col-span-5 rounded-3xl bg-slate-50 border border-slate-200/90 p-7 sm:p-8 space-y-6 shadow-sm">
-            <h3 className="text-xl font-bold text-slate-950 pb-4 border-b border-slate-200/70">
-              Corporate Credentials
-            </h3>
-
-            <div className="space-y-4 text-sm">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                    Registered Office
-                  </div>
-                  <div className="font-semibold text-slate-900 mt-0.5">
-                    A3/55, Sector 15, Rohini, Delhi – 110089
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Zap className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                    Business Verticals
-                  </div>
-                  <div className="font-semibold text-slate-900 mt-0.5">
-                    EV Charging · Solar Energy · Energy Storage · Power Solutions
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Phone className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                    Direct Contact
-                  </div>
-                  <div className="font-semibold text-slate-900 mt-0.5">
-                    +91 8178810456
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <Mail className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                    Official Email
-                  </div>
-                  <div className="font-semibold text-slate-900 mt-0.5">
-                    vloxiasystems@gmail.com
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="text-center space-y-3 mb-14 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400">
+            Our Purpose
+          </p>
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950">
+            Core Values That Guide Every Project, Decision, and Partnership
+          </h2>
         </div>
 
-        {/* Vision, Mission & Commitment Grid */}
-        <div className="mt-16 pt-16 border-t border-slate-100">
-          <div className="text-center max-w-xl mx-auto mb-10">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-              What Guides Us
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-950 mt-1">
-              Our Purpose &amp; Guiding Principles
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
-                <Eye className="w-5 h-5" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {CORE_VALUES.map((val, idx) => {
+            const Icon = val.icon;
+            return (
+              <div
+                key={idx}
+                className="p-7 rounded-3xl border border-slate-200/90 bg-slate-50/50 hover:bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300 space-y-4"
+              >
+                <div className="w-10 h-10 rounded-full bg-slate-950 text-white flex items-center justify-center font-bold shadow-sm">
+                  <Icon className="w-4 h-4 text-[#dcf836]" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-950">
+                  {val.title}
+                </h3>
+                <p className="text-sm text-slate-600 leading-relaxed font-normal">
+                  {val.desc}
+                </p>
               </div>
-              <h4 className="text-lg font-bold text-slate-950">Our Vision</h4>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                To be India&apos;s most trusted integrated clean energy partner — enabling every home, enterprise, and institution to generate, store, and utilize energy sustainably.
-              </p>
-            </div>
-
-            <div className="p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                <Target className="w-5 h-5" />
-              </div>
-              <h4 className="text-lg font-bold text-slate-950">Our Mission</h4>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                To deliver technology-led, tailored clean energy solutions across EV Charging, Solar, Storage, and Power — making renewable power dependable and economically compelling.
-              </p>
-            </div>
-
-            <div className="p-7 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-3">
-              <div className="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                <Heart className="w-5 h-5" />
-              </div>
-              <h4 className="text-lg font-bold text-slate-950">Our Commitment</h4>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                Transparent recommendations, Tier-1 verified equipment, certified engineering installation, and proactive after-sales support for long-term operational peace of mind.
-              </p>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </section>
 
-      {/* ─── 6. CINEMATIC DARK COMMUNITY CTA BANNER ─── */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32">
-        <div className="relative rounded-3xl bg-[#070b14] text-white p-8 sm:p-14 overflow-hidden border border-slate-800 shadow-2xl text-center">
-          {/* Subtle Ambient Glows */}
-          <div className="absolute top-0 right-1/4 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
+      {/* ─── 5. READY TO BUILD SOMETHING GREAT? (CTA HERO BANNER) ─── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="relative rounded-3xl overflow-hidden bg-slate-950 text-white p-8 sm:p-14 shadow-2xl">
+          {/* Architectural Background Overlay Image */}
+          <div className="absolute inset-0 opacity-25">
+            <Image
+              src="/Modern EV Charging.png"
+              alt="Architectural EV installation backdrop"
+              fill
+              className="object-cover object-center"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent" />
 
-          <div className="relative z-1 max-w-2xl mx-auto space-y-5">
-            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
-              Be Part of the Clean Energy Revolution
+          <div className="relative z-10 max-w-xl space-y-4">
+            <h3 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+              Ready to Build Something Great?
             </h3>
-            <p className="text-sm sm:text-base text-slate-300 font-normal leading-relaxed">
-              Join thousands of homeowners, commercial enterprises, and fleet operators across India who trust VLOXIA to power their transition to sustainable clean energy.
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+              Partner with our senior clean energy architects for a custom site audit, turnkey EV charging,
+              or high-yield solar EPC proposal tailored specifically for your facility.
             </p>
             <div className="pt-3">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-white text-slate-950 font-bold text-sm hover:bg-slate-200 transition-all shadow-xl hover:scale-105 active:scale-95 group"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-slate-950 font-bold text-sm hover:bg-[#dcf836] transition-all hover:scale-105 active:scale-95 shadow-md"
               >
-                <span>Partner With VLOXIA</span>
-                <span className="w-6 h-6 rounded-full bg-slate-950 text-white flex items-center justify-center transition-transform group-hover:translate-x-1">
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </span>
+                <span>Request a Consultation</span>
+                <ArrowRight className="w-4 h-4" />
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── 6. SKILLED PROFESSIONALS BEHIND EVERY BUILD (TEAM) ─── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 border-t border-slate-100">
+        <div className="text-center space-y-3 mb-14 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400">
+            Meet Our Team
+          </p>
+          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-950">
+            Skilled Professionals Behind Every Build
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {TEAM_MEMBERS.map((member, idx) => (
+            <div
+              key={idx}
+              className="rounded-3xl border border-slate-200/90 bg-white overflow-hidden shadow-sm hover:shadow-lg hover:border-slate-300 transition-all duration-300 group"
+            >
+              <div className="relative h-64 sm:h-72 w-full bg-slate-100 overflow-hidden">
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 25vw"
+                />
+                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-900/80 backdrop-blur-md text-white flex items-center justify-center text-xs font-bold shadow-md">
+                  ✦
+                </div>
+              </div>
+
+              <div className="p-5 space-y-1">
+                <h3 className="text-base font-bold text-slate-950">
+                  {member.name}
+                </h3>
+                <p className="text-xs font-semibold text-blue-600">
+                  {member.role}
+                </p>
+                <p className="text-xs text-slate-500">
+                  {member.specialty}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ─── 7. PRESERVED CORPORATE CREDENTIALS & REGISTRATION CARD ─── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-slate-100">
+        <div className="rounded-3xl border border-slate-200 bg-slate-50/70 p-8 sm:p-12 space-y-8">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                Corporate Identification &amp; Compliance
+              </p>
+              <h3 className="text-2xl font-extrabold text-slate-950 mt-1">
+                VLOXIA Systems LLP
+              </h3>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
+              <CheckCircle2 className="w-4 h-4" />
+              <span>Certified Clean Energy Entity</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                <span>Registered Office</span>
+              </div>
+              <p className="text-slate-800 font-medium">
+                A3/55, Sector 15, Rohini, Delhi – 110089
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                <Sparkles className="w-3.5 h-3.5 text-slate-500" />
+                <span>Business Verticals</span>
+              </div>
+              <p className="text-slate-800 font-medium">
+                EV Charging · Solar Energy · Energy Storage · Power Solutions
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                <ShieldCheck className="w-3.5 h-3.5 text-slate-500" />
+                <span>Technology Partner</span>
+              </div>
+              <p className="text-slate-800 font-medium">
+                TATA EZ POWER &amp; Certified Tier-1 OEMs
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                <Phone className="w-3.5 h-3.5 text-slate-500" />
+                <span>Direct Inquiries</span>
+              </div>
+              <p className="text-slate-800 font-medium">
+                +91 8178810456 <br />
+                <span className="text-xs text-slate-500">vloxiasystems@gmail.com</span>
+              </p>
             </div>
           </div>
         </div>
