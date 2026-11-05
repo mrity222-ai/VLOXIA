@@ -1,4 +1,4 @@
-import ServicePageTemplate, { ServicePageData } from "@/components/ServicePageTemplate";
+import ServicePageTemplate, { ServicePageData } from "../../../components/ServicePageTemplate";
 
 export const metadata = {
   title: "Solar Energy EPC Solutions | VLOXIA Systems LLP",

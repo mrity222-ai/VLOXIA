@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { CartProvider } from "@/context/CartContext";
-import PublicShellWrapper from "@/components/PublicShellWrapper";
+import { CartProvider } from "../context/CartContext";
+import PublicShellWrapper from "../components/PublicShellWrapper";
 
 export const metadata: Metadata = {
   title: "VLOXIA Systems LLP | EV Charging, Solar Energy, Lithium Storage & Power Solutions",

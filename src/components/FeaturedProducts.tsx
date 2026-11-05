@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ShoppingBag, Sparkles } from "lucide-react";
-import { PRODUCTS, Product } from "@/data/products";
+import { PRODUCTS, Product } from "../data/products";
 
 type FeaturedProductsProps = {
   title?: React.ReactNode;

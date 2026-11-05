@@ -1,4 +1,4 @@
-import ServicePageTemplate, { ServicePageData } from "@/components/ServicePageTemplate";
+import ServicePageTemplate, { ServicePageData } from "../../../components/ServicePageTemplate";
 
 export const metadata = {
   title: "EV Charging Infrastructure Services | VLOXIA Systems LLP",

@@ -11,8 +11,8 @@ import {
   ArrowRight,
   ShoppingCart,
 } from "lucide-react";
-import { useCart } from "@/context/CartContext";
-import MegaMenu from "@/components/MegaMenu";
+import { useCart } from "../context/CartContext";
+import MegaMenu from "./MegaMenu";
 
 const mobileSolutionLinks = [
   { label: "EV Charging", href: "/solutions/ev-charging" },

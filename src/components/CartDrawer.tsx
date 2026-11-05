@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "@/context/CartContext";
+import { useCart } from "../context/CartContext";
 import { X, Trash2, Plus, Minus, ArrowRight, ShieldCheck, Zap, ShoppingCart } from "lucide-react";
 
 declare global {
