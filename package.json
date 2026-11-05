@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "prisma generate --schema=./prisma/schema.prisma && next build --webpack",
     "start": "node server.js",
-    "lint": "eslint",
-    "postinstall": "prisma generate --schema=./prisma/schema.prisma"
+    "lint": "eslint"
   },
   "prisma": {
     "schema": "prisma/schema.prisma"
