@@ -3,15 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import {
   Menu,
   X,
   ChevronDown,
-  HelpCircle,
-  Globe,
-  User,
-  ShoppingCart,
   ArrowRight,
+  ShoppingCart,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import MegaMenu from "@/components/MegaMenu";
@@ -24,25 +22,17 @@ const mobileSolutionLinks = [
 ];
 
 const navItems = [
-  {
-    label: "Solutions",
-    href: "#",
-    isMegaMenu: true,
-  },
-  {
-    label: "Industries",
-    href: "/industries",
-  },
-  {
-    label: "Partners",
-    href: "/partners",
-  },
-  { label: "Approach", href: "/approach" },
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Solutions", href: "#", isMegaMenu: true },
+  { label: "Industries", href: "/industries" },
+  { label: "Partners", href: "/partners" },
+  { label: "Approach", href: "/approach" },
   { label: "Marketplace", href: "/shop" },
 ];
 
 export default function Header() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
@@ -80,220 +70,210 @@ export default function Header() {
 
   return (
     <>
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-200">
-      <div className="w-full px-6 lg:px-12">
-        <div className="flex items-center justify-between h-14 lg:h-16">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 font-sans">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
           
-          {/* Left: Tesla-style Minimal Clean Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link href="/" className="inline-flex items-center group">
+          {/* ── Left: VLOXIA Logo ── */}
+          <div className="shrink-0">
+            <Link href="/" className="inline-block">
               <Image
                 src="/vloxia-logo.png"
                 alt="VLOXIA Systems LLP"
-                width={140}
-                height={42}
-                className="h-8 lg:h-9 w-auto object-contain transition-opacity duration-200 group-hover:opacity-85"
+                width={210}
+                height={62}
+                className="h-11 sm:h-12 w-auto object-contain transition-all"
                 priority
               />
             </Link>
           </div>
 
-          {/* Center: Tesla-Style Centered Clean Navigation */}
-          <nav className="desktop-nav hidden lg:flex items-center justify-center space-x-1">
-            {navItems.map((item) =>
-              item.isMegaMenu ? (
-                <div
-                  key={item.label}
-                  className="relative"
-                  onMouseEnter={() => setMegaMenuOpen(true)}
-                >
-                  <button
-                    onClick={() => setMegaMenuOpen(!megaMenuOpen)}
-                    className={`flex items-center gap-1 px-3.5 py-1.5 text-[14px] font-medium rounded-md transition-all duration-150 ${
-                      megaMenuOpen
-                        ? "bg-black/[0.08] text-[#0066ff]"
-                        : "text-[#171a20] hover:bg-black/[0.05]"
-                    }`}
+          {/* ── Center: Floating Pill Navigation Bar (Matches GreenAxis Style) ── */}
+          <nav className="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-gray-200/60 shadow-2xs">
+            {navItems.map((item) => {
+              const isActive = item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href);
+
+              if (item.isMegaMenu) {
+                return (
+                  <div
+                    key={item.label}
+                    className="relative"
+                    onMouseEnter={() => setMegaMenuOpen(true)}
                   >
-                    <span>{item.label}</span>
-                    <ChevronDown
-                      className={`w-3 h-3 text-[#5c5e62] transition-transform duration-200 ${
-                        megaMenuOpen ? "rotate-180 text-[#0066ff]" : ""
+                    <button
+                      type="button"
+                      onClick={() => setMegaMenuOpen(!megaMenuOpen)}
+                      className={`inline-flex items-center gap-1 px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95 ${
+                        megaMenuOpen || pathname?.startsWith("/solutions")
+                          ? "bg-blue-600 text-white shadow-xs"
+                          : "text-slate-600 hover:text-slate-950 hover:bg-white/80"
                       }`}
-                    />
-                  </button>
-                </div>
-              ) : (
+                    >
+                      <span>{item.label}</span>
+                      <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${megaMenuOpen ? "rotate-180" : ""}`} />
+                    </button>
+                  </div>
+                );
+              }
+
+              return (
                 <Link
                   key={item.label}
                   href={item.href}
                   onMouseEnter={() => setMegaMenuOpen(false)}
-                  className="px-3.5 py-1.5 text-[14px] font-medium text-[#171a20] hover:bg-black/[0.05] rounded-md transition-all duration-150"
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 hover:scale-105 active:scale-95 ${
+                    isActive
+                      ? "bg-blue-600 text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-950 hover:bg-white/80"
+                  }`}
                 >
                   {item.label}
                 </Link>
-              )
-            )}
+              );
+            })}
           </nav>
 
-          {/* Right: Tesla-Style Icon Buttons + Voltix Pill Button */}
-          <div className="desktop-header-controls hidden lg:flex items-center space-x-2">
-            {/* Help / Contact Icon */}
-            <Link
-              href="/contact"
-              title="Help & Contact"
-              className="p-2 text-[#171a20] hover:bg-black/[0.05] rounded-full transition-colors"
-            >
-              <HelpCircle className="w-5 h-5 stroke-[1.6]" />
-            </Link>
-
-            {/* Region / Globe Icon */}
-            <button
-              title="India (EN)"
-              className="p-2 text-[#171a20] hover:bg-black/[0.05] rounded-full transition-colors"
-            >
-              <Globe className="w-5 h-5 stroke-[1.6]" />
-            </button>
-
-            {/* User / Partner Account Icon */}
-            <Link
-              href="/partners#channel-partner"
-              title="Channel Partner / Account"
-              className="p-2 text-[#171a20] hover:bg-black/[0.05] rounded-full transition-colors"
-            >
-              <User className="w-5 h-5 stroke-[1.6]" />
-            </Link>
-
-            {/* Cart Icon with Live Count Badge */}
+          {/* ── Right: Cart Trigger & Yellow Pill "Contact" Button ── */}
+          <div className="hidden sm:flex items-center gap-3">
             <button
               onClick={() => setIsCartOpen(true)}
-              title="Shopping Cart"
-              className="relative p-2 text-[#171a20] hover:bg-black/[0.05] rounded-full transition-colors"
+              className="p-2.5 rounded-full text-slate-700 hover:bg-slate-100 hover:scale-110 active:scale-95 transition-all relative cursor-pointer"
               aria-label="View Cart"
             >
-              <ShoppingCart className="w-5 h-5 stroke-[1.6]" />
+              <ShoppingCart className="w-4 h-4" />
               {totalItems > 0 && (
-                <span className="absolute top-0.5 right-0.5 bg-[#0066ff] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-pulse">
                   {totalItems}
                 </span>
               )}
             </button>
 
-            {/* Voltix Electric Blue Pill Action Button */}
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-xs tracking-wide shadow-md shadow-blue-500/25 active:scale-95 transition-all group ml-1"
+              className="btn-hover-effect glow-hover-blue bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2.5 rounded-full text-xs tracking-tight shadow-md shadow-blue-500/20 active:scale-95"
             >
-              <span>Get a Quote</span>
-              <span className="w-5 h-5 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
-                <ArrowRight className="w-3 h-3" />
-              </span>
+              Contact
             </Link>
           </div>
 
-          {/* Mobile Right Controls */}
-          <div className="mobile-header-controls flex items-center gap-1 lg:hidden">
+          {/* ── Mobile Right Hamburger ── */}
+          <div className="flex sm:hidden items-center gap-2">
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2 text-[#171a20] hover:bg-black/[0.05] rounded-full transition-colors"
+              className="p-2 rounded-full text-slate-700 hover:bg-slate-100 relative"
               aria-label="View Cart"
             >
-              <ShoppingCart className="w-5 h-5 stroke-[1.6]" />
+              <ShoppingCart className="w-5 h-5" />
               {totalItems > 0 && (
-                <span className="absolute top-0 right-0 bg-[#0066ff] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
             </button>
 
             <button
-              className="p-2 text-[#171a20] hover:bg-black/[0.05] rounded-md transition-colors"
               onClick={toggleMobileMenu}
+              className="p-2 rounded-lg text-slate-700 hover:bg-slate-100"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               aria-controls="mobile-navigation"
             >
-              {mobileOpen ? <X className="w-6 h-6 stroke-[1.8]" /> : <Menu className="w-6 h-6 stroke-[1.8]" />}
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
 
         </div>
-      </div>
 
-      {/* ── INTERACTIVE TABBED MEGA MENU ── */}
-      {megaMenuOpen && <MegaMenu onClose={() => setMegaMenuOpen(false)} />}
-    </header>
+        {/* ── INTERACTIVE TABBED MEGA MENU ── */}
+        {megaMenuOpen && <MegaMenu onClose={() => setMegaMenuOpen(false)} />}
+      </header>
 
-    {mobileOpen && (
-      <div className="mobile-menu-overlay">
-        <button
-          className="mobile-menu-backdrop"
-          type="button"
-          aria-label="Close navigation menu"
-          onClick={closeMobileMenu}
-        />
-        <nav id="mobile-navigation" className="mobile-menu-panel" aria-label="Mobile navigation">
-          <div className="mobile-menu-links">
-            {navItems.map((item) =>
-              item.isMegaMenu ? (
-                <div className="mobile-menu-group" key={item.label}>
-                  <button
-                    type="button"
-                    className="mobile-menu-trigger"
-                    aria-expanded={mobileSolutionsOpen}
-                    onClick={() => setMobileSolutionsOpen((open) => !open)}
-                  >
-                    <span>{item.label}</span>
-                    <ChevronDown className={mobileSolutionsOpen ? "is-rotated" : ""} />
-                  </button>
-                  {mobileSolutionsOpen && (
-                    <div className="mobile-submenu">
-                      {mobileSolutionLinks.map((solution) => (
-                        <Link key={solution.href} href={solution.href} onClick={closeMobileMenu}>
-                          {solution.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  className="mobile-menu-link"
-                  key={item.label}
-                  href={item.href}
+      {/* ── Mobile Drawer Menu ── */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div
+            className="fixed inset-0 bg-slate-950/40 backdrop-blur-xs transition-opacity"
+            onClick={closeMobileMenu}
+          />
+          <nav
+            id="mobile-navigation"
+            className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white p-6 shadow-2xl flex flex-col justify-between overflow-y-auto"
+            aria-label="Mobile navigation"
+          >
+            <div>
+              <div className="flex items-center justify-between pb-6 border-b border-gray-100">
+                <Image
+                  src="/vloxia-logo.png"
+                  alt="VLOXIA"
+                  width={170}
+                  height={50}
+                  className="h-10 w-auto object-contain"
+                />
+                <button
                   onClick={closeMobileMenu}
+                  className="p-2 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-50"
                 >
-                  {item.label}
-                </Link>
-              )
-            )}
-          </div>
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
 
-          {/* Voltix Action Button for Mobile */}
-          <div className="p-4 pt-2">
-            <Link
-              href="/contact"
-              onClick={closeMobileMenu}
-              className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-sm shadow-md shadow-blue-500/25"
-            >
-              <span>Get a Quote</span>
-              <span className="w-5 h-5 rounded-full bg-white/20 text-white flex items-center justify-center">
-                <ArrowRight className="w-3 h-3" />
-              </span>
-            </Link>
-          </div>
+              <div className="py-6 space-y-2">
+                {navItems.map((item) =>
+                  item.isMegaMenu ? (
+                    <div key={item.label} className="space-y-1">
+                      <button
+                        type="button"
+                        onClick={() => setMobileSolutionsOpen((open) => !open)}
+                        className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold text-slate-900 hover:bg-slate-50"
+                      >
+                        <span>{item.label}</span>
+                        <ChevronDown className={`w-4 h-4 transition-transform ${mobileSolutionsOpen ? "rotate-180" : ""}`} />
+                      </button>
+                      {mobileSolutionsOpen && (
+                        <div className="pl-4 space-y-1 border-l-2 border-slate-100 ml-4">
+                          {mobileSolutionLinks.map((solution) => (
+                            <Link
+                              key={solution.href}
+                              href={solution.href}
+                              onClick={closeMobileMenu}
+                              className="block px-4 py-2 text-xs font-semibold text-slate-600 hover:text-blue-600"
+                            >
+                              {solution.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      onClick={closeMobileMenu}
+                      className={`block px-4 py-3 rounded-xl text-sm font-bold transition-all ${
+                        pathname === item.href || (item.href !== "/" && pathname?.startsWith(item.href))
+                          ? "bg-blue-600 text-white"
+                          : "text-slate-900 hover:bg-slate-50"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  )
+                )}
+              </div>
+            </div>
 
-          <div className="mobile-menu-footer">
-            <Link href="/contact" onClick={closeMobileMenu}>
-              <HelpCircle /> Help & Contact
-            </Link>
-            <Link href="/partners#channel-partner" onClick={closeMobileMenu}>
-              <User /> Partner Account
-            </Link>
-          </div>
-        </nav>
-      </div>
-    )}
+            <div className="pt-6 border-t border-gray-100 space-y-3">
+              <Link
+                href="/contact"
+                onClick={closeMobileMenu}
+                className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3.5 rounded-full text-sm shadow-md shadow-blue-500/20 active:scale-95 transition-all"
+              >
+                <span>Contact Us</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </nav>
+        </div>
+      )}
     </>
   );
 }

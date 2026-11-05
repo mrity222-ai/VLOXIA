@@ -3,7 +3,6 @@ import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import PublicShellWrapper from "@/components/PublicShellWrapper";
 
-
 export const metadata: Metadata = {
   title: "VLOXIA Systems LLP | EV Charging, Solar Energy, Lithium Storage & Power Solutions",
   description:
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className="font-sans antialiased bg-white text-slate-900 selection:bg-blue-600 selection:text-white">
         <CartProvider>
           <PublicShellWrapper>{children}</PublicShellWrapper>
         </CartProvider>

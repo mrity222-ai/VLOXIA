@@ -2,17 +2,40 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Plus, Trash2, Globe, Building2 } from "lucide-react";
+import ImageUploadDropzone from "@/components/admin/ImageUploadDropzone";
+import {
+  Plus,
+  Trash2,
+  Edit2,
+  Globe,
+  Building2,
+  X,
+  CheckCircle2,
+  XCircle,
+} from "lucide-react";
+
+interface ClientLogoItem {
+  id: string;
+  name: string;
+  logoUrl: string;
+  websiteUrl?: string | null;
+  category: string;
+  sortOrder: number;
+  isActive: boolean;
+  createdAt: string;
+}
 
 export default function AdminClientsPage() {
-  const [clients, setClients] = useState<any[]>([]);
+  const [clients, setClients] = useState<ClientLogoItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
+  const [editingClient, setEditingClient] = useState<ClientLogoItem | null>(null);
+
   const [form, setForm] = useState({
     name: "",
-    logoUrl: "/vloxia-logo.png",
+    logoUrl: "/partners/tatapower.png",
     websiteUrl: "",
-    category: "TECHNOLOGY_PARTNER",
+    category: "Tier-1 Rooftop Solar & EV",
     sortOrder: "1",
     isActive: true,
   });
@@ -22,7 +45,7 @@ export default function AdminClientsPage() {
     try {
       const res = await fetch("/api/admin/clients");
       const data = await res.json();
-      if (data.clients) setClients(data.clients);
+      if (data?.clients) setClients(data.clients);
     } catch (e) {
       console.error(e);
     } finally {
@@ -34,14 +57,48 @@ export default function AdminClientsPage() {
     fetchClients();
   }, []);
 
-  const handleCreate = async (e: React.FormEvent) => {
+  const openAddModal = () => {
+    setEditingClient(null);
+    setForm({
+      name: "",
+      logoUrl: "/partners/tatapower.png",
+      websiteUrl: "",
+      category: "Tier-1 Rooftop Solar & EV",
+      sortOrder: String(clients.length + 1),
+      isActive: true,
+    });
+    setModalOpen(true);
+  };
+
+  const openEditModal = (c: ClientLogoItem) => {
+    setEditingClient(c);
+    setForm({
+      name: c.name,
+      logoUrl: c.logoUrl,
+      websiteUrl: c.websiteUrl || "",
+      category: c.category || "Technology Partner",
+      sortOrder: String(c.sortOrder),
+      isActive: c.isActive,
+    });
+    setModalOpen(true);
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch("/api/admin/clients", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      if (editingClient) {
+        await fetch(`/api/admin/clients/${editingClient.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        });
+      } else {
+        await fetch("/api/admin/clients", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        });
+      }
       setModalOpen(false);
       fetchClients();
     } catch (e) {
@@ -50,188 +107,261 @@ export default function AdminClientsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Remove this partner / client logo?")) return;
+    if (!confirm("Are you sure you want to remove this partner logo?")) return;
     try {
-      await fetch("/api/admin/clients", {
-        method: "DELETE",
+      await fetch(`/api/admin/clients/${id}`, { method: "DELETE" });
+      fetchClients();
+    } catch (e) {
+      alert("Failed to delete partner logo");
+    }
+  };
+
+  const toggleActive = async (c: ClientLogoItem) => {
+    try {
+      await fetch(`/api/admin/clients/${c.id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({ ...c, isActive: !c.isActive }),
       });
       fetchClients();
     } catch (e) {
-      alert("Failed to delete");
+      alert("Failed to update status");
     }
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="p-6 lg:p-10 space-y-8 max-w-7xl mx-auto">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">
-            Partners & Client Logos CMS
-          </h2>
-          <p className="text-xs sm:text-sm text-gray-500 mt-1">
-            Upload OEM partner badges and client brand logos shown on the public website.
+          <div className="flex items-center gap-2">
+            <span className="p-2 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
+              <Building2 className="w-5 h-5" />
+            </span>
+            <h1 className="text-2xl font-bold text-slate-900">Partners &amp; OEM Logos CMS</h1>
+          </div>
+          <p className="text-sm text-slate-500 mt-1">
+            Manage Tier-1 OEM Alliances &amp; Technology Partner logos displayed in the marquee ribbon on Homepage, About Us, and Partners pages.
           </p>
         </div>
+
         <button
-          onClick={() => setModalOpen(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold rounded-xl shadow-md shadow-blue-500/20 hover:-translate-y-0.5 active:translate-y-0 transition-all shrink-0"
+          onClick={openAddModal}
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-sm transition-all"
         >
           <Plus className="w-4 h-4" />
-          <span>Add Partner / Client Logo</span>
+          <span>Add Partner Logo</span>
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {loading ? (
-          <div className="col-span-full py-12 text-center text-gray-400">
-            <div className="flex flex-col items-center justify-center gap-2">
-              <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-              <span className="text-xs font-semibold">Loading logos...</span>
-            </div>
-          </div>
-        ) : clients.length === 0 ? (
-          <div className="col-span-full py-12 text-center text-gray-400">
-            <Building2 className="w-10 h-10 mx-auto text-gray-300 mb-2" />
-            <p className="text-xs font-semibold">No partner logos configured.</p>
-          </div>
-        ) : (
-          clients.map((c) => (
+      {/* Grid of Partner Logos */}
+      {loading ? (
+        <div className="p-12 text-center text-slate-400">Loading partner logos...</div>
+      ) : clients.length === 0 ? (
+        <div className="p-12 text-center bg-white rounded-2xl border border-slate-200">
+          <Building2 className="w-8 h-8 mx-auto text-slate-300 mb-2" />
+          <p className="text-slate-500 font-medium">No partner logos configured.</p>
+          <button
+            onClick={openAddModal}
+            className="mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white text-xs font-semibold"
+          >
+            Add First Partner
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {clients.map((c) => (
             <div
               key={c.id}
-              className="p-5 bg-white rounded-2xl border border-gray-200/80 shadow-xs flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow"
+              className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-2xs hover:shadow-md transition-shadow flex flex-col justify-between"
             >
               <div>
-                <div className="h-16 flex items-center justify-center bg-gray-50/80 rounded-xl p-3 border border-gray-100 mb-3">
-                  <Image
-                    src={c.logoUrl}
-                    alt={c.name}
-                    width={140}
-                    height={40}
-                    className="max-h-10 w-auto object-contain"
-                  />
+                {/* Logo Graphic Container */}
+                <div className="relative w-full h-24 rounded-xl bg-slate-50/80 border border-slate-100 flex items-center justify-center p-3 mb-4 overflow-hidden">
+                  <div className="relative w-40 h-12">
+                    <Image
+                      src={c.logoUrl}
+                      alt={c.name}
+                      fill
+                      sizes="160px"
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
-                <div className="text-sm font-extrabold text-gray-900">{c.name}</div>
-                <div className="text-xs font-semibold text-blue-600 mt-0.5">{c.category}</div>
+
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="font-bold text-slate-900 text-sm truncate">{c.name}</h3>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-mono">
+                    #{c.sortOrder}
+                  </span>
+                </div>
+
+                <div className="text-[11px] text-blue-600 font-medium mt-1">
+                  {c.category?.replace(/_/g, " ")}
+                </div>
+
                 {c.websiteUrl && (
                   <a
                     href={c.websiteUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-blue-600 mt-2 truncate max-w-full"
+                    className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-blue-600 mt-2 truncate max-w-full"
                   >
                     <Globe className="w-3.5 h-3.5 shrink-0" />
-                    <span className="truncate">{c.websiteUrl}</span>
+                    <span className="truncate">{c.websiteUrl.replace(/^https?:\/\//, "")}</span>
                   </a>
                 )}
               </div>
 
-              <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
-                <span className="text-xs font-mono text-gray-400">Order: {c.sortOrder}</span>
+              {/* Card Footer Actions */}
+              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
                 <button
-                  onClick={() => handleDelete(c.id)}
-                  className="p-2 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
-                  title="Remove Logo"
+                  type="button"
+                  onClick={() => toggleActive(c)}
+                  className="text-xs font-medium text-slate-600 hover:text-slate-900 flex items-center gap-1.5"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  {c.isActive ? (
+                    <>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Live in Ribbon</span>
+                    </>
+                  ) : (
+                    <>
+                      <XCircle className="w-3.5 h-3.5 text-slate-400" />
+                      <span>Hidden</span>
+                    </>
+                  )}
                 </button>
+
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => openEditModal(c)}
+                    className="p-1.5 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-slate-50"
+                    title="Edit Partner"
+                  >
+                    <Edit2 className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(c.id)}
+                    title="Remove Logo"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
 
+      {/* Add / Edit Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="fixed inset-0" onClick={() => setModalOpen(false)} />
-          <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl p-6 sm:p-8 z-10 space-y-4">
-            <h3 className="text-lg font-black text-gray-900 border-b border-gray-100 pb-3">
-              Add Client or Partner Brand
-            </h3>
-            <form onSubmit={handleCreate} className="space-y-4 mt-4">
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 sm:p-8 space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+              <h3 className="text-lg font-bold text-slate-900">
+                {editingClient ? "Edit Partner Brand Logo" : "Add Partner Brand Logo"}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setModalOpen(false)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleFormSubmit} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700">
                   Company / Brand Name *
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Tata EZ Power / Schneider"
+                  placeholder="e.g. Tata Power Solaroof, Waaree, Delta"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
-                  Logo Image URL *
+              <ImageUploadDropzone
+                folder="partners"
+                label="Partner Brand Logo (Upload from Local Device) *"
+                aspectRatio="logo"
+                value={form.logoUrl}
+                onChange={(url) => setForm({ ...form, logoUrl: url })}
+                helperText="Upload transparent PNG or SVG logo file from your computer for best display in the ribbon."
+              />
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700">
+                  Category or Specialization Tagline
                 </label>
                 <input
                   type="text"
-                  required
-                  placeholder="/vloxia-logo.png or https://..."
-                  value={form.logoUrl}
-                  onChange={(e) => setForm({ ...form, logoUrl: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
+                  placeholder="e.g. Tier-1 Rooftop Solar & EV, Inverters & Switchgear"
+                  value={form.category}
+                  onChange={(e) => setForm({ ...form, category: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
-                  Official Website Link
-                </label>
-                <input
-                  type="url"
-                  placeholder="https://..."
-                  value={form.websiteUrl}
-                  onChange={(e) => setForm({ ...form, websiteUrl: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
-                    Partner Tier
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-slate-700">
+                    Official Website Link
                   </label>
-                  <select
-                    value={form.category}
-                    onChange={(e) => setForm({ ...form, category: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
-                  >
-                    <option value="TECHNOLOGY_PARTNER">Technology Partner</option>
-                    <option value="CLIENT">Client / Customer</option>
-                    <option value="INSTITUTIONAL">Institutional</option>
-                  </select>
+                  <input
+                    type="url"
+                    placeholder="https://..."
+                    value={form.websiteUrl}
+                    onChange={(e) => setForm({ ...form, websiteUrl: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-slate-700">
                     Sort Priority
                   </label>
                   <input
                     type="number"
                     value={form.sortOrder}
                     onChange={(e) => setForm({ ...form, sortOrder: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-3 pt-2 border-t border-gray-100">
+              <div className="flex items-center gap-2 pt-2">
+                <input
+                  type="checkbox"
+                  id="partnerActive"
+                  checked={form.isActive}
+                  onChange={(e) => setForm({ ...form, isActive: e.target.checked })}
+                  className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500"
+                />
+                <label htmlFor="partnerActive" className="text-xs font-semibold text-slate-700 cursor-pointer">
+                  Display in Partner Ribbon on Homepage &amp; About Us
+                </label>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-100 transition-colors"
+                  className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-colors"
+                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-md shadow-blue-500/20"
                 >
-                  Save Logo
+                  {editingClient ? "Save Changes" : "Add Partner"}
                 </button>
               </div>
             </form>

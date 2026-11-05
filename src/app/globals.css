@@ -1,202 +1,152 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
-
-/* ─── VOLTPEAK DESIGN SYSTEM TOKENS ─── */
-:root {
-  --vp-primary-blue: #1456A0;
-  --vp-secondary-blue: #2563EB;
-  --vp-accent-blue: #00A8FF;
-  --vp-text-main: #252525;
-  --vp-text-secondary: #666666;
-  --vp-bg-white: #FFFFFF;
-  --vp-bg-light: #F5F6F2;
-  --vp-border: #E5E7EB;
-  --vp-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
-  color-scheme: light;
-}
-
-/* ─── BASE RESET & MODERN TYPOGRAPHY ─── */
-* {
-  box-sizing: border-box;
-}
 
 html {
   scroll-behavior: smooth;
-  font-family: var(--vp-font);
 }
 
-body {
-  margin: 0;
-  color: var(--vp-text-main);
-  background-color: var(--vp-bg-white);
-  font-family: var(--vp-font);
-  font-size: 15px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.012em;
+    color: #0f172a;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.025em;
+    color: #020617;
+  }
 }
 
-button,
-input,
-select,
-textarea {
-  font-family: var(--vp-font);
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
 }
 
-a {
-  -webkit-tap-highlight-color: transparent;
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
 }
 
-::selection {
-  color: #ffffff;
-  background-color: var(--vp-primary-blue);
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
 
-/* ─── VOLTPEAK HEADING STYLES (ALL BLACK HEADINGS -> PROFESSIONAL BLUE) ─── */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--vp-primary-blue) !important;
-  font-family: var(--vp-font);
-  letter-spacing: -0.02em;
-  font-weight: 700;
+@keyframes panorama-scroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
-h1 {
-  font-size: clamp(38px, 5vw, 54px);
-  font-weight: 800;
-  line-height: 1.15;
+.animate-panorama-scroll {
+  display: flex;
+  width: 200%;
+  animation: panorama-scroll 40s linear infinite;
+  will-change: transform;
 }
 
-h2 {
-  font-size: clamp(28px, 3.5vw, 38px);
-  font-weight: 700;
-  line-height: 1.25;
+.animate-panorama-scroll:hover {
+  animation-play-state: paused;
 }
 
-h3 {
-  font-size: clamp(20px, 2.5vw, 25px);
-  font-weight: 600;
-  line-height: 1.35;
-}
+/* ═══════════════════════════════════════════════════════════════════
+   9 INTERACTIVE HOVER & MICRO-ANIMATION UTILITY SUITE
+   ═══════════════════════════════════════════════════════════════════ */
 
-/* Heading color overrides for dark text utility classes */
-h1.text-slate-950, h1.text-slate-900, h1.text-black, h1.text-gray-900,
-h2.text-slate-950, h2.text-slate-900, h2.text-black, h2.text-gray-900,
-h3.text-slate-950, h3.text-slate-900, h3.text-black, h3.text-gray-900 {
-  color: var(--vp-primary-blue) !important;
+/* 1. BUTTON HOVER: Micro-lift, tactile scale & responsive feedback */
+.btn-hover-effect {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background-color 0.2s ease, border-color 0.2s ease;
+  will-change: transform;
 }
-
-/* ─── PRESERVE LEGIBILITY INSIDE DARK THEME HEROES, BANNERS & FOOTER ─── */
-[class*="bg-slate-950"] h1, [class*="bg-slate-950"] h2, [class*="bg-slate-950"] h3,
-[class*="bg-slate-900"] h1, [class*="bg-slate-900"] h2, [class*="bg-slate-900"] h3,
-[class*="070b14"] h1, [class*="070b14"] h2, [class*="070b14"] h3,
-[class*="0B1220"] h1, [class*="0B1220"] h2, [class*="0B1220"] h3,
-footer h1, footer h2, footer h3, footer h4,
-footer p, footer span, footer a {
-  color: #ffffff !important;
-}
-
-/* Subheadings & Accent Blue Highlights */
-.text-blue-600,
-.text-blue-500 {
-  color: var(--vp-secondary-blue);
-}
-
-/* ─── PARAGRAPHS & BODY COPY ─── */
-p {
-  color: var(--vp-text-secondary);
-  line-height: 1.65;
-  font-size: 15px;
-}
-
-/* ─── VOLTPEAK BUTTONS ─── */
-/* Primary Buttons */
-button[type="submit"],
-.bg-blue-600,
-[class*="bg-blue-600"] {
-  background: linear-gradient(135deg, var(--vp-primary-blue) 0%, var(--vp-secondary-blue) 100%) !important;
-  color: #ffffff !important;
-  font-weight: 600;
-  font-size: 15px;
-  border-radius: 9999px;
-  box-shadow: 0 4px 14px 0 rgba(20, 86, 160, 0.28);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-button[type="submit"]:hover,
-.bg-blue-600:hover,
-[class*="bg-blue-600"]:hover {
-  background: linear-gradient(135deg, #104886 0%, #1d4ed8 100%) !important;
-  box-shadow: 0 6px 20px 0 rgba(20, 86, 160, 0.4);
+.btn-hover-effect:hover {
   transform: translateY(-2px);
 }
-
-/* Secondary & Outline Buttons */
-.border-slate-300:hover,
-.border-gray-300:hover {
-  border-color: var(--vp-primary-blue) !important;
-  color: var(--vp-primary-blue) !important;
+.btn-hover-effect:active {
+  transform: translateY(0) scale(0.97);
 }
 
-/* ─── CARDS, CONTAINERS & SURFACES ─── */
-.border-slate-200,
-.border-gray-200 {
-  border-color: var(--vp-border);
+/* 2. CARD HOVER: Smooth border transition & subtle backdrop highlight */
+.card-hover-effect {
+  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  will-change: transform, box-shadow;
+}
+.card-hover-effect:hover {
+  border-color: rgba(37, 99, 235, 0.55);
 }
 
-/* Subtle elevation for cards */
-.shadow-sm,
-.shadow-md,
-.shadow-lg,
-.shadow-xl {
-  box-shadow: 0 6px 24px -2px rgba(20, 86, 160, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+/* 3. IMAGE ZOOM: High-performance GPU-accelerated scaling */
+.img-zoom-container {
+  overflow: hidden;
+}
+.img-zoom-container img,
+.img-zoom-target {
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.group:hover .img-zoom-target,
+.img-zoom-container:hover img {
+  transform: scale(1.08);
 }
 
-/* Card hover micro-interaction */
-.hover\:shadow-xl:hover,
-.hover\:shadow-lg:hover,
-.hover\:shadow-md:hover {
-  box-shadow: 0 12px 32px -4px rgba(20, 86, 160, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.06);
-  border-color: rgba(20, 86, 160, 0.25);
+/* 4. IMAGE OVERLAY: Dynamic gradient vignette revealing on hover */
+.img-overlay-effect {
+  transition: opacity 0.35s ease, background-color 0.35s ease;
 }
 
-/* ─── BADGES & PILL HIGHLIGHTS ─── */
-.bg-blue-50 {
-  background-color: #EFF6FF !important;
-  color: var(--vp-primary-blue) !important;
-  border: 1px solid rgba(20, 86, 160, 0.15) !important;
+/* 5. LIFT EFFECT: Smooth Y-axis elevation for cards & floating modules */
+.lift-effect {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  will-change: transform, box-shadow;
+}
+.lift-effect:hover {
+  transform: translateY(-6px);
 }
 
-/* ─── FORM CONTROLS & INPUTS ─── */
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="tel"]:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--vp-primary-blue) !important;
-  box-shadow: 0 0 0 3px rgba(20, 86, 160, 0.15) !important;
+/* 6. GLOW HOVER: Ambient soft-colored neon bloom */
+.glow-hover-blue {
+  transition: box-shadow 0.3s ease, transform 0.25s ease;
+}
+.glow-hover-blue:hover {
+  box-shadow: 0 10px 25px -3px rgba(37, 99, 235, 0.35), 0 4px 6px -4px rgba(37, 99, 235, 0.2);
+}
+.glow-hover-cyan {
+  transition: box-shadow 0.3s ease, transform 0.25s ease;
+}
+.glow-hover-cyan:hover {
+  box-shadow: 0 10px 25px -3px rgba(6, 182, 212, 0.35), 0 4px 6px -4px rgba(6, 182, 212, 0.2);
 }
 
-/* ─── RESPONSIVE REFINEMENTS ─── */
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-  
-  h1 {
-    font-size: 34px;
-  }
-  
-  h2 {
-    font-size: 26px;
-  }
+/* 7. SHADOW HOVER: Seamless multi-layer shadow depth */
+.shadow-hover-effect {
+  transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s ease;
+  will-change: box-shadow, transform;
+}
+.shadow-hover-effect:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
 
-  h3 {
-    font-size: 19px;
-  }
+/* 8. UNDERLINE HOVER: Left-to-right animated underline expansion */
+.underline-hover-effect {
+  position: relative;
+  display: inline-block;
+}
+.underline-hover-effect::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #2563eb;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.underline-hover-effect:hover::after {
+  width: 100%;
+}
+
+/* 9. COLOR CHANGE: Smooth color morphing for typography, badges & borders */
+.color-change-effect {
+  transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 }

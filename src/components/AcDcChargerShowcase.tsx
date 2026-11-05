@@ -93,55 +93,55 @@ export default function AcDcChargerShowcase() {
   const handleNext = () => setActiveTab((prev) => (prev === "ac" ? "dc" : "ac"));
 
   return (
-    <section className="py-20 lg:py-28 bg-[#ffffff] text-[#0a1628] select-none relative overflow-hidden border-b border-gray-150">
-      <div className="container-xl max-w-7xl mx-auto px-5 sm:px-8">
+    <section>
+      <div>
         
         {/* ── TOP SECTION: WATERMARK BACKGROUND & SPLIT CONTENT ── */}
-        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div>
           
           {/* Huge Faint Watermark Text in Background (Matches Reference Exactly) */}
           <div
             aria-hidden="true"
-            className="absolute -top-10 left-0 right-0 text-center font-black text-6xl sm:text-8xl md:text-9xl text-gray-100/70 tracking-tighter uppercase pointer-events-none select-none z-0"
+
           >
             {current.watermark}
           </div>
 
           {/* Left Column: Big Product Image & Visual Accents */}
-          <div className="lg:col-span-6 relative z-10 flex flex-col items-center">
+          <div>
             {/* Ambient Backlight Glow */}
-            <div className="absolute w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-blue-500/10 blur-3xl -z-10 pointer-events-none" />
+            <div />
 
-            <div className="relative w-full max-w-md sm:max-w-lg aspect-square flex items-center justify-center p-6">
+            <div>
               <Image
                 src={current.image}
                 alt={current.title}
                 width={520}
                 height={520}
-                className="object-contain drop-shadow-[0_20px_35px_rgba(0,102,255,0.18)] transition-all duration-500 hover:scale-105"
+
                 priority
               />
 
               {/* Badges Overlay */}
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md border border-gray-200 px-3.5 py-1.5 rounded-full flex items-center gap-2 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-[#0066ff] animate-ping" />
-                <span className="text-xs font-bold text-[#0a1628] uppercase tracking-wider">
+              <div>
+                <span />
+                <span>
                   {current.powerRating}
                 </span>
               </div>
             </div>
 
             {/* Quick 4-Grid Key Specs Strip */}
-            <div className="w-full max-w-lg grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-2">
+            <div>
               {current.specs.map((s, idx) => (
                 <div
                   key={idx}
-                  className="bg-[#fafbfb] border border-gray-150 rounded-xl p-2.5 text-center shadow-2xs"
+
                 >
-                  <div className="text-[10px] text-gray-600 font-semibold uppercase tracking-wider">
+                  <div>
                     {s.label}
                   </div>
-                  <div className="text-xs font-black text-[#0a1628] mt-0.5 truncate">
+                  <div>
                     {s.val}
                   </div>
                 </div>
@@ -150,73 +150,73 @@ export default function AcDcChargerShowcase() {
           </div>
 
           {/* Right Column: Content & Description */}
-          <div className="lg:col-span-6 relative z-10 space-y-6">
+          <div>
             
             {/* Category Subtitle Pill */}
-            <div className="flex items-center gap-3">
-              <span className="inline-block px-3.5 py-1 rounded-md bg-blue-50 text-[#0066ff] text-xs font-black uppercase tracking-wider border border-blue-100">
+            <div>
+              <span>
                 Charging Infrastructure
               </span>
-              <span className="text-xs font-semibold text-gray-600 flex items-center gap-1">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>
+                <ShieldCheck />
                 CEIG &amp; ARAI Certified
               </span>
             </div>
 
             {/* Main Header */}
             <div>
-              <h2 className="text-3xl sm:text-5xl font-black text-[#0a1628] tracking-tight uppercase leading-none">
+              <h2>
                 {current.title}
               </h2>
-              <p className="text-sm sm:text-base font-semibold text-[#0066ff] mt-2">
+              <p>
                 {current.tagline}
               </p>
             </div>
 
             {/* Paragraph */}
-            <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+            <p>
               {current.description}
             </p>
 
             {/* Bullet Points */}
-            <div className="space-y-2.5 pt-1">
+            <div>
               {current.bulletPoints.map((pt, index) => (
-                <div key={index} className="flex items-start gap-2.5 text-xs sm:text-sm text-gray-700">
-                  <CheckCircle2 className="w-4 h-4 text-[#0066ff] flex-shrink-0 mt-0.5" />
+                <div key={index}>
+                  <CheckCircle2 />
                   <span>{pt}</span>
                 </div>
               ))}
             </div>
 
             {/* Carousel Control Arrows & Actions with Voltix Button */}
-            <div className="flex items-center gap-4 pt-3">
-              <div className="flex items-center gap-2">
+            <div>
+              <div>
                 <button
                   type="button"
                   onClick={handlePrev}
                   aria-label="Previous Charger"
-                  className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-[#0a1628] flex items-center justify-center transition-all shadow-xs hover:scale-105 cursor-pointer"
+
                 >
-                  <ArrowLeft className="w-4 h-4" />
+                  <ArrowLeft />
                 </button>
                 <button
                   type="button"
                   onClick={handleNext}
                   aria-label="Next Charger"
-                  className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-[#0a1628] flex items-center justify-center transition-all shadow-xs hover:scale-105 cursor-pointer"
+
                 >
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight />
                 </button>
               </div>
 
               {/* Voltix Electric Blue Pill Button */}
               <Link
                 href="/shop"
-                className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-xs sm:text-sm tracking-wide shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/40 hover:scale-105 active:scale-95 transition-all duration-200 group"
+
               >
                 <span>View Models in Shop</span>
-                <span className="w-5 h-5 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-0.5">
-                  <ArrowRight className="w-3 h-3" />
+                <span>
+                  <ArrowRight />
                 </span>
               </Link>
             </div>
@@ -224,24 +224,24 @@ export default function AcDcChargerShowcase() {
         </div>
 
         {/* ── BOTTOM 4 FEATURE CARDS ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-16 sm:mt-20">
+        <div>
           {featureCards.map((feat, index) => {
             const Icon = feat.icon;
             return (
               <div
                 key={index}
-                className="group bg-[#fafbfb] hover:bg-white rounded-2xl border border-gray-150 hover:border-gray-300 p-6 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+
               >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-white border border-gray-200/80 group-hover:border-[#0066ff] flex items-center justify-center text-gray-700 group-hover:text-[#0066ff] group-hover:bg-blue-50 transition-colors mb-5 shadow-2xs">
-                    <Icon className="w-5 h-5" />
+                  <div>
+                    <Icon />
                   </div>
 
-                  <h3 className="text-sm font-bold text-[#0a1628] tracking-tight group-hover:text-[#0066ff] transition-colors leading-snug">
+                  <h3>
                     {feat.title}
                   </h3>
 
-                  <p className="text-[11px] text-gray-600 leading-relaxed mt-2.5">
+                  <p>
                     {feat.desc}
                   </p>
                 </div>

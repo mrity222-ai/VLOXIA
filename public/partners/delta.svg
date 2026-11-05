@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <path d="M20 44 L35 14 L50 44 Z" fill="#005BAB" />
+  <path d="M28 44 L35 30 L42 44 Z" fill="#ffffff" />
+  <text x="60" y="42" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#005BAB" letter-spacing="1">DELTA</text>
+</svg>

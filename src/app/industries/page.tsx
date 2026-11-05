@@ -1,9 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, PhoneCall, ArrowRight, ShieldCheck, Zap, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2,
+  ChevronDown,
+  ChevronUp,
+  Zap,
+  Building2,
+  Factory,
+  Car,
+  HeartPulse,
+} from "lucide-react";
 
 interface AccordionItem {
   title: string;
@@ -18,7 +29,7 @@ interface Industry {
   summary: string;
   image: string;
   badge: string;
-  accent: string;
+  icon: any;
   accordions: AccordionItem[];
 }
 
@@ -28,10 +39,10 @@ const industriesData: Industry[] = [
     title: "Residential & Societies",
     tagline: "Smart Home Energy & Private Charging",
     summary:
-      "Seamless, user-centric clean energy ecosystems designed for homeowners and modern residential complexes.",
+      "Seamless, user-centric clean energy ecosystems designed for homeowners, apartment communities, and modern residential societies.",
     image: "/Industries/Residential.png",
     badge: "Homes & Condos",
-    accent: "from-blue-500/20 to-cyan-500/10",
+    icon: Building2,
     accordions: [
       {
         title: "Rooftop Solar & Hybrid Inverters",
@@ -63,7 +74,7 @@ const industriesData: Industry[] = [
       "Transform your commercial real estate into a high-efficiency green hub with integrated solar and destination EV amenities.",
     image: "/Industries/Commercial.png",
     badge: "Office & Retail",
-    accent: "from-emerald-500/20 to-teal-500/10",
+    icon: Building2,
     accordions: [
       {
         title: "Commercial Solar EPC (10 kW – 500 kW)",
@@ -95,7 +106,7 @@ const industriesData: Industry[] = [
       "Heavy-duty power engineering built for demanding manufacturing operations, high inductive loads, and 24/7 uptime.",
     image: "/Industries/Industrial.png",
     badge: "Manufacturing & Warehouses",
-    accent: "from-amber-500/20 to-orange-500/10",
+    icon: Factory,
     accordions: [
       {
         title: "MW-Scale Industrial Solar Parks",
@@ -127,7 +138,7 @@ const industriesData: Industry[] = [
       "Turnkey charging and power infrastructure tailored for electric delivery fleets, buses, taxi networks, and logistics operators.",
     image: "/Industries/Mobility.png",
     badge: "Fleets & Transit",
-    accent: "from-blue-600/20 to-indigo-600/10",
+    icon: Car,
     accordions: [
       {
         title: "Fleet Depot DC Fast Charging (60 kW – 240 kW)",
@@ -159,7 +170,7 @@ const industriesData: Industry[] = [
       "Mission-critical resilience and zero-failure clean power engineered for life safety, public facilities, and educational institutes.",
     image: "/Industries/Institutional.png",
     badge: "Critical Infrastructure",
-    accent: "from-purple-500/20 to-indigo-500/10",
+    icon: HeartPulse,
     accordions: [
       {
         title: "Critical Healthcare Uninterrupted Power (UPS + BESS)",
@@ -185,273 +196,306 @@ const industriesData: Industry[] = [
   },
 ];
 
-export default function IndustriesPage() {
-  // Active accordion index per industry section (default to item 1 or 0 open)
-  const [openItems, setOpenItems] = useState<Record<string, number | null>>({
-    residential: 1,
-    commercial: 1,
-    industrial: 1,
-    mobility: 0,
-    institutional: 0,
-  });
+const SECTOR_BENEFITS = [
+  {
+    icon: ShieldCheck,
+    title: "High Inductive Load Engineering",
+    desc: "Engineered specifically for heavy factories and machinery, eliminating voltage dips and equipment tripping.",
+  },
+  {
+    icon: Zap,
+    title: "OCPP 1.6J/2.0.1 Cloud CMS",
+    desc: "Complete remote telemetry, tenant billing, dynamic load balancing, and real-time charger status monitoring.",
+  },
+  {
+    icon: HeartPulse,
+    title: "Sub-Second Critical Power & BESS",
+    desc: "Microsecond transfer systems providing zero-downtime backup for hospitals, data rooms, and surgical suites.",
+  },
+  {
+    icon: CheckCircle2,
+    title: "CEIG & DISCOM Compliance",
+    desc: "End-to-end liaisoning for electrical safety clearance, high-tension synchronization, and net-metering approvals.",
+  },
+];
 
-  const toggleAccordion = (industryId: string, index: number) => {
-    setOpenItems((prev) => ({
-      ...prev,
-      [industryId]: prev[industryId] === index ? null : index,
-    }));
-  };
+export default function IndustriesPage() {
+  const [activeTab, setActiveTab] = useState(0);
+  const [activeAccordion, setActiveAccordion] = useState(0);
+
+  const currentIndustry = industriesData[activeTab];
 
   return (
-    <main className="min-h-screen bg-[#070b14] text-slate-100 overflow-hidden relative selection:bg-blue-600 selection:text-white">
-      {/* Background ambient radial gradients */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-blue-600/15 via-indigo-600/5 to-transparent blur-[120px] pointer-events-none" />
-      <div className="absolute top-[800px] left-0 w-[500px] h-[500px] bg-blue-500/10 blur-[140px] pointer-events-none" />
-      <div className="absolute top-[1800px] right-0 w-[600px] h-[600px] bg-indigo-500/10 blur-[160px] pointer-events-none" />
-      <div className="absolute top-[2800px] left-1/4 w-[600px] h-[600px] bg-cyan-500/10 blur-[150px] pointer-events-none" />
+    <div className="bg-white text-slate-900 font-sans antialiased">
+      
+      {/* ── 1. HERO SECTION (EDITORIAL REFERENCE STYLE) ── */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-12 pt-12 pb-16 lg:pt-20 lg:pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Column: Heading, Subtitle & Action Buttons */}
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70">
+              <span>Industry-Specific Solutions</span>
+            </div>
 
-      {/* Hero Header Section */}
-      <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs sm:text-sm font-medium tracking-wide uppercase mb-6 backdrop-blur-md">
-          <Sparkles className="w-4 h-4 text-blue-400" />
-          Industry-Specific Clean Power Solutions
-        </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-slate-950 leading-[1.15]">
+              Clean energy ecosystems engineered for your industry
+            </h1>
 
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6">
-          Our Industries
-        </h1>
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+              From strategic planning to turnkey commissioning, we power India&apos;s premier enterprises, homes, and fleets with unmatched precision and safety.
+            </p>
 
-        <p className="max-w-3xl mx-auto text-base sm:text-lg text-slate-400 leading-relaxed font-normal">
-          We engineer world-class clean energy and EV charging ecosystems tailored to your sector.
-          From strategic planning to turnkey commissioning, we power India&apos;s premier enterprises,
-          homes, and fleets with unmatched precision.
-        </p>
-      </section>
-
-      {/* Alternating Zig-Zag Content Sections */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-24 sm:space-y-36">
-        {industriesData.map((ind, idx) => {
-          const isReversed = idx % 2 === 1;
-
-          return (
-            <div
-              key={ind.id}
-              id={ind.id}
-              className={`grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center ${
-                isReversed ? "lg:grid-flow-dense" : ""
-              }`}
-            >
-              {/* Text & Accordions Column */}
-              <div
-                className={`lg:col-span-6 space-y-6 ${
-                  isReversed ? "lg:col-start-7" : ""
-                }`}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <a
+                href="#sector-navigator"
+                className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-7 py-3.5 rounded-full transition-all shadow-md shadow-blue-500/25 text-sm active:scale-95"
               >
-                <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-semibold text-blue-400 uppercase tracking-wider mb-3">
-                    {ind.badge}
-                  </div>
-                  <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
-                    {ind.title}
-                  </h2>
-                  <p className="text-sm font-medium text-blue-400/90 mt-1">
-                    {ind.tagline}
-                  </p>
-                  <p className="text-sm sm:text-base text-slate-400 leading-relaxed mt-3">
-                    {ind.summary}
-                  </p>
-                </div>
+                <span>Explore Sectors</span>
+                <span className="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </a>
 
-                {/* Accordion List */}
-                <div className="space-y-3 pt-2">
-                  {ind.accordions.map((item, accIdx) => {
-                    const isOpen = openItems[ind.id] === accIdx;
-
-                    return (
-                      <div
-                        key={accIdx}
-                        className={`rounded-xl border transition-all duration-300 ${
-                          isOpen
-                            ? "bg-slate-900/80 border-blue-500/40 shadow-lg shadow-blue-950/40"
-                            : "bg-slate-900/30 border-white/5 hover:border-white/15 hover:bg-slate-900/50"
-                        }`}
-                      >
-                        <button
-                          type="button"
-                          onClick={() => toggleAccordion(ind.id, accIdx)}
-                          className="w-full flex items-center justify-between text-left p-4 sm:p-5 gap-4"
-                          aria-expanded={isOpen}
-                        >
-                          <span
-                            className={`text-sm sm:text-base font-semibold tracking-wide transition-colors ${
-                              isOpen ? "text-white" : "text-slate-300 hover:text-white"
-                            }`}
-                          >
-                            {item.title}
-                          </span>
-                          <span
-                            className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-transform duration-300 ${
-                              isOpen
-                                ? "bg-blue-600/30 text-blue-400 rotate-180"
-                                : "bg-white/5 text-slate-400"
-                            }`}
-                          >
-                            <ChevronDown className="w-4 h-4" />
-                          </span>
-                        </button>
-
-                        {/* Accordion Body */}
-                        {isOpen && (
-                          <div className="px-4 pb-5 sm:px-5 sm:pb-5 pt-0 text-sm text-slate-400 border-t border-white/5 mt-1 space-y-3">
-                            <p className="leading-relaxed text-slate-300">
-                              {item.desc}
-                            </p>
-                            {item.highlights && item.highlights.length > 0 && (
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
-                                {item.highlights.map((h, hIdx) => (
-                                  <div
-                                    key={hIdx}
-                                    className="flex items-center gap-2 text-xs text-slate-300"
-                                  >
-                                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
-                                    <span>{h}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="pt-2">
-                  <Link
-                    href={`/contact?industry=${ind.id}`}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-xs tracking-wide shadow-md shadow-blue-500/20 active:scale-95 transition-all group"
-                  >
-                    <span>Consult with an Industry Specialist</span>
-                    <span className="w-4 h-4 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform group-hover:translate-x-0.5">
-                      <ArrowRight className="w-2.5 h-2.5" />
-                    </span>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Multi-Panel Collage / Image Column */}
-              <div
-                className={`lg:col-span-6 relative ${
-                  isReversed ? "lg:col-start-1" : ""
-                }`}
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center px-7 py-3.5 rounded-full border border-gray-300 text-slate-800 font-semibold hover:border-gray-400 hover:bg-slate-50 transition-all text-sm"
               >
-                <div className="relative mx-auto max-w-lg lg:max-w-none">
-                  {/* Glowing background halo */}
-                  <div className="absolute -inset-2 bg-gradient-to-r from-blue-600/20 via-indigo-600/10 to-cyan-500/20 rounded-3xl blur-2xl opacity-60 -z-10" />
+                Request Sector Audit
+              </Link>
+            </div>
+          </div>
 
-                  {/* Outer Main Container */}
-                  <div className="relative rounded-2xl overflow-hidden border border-slate-700/60 bg-slate-900/60 shadow-2xl p-3 sm:p-4 backdrop-blur-sm">
-                    {/* Primary Large Image */}
-                    <div className="relative h-64 sm:h-80 md:h-96 w-full rounded-xl overflow-hidden border border-white/10 group">
-                      <Image
-                        src={ind.image}
-                        alt={`${ind.title} energy solution by VLOXIA`}
-                        fill
-                        className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        priority={idx === 0}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-
-                      {/* Top Overlay Badge */}
-                      <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-md border border-white/10 text-xs font-semibold text-white shadow-lg">
-                        <Zap className="w-3.5 h-3.5 text-blue-400 fill-blue-400" />
-                        <span>VLOXIA {ind.badge}</span>
-                      </div>
-
-                      {/* Bottom Image Info */}
-                      <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-                        <div>
-                          <p className="text-xs uppercase tracking-wider text-blue-400 font-semibold">
-                            Engineering Standard
-                          </p>
-                          <p className="text-sm font-bold text-white">
-                            Tier-1 Verified &amp; MNRE Compliant
-                          </p>
-                        </div>
-                        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-medium text-slate-200">
-                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                          <span>5-Year SLA</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Secondary Inset Layer Panel (Matching Reference Collage Style) */}
-                    <div className="mt-3 grid grid-cols-3 gap-2.5">
-                      <div className="p-3 rounded-xl bg-slate-950/60 border border-white/5 text-center">
-                        <div className="text-base sm:text-lg font-bold text-white">
-                          99.8%
-                        </div>
-                        <div className="text-[11px] text-slate-400">
-                          System Uptime
-                        </div>
-                      </div>
-                      <div className="p-3 rounded-xl bg-slate-950/60 border border-white/5 text-center">
-                        <div className="text-base sm:text-lg font-bold text-blue-400">
-                          3–5 Yrs
-                        </div>
-                        <div className="text-[11px] text-slate-400">
-                          Payback ROI
-                        </div>
-                      </div>
-                      <div className="p-3 rounded-xl bg-slate-950/60 border border-white/5 text-center">
-                        <div className="text-base sm:text-lg font-bold text-emerald-400">
-                          100%
-                        </div>
-                        <div className="text-[11px] text-slate-400">
-                          Turnkey EPC
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          {/* Right Column: Hero Visual Graphic / Image */}
+          <div className="lg:col-span-5">
+            <div className="relative w-full h-[360px] sm:h-[420px] rounded-3xl overflow-hidden shadow-sm border border-gray-100">
+              <Image
+                src="/Industries/Industrial.png"
+                alt="Industrial & Commercial Clean Energy Infrastructure"
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">
+                  5 Specialized Verticals
+                </span>
+                <p className="text-sm font-medium mt-1 text-slate-100">
+                  Residential · Commercial · Industrial · Mobility · Institutional
+                </p>
               </div>
             </div>
-          );
-        })}
+          </div>
+
+        </div>
       </section>
 
-      {/* Bottom Call-To-Action Card (Matching Reference Design) */}
-      <section className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
-        <div className="relative rounded-3xl bg-gradient-to-r from-blue-950/70 via-slate-900/90 to-blue-950/80 border border-blue-500/30 p-8 sm:p-14 overflow-hidden backdrop-blur-xl shadow-2xl">
-          {/* Subtle ambient decorative gradient ball */}
-          <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
+      {/* ── 2. "WHY SHOULD YOU PARTNER?" / SECTOR ADVANTAGES (2x2 GRID WITH BLUE BADGES) ── */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+          <div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-slate-950">
+              Why Choose <span className="text-blue-600 font-bold">Sector-Specific Engineering?</span>
+            </h2>
+          </div>
+          <p className="text-slate-500 text-sm sm:text-base max-w-md leading-relaxed">
+            Gain a deeper understanding of features customized according to your site&apos;s load characteristics, regulatory guidelines, and duty cycle.
+          </p>
+        </div>
 
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
-            <div className="max-w-xl">
-              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                Let&apos;s Power Something Amazing Together!
+        {/* 2x2 Grid with blue badges */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          {SECTOR_BENEFITS.map((benefit, idx) => {
+            const Icon = benefit.icon;
+            return (
+              <div
+                key={idx}
+                className="bg-white rounded-2xl border border-gray-200/80 p-8 sm:p-10 hover:shadow-sm transition-all"
+              >
+                <div className="w-11 h-11 rounded-full bg-blue-600 text-white flex items-center justify-center mb-6 shrink-0 shadow-sm shadow-blue-500/20">
+                  <Icon className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-slate-950 tracking-tight mb-2.5">
+                  {benefit.title}
+                </h3>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  {benefit.desc}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ── 3. INTERACTIVE SECTOR NAVIGATOR & ACCORDIONS SECTION ── */}
+      <section id="sector-navigator" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100">
+        
+        {/* Section Header */}
+        <div className="mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70 mb-4">
+            <span>Sector Navigator</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-slate-950">
+            Select Your <span className="text-blue-600 font-bold">Industry Vertical</span>
+          </h2>
+        </div>
+
+        {/* Horizontal Industry Tabs */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-10 border-b border-gray-200 scrollbar-none">
+          {industriesData.map((ind, idx) => {
+            const isSelected = activeTab === idx;
+            return (
+              <button
+                key={ind.id}
+                onClick={() => {
+                  setActiveTab(idx);
+                  setActiveAccordion(0);
+                }}
+                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                  isSelected
+                    ? "bg-blue-600 text-white shadow-xs"
+                    : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                }`}
+              >
+                {ind.title}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active Industry Showcase Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          {/* Left Column: Active Industry Overview & Image */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="relative w-full h-64 sm:h-80 rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+              <Image
+                src={currentIndustry.image}
+                alt={currentIndustry.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-xs px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-800 shadow-xs">
+                {currentIndustry.badge}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                {currentIndustry.tagline}
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-bold text-slate-950">
+                {currentIndustry.title}
               </h3>
-              <p className="mt-3 text-sm sm:text-base text-slate-300">
-                Connect with our senior clean energy architects to design, engineer, and deploy your custom solution.
+              <p className="text-slate-600 text-sm leading-relaxed">
+                {currentIndustry.summary}
               </p>
             </div>
 
-            <div className="flex-shrink-0">
+            <div className="pt-2">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-semibold text-base shadow-xl shadow-blue-600/30 hover:shadow-blue-600/50 hover:scale-105 active:scale-95 transition-all duration-300 group"
+                className="inline-flex items-center gap-2 text-xs font-bold text-slate-900 hover:text-blue-600 transition-colors"
               >
-                <span>To Schedule a Call</span>
-                <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center transition-transform group-hover:translate-x-0.5">
-                  <ArrowRight className="w-4 h-4 text-white" />
+                <span>Request Custom {currentIndustry.title} Proposal</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Right Column: Numbered 01-04 Accordions for Active Industry */}
+          <div className="lg:col-span-7 space-y-4">
+            {currentIndustry.accordions.map((acc, idx) => {
+              const isActive = activeAccordion === idx;
+              return (
+                <div
+                  key={idx}
+                  onClick={() => setActiveAccordion(idx)}
+                  className={`cursor-pointer transition-all duration-200 rounded-2xl p-6 sm:p-7 ${
+                    isActive
+                      ? "bg-blue-600 text-white shadow-md border border-blue-600"
+                      : "bg-white hover:bg-slate-50 border border-gray-200 text-slate-800"
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                      <span className={`text-xs font-mono font-bold px-2.5 py-1 rounded-md ${
+                        isActive ? "bg-white/20 text-white" : "bg-black/5 text-slate-800"
+                      }`}>
+                        0{idx + 1}
+                      </span>
+                      <h4 className={`text-base sm:text-lg font-bold ${
+                        isActive ? "text-white" : "text-slate-950"
+                      }`}>
+                        {acc.title}
+                      </h4>
+                    </div>
+                    <div>
+                      {isActive ? (
+                        <ChevronUp className="w-5 h-5 text-white" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 text-slate-400" />
+                      )}
+                    </div>
+                  </div>
+
+                  {isActive && (
+                    <div className="mt-4 pl-11 pt-3 border-t border-white/20 space-y-3">
+                      <p className="text-sm text-blue-50 leading-relaxed">
+                        {acc.desc}
+                      </p>
+
+                      {acc.highlights && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+                          {acc.highlights.map((h, hIdx) => (
+                            <div key={hIdx} className="flex items-center gap-2 text-xs font-medium text-white">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-blue-200 shrink-0" />
+                              <span>{h}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 4. BOTTOM DARK CTA BANNER ── */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-12 pb-16 lg:pb-24">
+        <div className="rounded-3xl bg-[#111827] text-white p-8 sm:p-14 lg:p-16 relative overflow-hidden">
+          <div className="relative z-10 max-w-2xl space-y-5">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+              Sector Consulting
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-white leading-tight">
+              Speak with Our <span className="text-blue-400 font-bold">Industry Engineering Desk</span>
+            </h2>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+              Whether you are architecting a multi-tenant residential EV microgrid or an industrial megawatt solar installation, our senior engineers provide complete feasibility and single-line design.
+            </p>
+            <div className="pt-3">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-full transition-all text-sm shadow-lg shadow-blue-500/25 active:scale-95"
+              >
+                <span>Book a Sector Consultation</span>
+                <span className="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </Link>
             </div>
           </div>
         </div>
       </section>
-    </main>
+
+    </div>
   );
 }

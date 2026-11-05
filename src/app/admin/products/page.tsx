@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Plus, Search, Edit2, Trash2, CheckCircle2, XCircle, Package, Images } from "lucide-react";
+import ImageUploadDropzone from "@/components/admin/ImageUploadDropzone";
+import { Plus, Search, Edit2, Trash2, CheckCircle2, XCircle, Package, Images, X } from "lucide-react";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState<any[]>([]);
@@ -11,6 +12,7 @@ export default function AdminProductsPage() {
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [modalOpen, setModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<any>(null);
+  const [dbCategories, setDbCategories] = useState<{ slug: string; name: string }[]>([]);
 
   // Form State
   const [form, setForm] = useState({
@@ -52,6 +54,16 @@ export default function AdminProductsPage() {
 
   useEffect(() => {
     fetchProducts();
+    fetch("/api/categories")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.categories && data.categories.length > 0) {
+          setDbCategories(
+            data.categories.map((c: any) => ({ slug: c.slug, name: c.name }))
+          );
+        }
+      })
+      .catch(() => {});
   }, []);
 
   const openAddModal = () => {
@@ -171,20 +183,21 @@ export default function AdminProductsPage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-7xl mx-auto">
       {/* Header Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-normal text-slate-950 tracking-tight">
             E-Commerce Products & Catalogue
           </h2>
-          <p className="text-xs sm:text-sm text-gray-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Manage EV chargers, lithium battery packs, solar inverters and energy hardware.
           </p>
         </div>
         <button
+          type="button"
           onClick={openAddModal}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold rounded-xl shadow-md shadow-blue-500/20 hover:-translate-y-0.5 active:translate-y-0 transition-all shrink-0"
+          className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-md shadow-blue-500/20 transition-all active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Product</span>
@@ -192,32 +205,36 @@ export default function AdminProductsPage() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-gray-200/80 shadow-xs">
-        <div className="relative flex-1 max-w-md">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+      <div className="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="relative w-full md:w-80">
+          <Search className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
           <input
             type="text"
             placeholder="Search products by title..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 text-xs sm:text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15 bg-[#f8fafc] transition-all"
+            className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          {[
-            { id: "all", label: "All Items" },
-            { id: "ev-charging", label: "EV Chargers" },
-            { id: "battery-storage", label: "Lithium Batteries" },
-            { id: "power-solar", label: "Solar Inverters" },
-          ].map((cat) => (
+        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
+          {(dbCategories.length > 0
+            ? [{ id: "all", label: "All Items" }, ...dbCategories.map((c) => ({ id: c.slug, label: c.name }))]
+            : [
+                { id: "all", label: "All Items" },
+                { id: "ev-charging", label: "EV Chargers" },
+                { id: "battery-storage", label: "Lithium Batteries" },
+                { id: "power-solar", label: "Solar Inverters" },
+              ]
+          ).map((cat) => (
             <button
               key={cat.id}
+              type="button"
               onClick={() => setCategoryFilter(cat.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 categoryFilter === cat.id
-                  ? "bg-blue-600 text-white shadow-xs"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200/80"
+                  ? "bg-slate-900 text-white shadow-sm"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
               {cat.label}
@@ -227,115 +244,116 @@ export default function AdminProductsPage() {
       </div>
 
       {/* Product Table */}
-      <div className="bg-white rounded-2xl border border-gray-200/80 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50/80 border-b border-gray-200 text-[11px] font-bold text-gray-500 uppercase tracking-wider">
-                <th className="px-6 py-4">Product</th>
-                <th className="px-6 py-4">Category</th>
-                <th className="px-6 py-4">Price (INR)</th>
-                <th className="px-6 py-4">Stock</th>
-                <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4 text-right">Actions</th>
+              <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                <th className="py-3.5 px-4 sm:px-6">Product</th>
+                <th className="py-3.5 px-4">Category</th>
+                <th className="py-3.5 px-4">Price (INR)</th>
+                <th className="py-3.5 px-4">Stock</th>
+                <th className="py-3.5 px-4">Status</th>
+                <th className="py-3.5 px-4 sm:px-6 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 text-sm">
+            <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
               {loading ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
-                    <div className="flex flex-col items-center justify-center gap-2">
-                      <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                      <span className="text-xs font-semibold">Loading catalog items...</span>
+                  <td colSpan={6} className="py-12 text-center text-slate-400">
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                      <span>Loading catalog items...</span>
                     </div>
                   </td>
                 </tr>
               ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
-                    <Package className="w-10 h-10 mx-auto text-gray-300 mb-2" />
-                    <p className="text-xs font-semibold">No products found matching filters.</p>
+                  <td colSpan={6} className="py-12 text-center text-slate-400">
+                    <Package className="w-8 h-8 mx-auto text-slate-300 mb-2" />
+                    <p>No products found matching filters.</p>
                   </td>
                 </tr>
               ) : (
                 filtered.map((prod) => (
                   <tr key={prod.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-3.5">
-                        {/* THUMBNAIL CONTAINER WITH RELATIVE + FIXED DIMS PREVENTING OVERFLOW */}
-                        <div className="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-gray-100 border border-gray-200/80 shadow-xs">
+                    <td className="py-3.5 px-4 sm:px-6">
+                      <div className="flex items-center gap-3">
+                        <div className="relative w-12 h-12 rounded-xl bg-slate-100 border border-slate-200/80 overflow-hidden shrink-0">
                           <Image
                             src={prod.image}
                             alt={prod.name}
                             fill
                             sizes="48px"
-                            className="object-cover"
+                            className="object-contain p-1"
                           />
                         </div>
                         <div className="min-w-0">
-                          <div className="text-xs sm:text-sm font-bold text-gray-900 truncate max-w-xs">
+                          <div className="font-bold text-slate-900 truncate">
                             {prod.name}
                           </div>
-                          <div className="text-[11px] text-gray-400 truncate max-w-xs mt-0.5">
+                          <div className="text-[11px] text-slate-500 truncate max-w-xs">
                             {prod.tagline}
                           </div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className="inline-block px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700">
+                    <td className="py-3.5 px-4">
+                      <span className="inline-block px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-700">
                         {prod.categoryLabel}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-xs sm:text-sm font-extrabold text-gray-900">
+                    <td className="py-3.5 px-4">
+                      <div className="font-bold text-slate-900 font-mono">
                         ₹{prod.price.toLocaleString("en-IN")}
                       </div>
                       {prod.originalPrice && (
-                        <div className="text-[11px] text-gray-400 line-through">
+                        <div className="text-[10px] text-slate-400 line-through">
                           ₹{prod.originalPrice.toLocaleString("en-IN")}
                         </div>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="py-3.5 px-4">
                       {prod.inStock ? (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        <span className="inline-flex items-center gap-1.5 text-xs text-emerald-700 font-medium">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                           {prod.stockQuantity} in stock
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-50 text-rose-700 border border-rose-200/60">
-                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                        <span className="inline-flex items-center gap-1.5 text-xs text-red-600 font-medium">
+                          <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                           Out of Stock
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="py-3.5 px-4">
                       {prod.isPublished ? (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
-                          <CheckCircle2 className="w-4 h-4" />
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                          <CheckCircle2 className="w-3 h-3" />
                           Published
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-400">
-                          <XCircle className="w-4 h-4" />
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
+                          <XCircle className="w-3 h-3" />
                           Draft
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-right whitespace-nowrap">
-                      <div className="inline-flex items-center gap-1">
+                    <td className="py-3.5 px-4 sm:px-6 text-right">
+                      <div className="flex items-center justify-end gap-2">
                         <button
+                          type="button"
                           onClick={() => openEditModal(prod)}
-                          className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                           title="Edit"
+                          className="p-1.5 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-colors"
                         >
                           <Edit2 className="w-4 h-4" />
                         </button>
                         <button
+                          type="button"
                           onClick={() => handleDelete(prod.id)}
-                          className="p-2 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
                           title="Delete"
+                          className="p-1.5 rounded-lg text-slate-500 hover:text-red-600 hover:bg-red-50 transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -351,16 +369,28 @@ export default function AdminProductsPage() {
 
       {/* ── CREATE / EDIT PRODUCT MODAL ── */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto">
-          <div className="fixed inset-0" onClick={() => setModalOpen(false)} />
-          <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl p-6 sm:p-8 my-8 z-10 max-h-[92vh] overflow-y-auto">
-            <h3 className="text-lg font-black text-gray-900 border-b border-gray-100 pb-3">
-              {editingProduct ? "Edit Product Details" : "Add New Clean Energy Hardware"}
-            </h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"
+            onClick={() => setModalOpen(false)}
+          />
+          <div className="relative bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-6 sm:p-8 z-10 max-h-[90vh] overflow-y-auto space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+              <h3 className="text-lg font-bold text-slate-900">
+                {editingProduct ? "Edit Product Details" : "Add New Clean Energy Hardware"}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setModalOpen(false)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
-            <form onSubmit={handleFormSubmit} className="mt-5 space-y-5">
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+            <form onSubmit={handleFormSubmit} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700">
                   Product Title *
                 </label>
                 <input
@@ -369,12 +399,12 @@ export default function AdminProductsPage() {
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="e.g. VLOXIA Smart Home Wallbox 11 kW"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700">
                   Short Tagline
                 </label>
                 <input
@@ -382,33 +412,42 @@ export default function AdminProductsPage() {
                   value={form.tagline}
                   onChange={(e) => setForm({ ...form, tagline: e.target.value })}
                   placeholder="Compact fast charger with app scheduling..."
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-slate-700">
                     Category *
                   </label>
                   <select
                     value={form.category}
                     onChange={(e) => {
                       const val = e.target.value;
-                      let label = "EV Charging";
-                      if (val === "battery-storage") label = "Lithium Storage";
-                      if (val === "power-solar") label = "Power & Solar";
+                      const found = dbCategories.find((c) => c.slug === val);
+                      const label = found ? found.name : val;
                       setForm({ ...form, category: val, categoryLabel: label });
                     }}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="ev-charging">EV Charging</option>
-                    <option value="battery-storage">Lithium Storage</option>
-                    <option value="power-solar">Power & Solar</option>
+                    {dbCategories.length > 0 ? (
+                      dbCategories.map((c) => (
+                        <option key={c.slug} value={c.slug}>
+                          {c.name}
+                        </option>
+                      ))
+                    ) : (
+                      <>
+                        <option value="ev-charging">EV Charging</option>
+                        <option value="battery-storage">Lithium Storage</option>
+                        <option value="power-solar">Power & Solar</option>
+                      </>
+                    )}
                   </select>
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-slate-700">
                     Badge (Optional)
                   </label>
                   <input
@@ -416,14 +455,14 @@ export default function AdminProductsPage() {
                     value={form.badge}
                     onChange={(e) => setForm({ ...form, badge: e.target.value })}
                     placeholder="e.g. Best Seller / New"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-slate-700">
                     Price (₹) *
                   </label>
                   <input
@@ -432,11 +471,11 @@ export default function AdminProductsPage() {
                     value={form.price}
                     onChange={(e) => setForm({ ...form, price: e.target.value })}
                     placeholder="38500"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-slate-700">
                     MRP / Original (₹)
                   </label>
                   <input
@@ -444,159 +483,67 @@ export default function AdminProductsPage() {
                     value={form.originalPrice}
                     onChange={(e) => setForm({ ...form, originalPrice: e.target.value })}
                     placeholder="45000"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-slate-700">
                     Stock Qty
                   </label>
                   <input
                     type="number"
                     value={form.stockQuantity}
                     onChange={(e) => setForm({ ...form, stockQuantity: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
 
-              {/* ── 5 PRODUCT IMAGES SECTION (MATCHES USER REQUEST) ── */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-4">
+              {/* 5 Product Images Section with Local File Upload */}
+              <div className="space-y-3 pt-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Images className="w-4 h-4 text-blue-600" />
                     <div>
-                      <label className="block text-xs font-black text-gray-900 uppercase tracking-wider">
-                        Product Images (Up to 5 Photos) *
+                      <label className="text-xs font-bold text-slate-800">
+                        Product Photos (Upload from Local Device) *
                       </label>
-                      <p className="text-[11px] text-gray-500 mt-0.5">
+                      <p className="text-[11px] text-slate-400">
                         Slot 1 is the main catalog cover photo. Slots 2–5 are additional gallery angles.
                       </p>
                     </div>
                   </div>
-                  <span className="text-[11px] font-bold text-blue-700 bg-blue-100/80 px-2.5 py-1 rounded-full shrink-0">
-                    {images.filter((img) => img && img.trim() !== "").length}/5 Images
+                  <span className="text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">
+                    {images.filter((img) => img && img.trim() !== "").length}/5 Photos
                   </span>
                 </div>
 
-                {/* 5 Thumbnail Visual Preview Grid */}
-                <div className="grid grid-cols-5 gap-2.5">
-                  {images.map((imgUrl, idx) => {
-                    const isFilled = imgUrl && imgUrl.trim() !== "";
-                    return (
-                      <div
-                        key={idx}
-                        className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all flex flex-col items-center justify-center group ${
-                          idx === 0
-                            ? "border-blue-500 bg-blue-50/40 shadow-xs"
-                            : isFilled
-                            ? "border-gray-200 bg-white shadow-xs"
-                            : "border-dashed border-gray-300 bg-white/70"
-                        }`}
-                      >
-                        {isFilled ? (
-                          <>
-                            <Image
-                              src={imgUrl}
-                              alt={`Slot ${idx + 1}`}
-                              fill
-                              sizes="80px"
-                              className="object-cover"
-                            />
-                            {/* Overlay remove button */}
-                            <button
-                              type="button"
-                              onClick={() => {
-                                const next = [...images];
-                                next[idx] = "";
-                                setImages(next);
-                              }}
-                              className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/75 hover:bg-rose-600 text-white flex items-center justify-center text-[10px] transition-colors shadow-xs"
-                              title="Clear photo"
-                            >
-                              ✕
-                            </button>
-                          </>
-                        ) : (
-                          <div className="text-center p-1 pointer-events-none">
-                            <span className="text-lg text-gray-300 font-light block leading-none">+</span>
-                            <div className="text-[9px] font-bold text-gray-400 mt-1">Slot {idx + 1}</div>
-                          </div>
-                        )}
-
-                        {/* Badge for slot */}
-                        <div className="absolute bottom-1 left-1 pointer-events-none">
-                          <span
-                            className={`text-[8px] sm:text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded shadow-xs ${
-                              idx === 0
-                                ? "bg-blue-600 text-white"
-                                : "bg-black/65 text-white"
-                            }`}
-                          >
-                            {idx === 0 ? "Cover" : `#${idx + 1}`}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* 5 Individual URL Inputs */}
-                <div className="space-y-2 pt-2 border-t border-slate-200/80">
+                {/* 5 Interactive Local File Dropzones */}
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
                   {images.map((imgUrl, idx) => (
-                    <div key={idx} className="flex items-center gap-2">
-                      <div className="w-18 shrink-0">
-                        <span
-                          className={`inline-block text-[10px] font-extrabold uppercase px-2 py-1.5 rounded-lg w-full text-center ${
-                            idx === 0
-                              ? "bg-blue-600 text-white shadow-xs"
-                              : "bg-gray-200/80 text-gray-700 font-bold"
-                          }`}
-                        >
-                          {idx === 0 ? "Cover *" : `Slot ${idx + 1}`}
-                        </span>
-                      </div>
-
-                      <div className="relative flex-1">
-                        <input
-                          type="url"
-                          required={idx === 0}
-                          value={imgUrl}
-                          onChange={(e) => {
-                            const next = [...images];
-                            next[idx] = e.target.value;
-                            setImages(next);
-                          }}
-                          placeholder={
-                            idx === 0
-                              ? "https://... (Main cover image URL - Required)"
-                              : `https://... (Additional gallery photo ${idx + 1} - Optional)`
+                    <div key={idx} className="flex flex-col">
+                      <ImageUploadDropzone
+                        folder="products"
+                        aspectRatio="square"
+                        value={imgUrl}
+                        onChange={(url) => {
+                          const next = [...images];
+                          next[idx] = url;
+                          setImages(next);
+                          if (idx === 0) {
+                            setForm((prev) => ({ ...prev, image: url }));
                           }
-                          className="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs focus:outline-none focus:border-blue-500 bg-white"
-                        />
-                      </div>
-
-                      {imgUrl && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const next = [...images];
-                            next[idx] = "";
-                            setImages(next);
-                          }}
-                          className="p-2 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors text-xs font-bold"
-                          title="Clear this photo"
-                        >
-                          ✕
-                        </button>
-                      )}
+                        }}
+                        label={idx === 0 ? "Slot 1 (Cover) *" : `Slot ${idx + 1}`}
+                        helperText={idx === 0 ? "Required cover" : "Optional"}
+                      />
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+              <div className="space-y-1.5 pt-1">
+                <label className="text-xs font-semibold text-slate-700">
                   Warranty Term
                 </label>
                 <input
@@ -604,12 +551,12 @@ export default function AdminProductsPage() {
                   value={form.warranty}
                   onChange={(e) => setForm({ ...form, warranty: e.target.value })}
                   placeholder="e.g. 5 Years Replacement Warranty"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-blue-500 bg-gray-50/50"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
               <div className="flex items-center gap-6 pt-2">
-                <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-gray-700">
+                <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
                   <input
                     type="checkbox"
                     checked={form.inStock}
@@ -618,7 +565,7 @@ export default function AdminProductsPage() {
                   />
                   <span>Mark as In Stock</span>
                 </label>
-                <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-gray-700">
+                <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-700">
                   <input
                     type="checkbox"
                     checked={form.isPublished}
@@ -629,17 +576,17 @@ export default function AdminProductsPage() {
                 </label>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-100 transition-colors"
+                  className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-semibold transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-colors"
+                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-md shadow-blue-500/20 active:scale-95"
                 >
                   {editingProduct ? "Update Product" : "Save & Publish"}
                 </button>

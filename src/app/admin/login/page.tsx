@@ -58,43 +58,43 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1220] flex items-center justify-center p-4 sm:p-6 relative overflow-hidden select-none">
+    <div className="min-h-screen bg-[#0B1120] text-slate-100 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden font-sans">
       {/* Background radial glows */}
-      <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative w-full max-w-md">
+      <div className="w-full max-w-md relative z-10 space-y-6">
         {/* Brand Header */}
-        <div className="text-center mb-6">
-          <div className="inline-block bg-white p-3 rounded-2xl shadow-lg border border-white/20 mb-4">
+        <div className="text-center space-y-3">
+          <div className="inline-block p-3 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 shadow-lg">
             <Image
               src="/vloxia-logo.png"
               alt="VLOXIA Systems LLP"
               width={140}
               height={45}
-              className="h-8 w-auto object-contain"
+              className="object-contain brightness-0 invert"
               priority
             />
           </div>
-          <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+          <h1 className="text-2xl font-normal tracking-tight text-white">
             Enterprise Command Portal
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-400">
             VLOXIA Energy Systems Management & CMS
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-slate-900/90 backdrop-blur-md rounded-2xl border border-slate-800 p-6 sm:p-8 shadow-2xl">
+        <div className="bg-[#131D33] border border-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl space-y-5">
           {errorMsg && (
-            <div className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold flex items-center gap-2">
+            <div className="p-3.5 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs flex items-center gap-2">
               <ShieldAlert className="w-4 h-4 shrink-0" />
               <span>{errorMsg}</span>
             </div>
           )}
 
           {successMsg && (
-            <div className="mb-4 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold flex items-center gap-2">
+            <div className="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>{successMsg}</span>
             </div>
@@ -103,62 +103,62 @@ export default function AdminLoginPage() {
           <form onSubmit={handleLoginSubmit} className="space-y-4">
             {step === "CREDENTIALS" ? (
               <>
-                <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-slate-300">
                     Admin Email
                   </label>
                   <div className="relative">
-                    <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+                    <Mail className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
                       placeholder="admin@vloxia.in"
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-700 bg-slate-950/60 text-white text-xs sm:text-sm focus:outline-none focus:border-blue-500"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700 text-white text-xs sm:text-sm placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+                <div className="space-y-1.5">
+                  <div className="flex justify-between items-center">
+                    <label className="text-xs font-semibold text-slate-300">
                       Password
                     </label>
-                    <span className="text-[10px] text-slate-400 font-mono">Default: Admin@Vloxia2026</span>
+                    <span className="text-[10px] text-slate-400">Default: Admin@Vloxia2026</span>
                   </div>
                   <div className="relative">
-                    <Lock className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+                    <Lock className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
                     <input
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       placeholder="••••••••••••"
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-700 bg-slate-950/60 text-white text-xs sm:text-sm focus:outline-none focus:border-blue-500"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700 text-white text-xs sm:text-sm placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
                 </div>
 
                 <div className="pt-1">
-                  <label className="flex items-center gap-2 text-xs text-slate-400 cursor-pointer">
+                  <label className="flex items-center gap-2.5 cursor-pointer text-xs text-slate-300 select-none">
                     <input
                       type="checkbox"
                       checked={requireOtp}
                       onChange={(e) => setRequireOtp(e.target.checked)}
-                      className="rounded bg-slate-800 border-slate-700 text-blue-600 focus:ring-blue-500 w-4 h-4"
+                      className="rounded bg-slate-900 border-slate-700 text-blue-600 focus:ring-blue-500 w-4 h-4"
                     />
                     <span>Enable SMTP 2-Factor OTP Verification</span>
                   </label>
                 </div>
               </>
             ) : (
-              <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <div className="space-y-2">
+                <label className="text-xs font-semibold text-slate-300">
                   Enter 6-Digit Email OTP
                 </label>
                 <div className="relative">
-                  <KeyRound className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+                  <KeyRound className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
                   <input
                     type="text"
                     maxLength={6}
@@ -166,16 +166,16 @@ export default function AdminLoginPage() {
                     onChange={(e) => setOtp(e.target.value)}
                     required
                     placeholder="123456"
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-700 bg-slate-950/60 text-white text-xs sm:text-sm font-mono tracking-widest text-center focus:outline-none focus:border-blue-500"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700 text-white text-xs sm:text-sm placeholder:text-slate-500 tracking-widest text-center font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                   />
                 </div>
-                <p className="text-[11px] text-slate-400 mt-2">
+                <p className="text-[11px] text-slate-400">
                   Check your inbox for the verification email sent via SMTP.
                 </p>
                 <button
                   type="button"
                   onClick={() => setStep("CREDENTIALS")}
-                  className="mt-2 text-xs text-blue-400 hover:underline"
+                  className="text-xs text-blue-400 hover:underline pt-1 block"
                 >
                   ← Back to password login
                 </button>
@@ -185,7 +185,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-2 py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white text-xs sm:text-sm font-bold uppercase tracking-wider rounded-xl shadow-lg shadow-blue-600/30 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2 mt-4 active:scale-95 disabled:opacity-50"
             >
               {isLoading ? (
                 <span>Authenticating with Portal...</span>
@@ -204,7 +204,7 @@ export default function AdminLoginPage() {
           </form>
         </div>
 
-        <div className="mt-4 text-center text-[10px] text-slate-500">
+        <div className="text-center text-[11px] text-slate-500">
           VLOXIA Systems LLP Security Perimeter • 256-bit Encrypted
         </div>
       </div>
