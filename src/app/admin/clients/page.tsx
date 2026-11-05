@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import ImageUploadDropzone from "@/components/admin/ImageUploadDropzone";
+import ImageUploadDropzone from "../../../components/admin/ImageUploadDropzone";
 import {
   Plus,
   Trash2,

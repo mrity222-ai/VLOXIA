@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import FeaturedProducts from "@/components/FeaturedProducts";
-import PartnerMarquee from "@/components/PartnerMarquee";
+import PartnerMarquee from "../components/PartnerMarquee";
 import {
   ArrowRight,
   Zap,

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import PartnerMarquee from "@/components/PartnerMarquee";
+import PartnerMarquee from "../../components/PartnerMarquee";
 import {
   ArrowRight,
   ShieldCheck,

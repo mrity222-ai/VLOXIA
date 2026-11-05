@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import ImageUploadDropzone from "@/components/admin/ImageUploadDropzone";
+import ImageUploadDropzone from "../../../components/admin/ImageUploadDropzone";
 import { Plus, Search, Edit2, Trash2, CheckCircle2, XCircle, Package, Images, X } from "lucide-react";
 
 export default function AdminProductsPage() {
