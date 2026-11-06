@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { PRODUCTS, Product as StaticProduct } from "../../../data/products";
 import { useCart } from "../../../context/CartContext";
+import ScrollReveal from "@/components/animations/ScrollReveal";
 import {
   Star,
   ShieldCheck,
@@ -302,196 +303,199 @@ export default function ProductDetailPage() {
         </nav>
 
         {/* ── MAIN PRODUCT SHOWCASE CONTAINER ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <ScrollReveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
 
-          {/* Left Column: 5-Image Gallery */}
-          <div className="lg:col-span-6 space-y-4">
-            {/* Primary Large Image */}
-            <div className="relative w-full h-80 sm:h-96 md:h-[460px] rounded-3xl bg-[#F2F4FA] p-8 flex items-center justify-center overflow-hidden border border-gray-100 shadow-sm">
-              {product.badge && (
-                <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-600 text-white shadow-sm z-10">
-                  {product.badge}
-                </span>
-              )}
+            {/* Left Column: 5-Image Gallery */}
+            <div className="lg:col-span-6 space-y-4">
+              {/* Primary Large Image */}
+              <div className="relative w-full h-80 sm:h-96 md:h-[460px] rounded-3xl bg-[#F2F4FA] p-8 flex items-center justify-center overflow-hidden border border-gray-100 shadow-sm">
+                {product.badge && (
+                  <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-600 text-white shadow-sm z-10">
+                    {product.badge}
+                  </span>
+                )}
 
-              <Image
-                src={galleryImages[activeImageIndex] || product.image}
-                alt={product.name}
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 600px"
-                className="object-contain p-4 transition-transform duration-300 hover:scale-105"
-              />
-            </div>
+                <Image
+                  src={galleryImages[activeImageIndex] || product.image}
+                  alt={product.name}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 600px"
+                  className="object-contain p-4 transition-transform duration-300 hover:scale-105"
+                />
+              </div>
 
-            {/* 5 Thumbnail Gallery Strip */}
-            <div className="grid grid-cols-5 gap-3">
-              {galleryImages.map((img, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setActiveImageIndex(idx)}
-                  className={`relative h-20 sm:h-24 rounded-2xl overflow-hidden bg-[#F2F4FA] p-2 border-2 transition-all ${
-                    activeImageIndex === idx
-                      ? "border-blue-600 shadow-md scale-95"
-                      : "border-transparent opacity-75 hover:opacity-100 hover:border-gray-300"
-                  }`}
-                >
-                  <Image
-                    src={img}
-                    alt={`Angle ${idx + 1}`}
-                    fill
-                    sizes="100px"
-                    className="object-contain"
-                  />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Column: Meta, Pricing, Rating & Direct Buy Actions */}
-          <div className="lg:col-span-6 space-y-6">
-            <div>
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-100 mb-2">
-                {product.categoryLabel}
-              </span>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-normal text-slate-950 tracking-tight leading-tight">
-                {product.name}
-              </h1>
-              <p className="text-sm sm:text-base text-gray-500 mt-2 leading-relaxed">
-                {product.tagline}
-              </p>
-            </div>
-
-            {/* Star Rating & Reviews Count */}
-            <div className="flex items-center gap-3 pb-2 border-b border-gray-100">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+              {/* 5 Thumbnail Gallery Strip */}
+              <div className="grid grid-cols-5 gap-3">
+                {galleryImages.map((img, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setActiveImageIndex(idx)}
+                    className={`relative h-20 sm:h-24 rounded-2xl overflow-hidden bg-[#F2F4FA] p-2 border-2 transition-all ${
+                      activeImageIndex === idx
+                        ? "border-blue-600 shadow-md scale-95"
+                        : "border-transparent opacity-75 hover:opacity-100 hover:border-gray-300"
+                    }`}
+                  >
+                    <Image
+                      src={img}
+                      alt={`Angle ${idx + 1}`}
+                      fill
+                      sizes="100px"
+                      className="object-contain"
+                    />
+                  </button>
                 ))}
               </div>
-              <span className="text-sm font-bold text-slate-950">
-                {product.rating} / 5.0
-              </span>
-              <span className="text-xs text-gray-400">•</span>
-              <span className="text-xs font-semibold text-blue-600 hover:underline cursor-pointer">
-                {product.reviewsCount} verified customer reviews
-              </span>
             </div>
 
-            {/* Price Box */}
-            <div className="bg-[#F2F4FA] rounded-3xl p-6 space-y-2 border border-gray-100">
-              <div className="flex items-baseline gap-4">
-                <span className="text-3xl sm:text-4xl font-bold text-blue-600 font-mono tracking-tight">
-                  ₹{product.price.toLocaleString("en-IN")}
+            {/* Right Column: Meta, Pricing, Rating & Direct Buy Actions */}
+            <div className="lg:col-span-6 space-y-6">
+              <div>
+                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-100 mb-2">
+                  {product.categoryLabel}
                 </span>
-                {product.originalPrice && (
-                  <span className="text-base text-gray-400 line-through">
-                    ₹{product.originalPrice.toLocaleString("en-IN")}
-                  </span>
-                )}
-                {product.originalPrice && (
-                  <span className="text-xs font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full">
-                    Save ₹{(product.originalPrice - product.price).toLocaleString("en-IN")}
-                  </span>
-                )}
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-normal text-slate-950 tracking-tight leading-tight">
+                  <span className="text-shimmer font-bold">{product.name}</span>
+                </h1>
+                <p className="text-sm sm:text-base text-gray-500 mt-2 leading-relaxed">
+                  {product.tagline}
+                </p>
               </div>
-              <div className="text-xs text-gray-500 flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
-                <span>Inclusive of 18% GST • Doorstep Insured Transport Across India</span>
-              </div>
-            </div>
 
-            {/* Stock & Warranty Highlights */}
-            <div className="grid grid-cols-2 gap-4 text-xs font-semibold">
-              <div className="flex items-center gap-2.5 p-3.5 rounded-2xl bg-white border border-gray-200">
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <div>
-                  <div className="text-gray-900">In Stock Ready to Ship</div>
-                  <div className="text-[11px] text-gray-400 font-normal">{product.stockQuantity || 12} Units at Factory Depot</div>
+              {/* Star Rating & Reviews Count */}
+              <div className="flex items-center gap-3 pb-2 border-b border-gray-100">
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <span className="text-sm font-bold text-slate-950">
+                  {product.rating} / 5.0
+                </span>
+                <span className="text-xs text-gray-400">•</span>
+                <span className="text-xs font-semibold text-blue-600 hover:underline cursor-pointer">
+                  {product.reviewsCount} verified customer reviews
+                </span>
+              </div>
+
+              {/* Price Box */}
+              <div className="bg-[#F2F4FA] rounded-3xl p-6 space-y-2 border border-gray-100">
+                <div className="flex items-baseline gap-4">
+                  <span className="text-3xl sm:text-4xl font-bold text-blue-600 font-mono tracking-tight">
+                    ₹{product.price.toLocaleString("en-IN")}
+                  </span>
+                  {product.originalPrice && (
+                    <span className="text-base text-gray-400 line-through">
+                      ₹{product.originalPrice.toLocaleString("en-IN")}
+                    </span>
+                  )}
+                  {product.originalPrice && (
+                    <span className="text-xs font-bold text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full">
+                      Save ₹{(product.originalPrice - product.price).toLocaleString("en-IN")}
+                    </span>
+                  )}
+                </div>
+                <div className="text-xs text-gray-500 flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Inclusive of 18% GST • Doorstep Insured Transport Across India</span>
                 </div>
               </div>
-              <div className="flex items-center gap-2.5 p-3.5 rounded-2xl bg-white border border-gray-200">
-                <ShieldCheck className="w-5 h-5 text-blue-600 shrink-0" />
-                <div>
-                  <div className="text-gray-900">Official Warranty</div>
-                  <div className="text-[11px] text-gray-400 font-normal">{product.warranty}</div>
+
+              {/* Stock & Warranty Highlights */}
+              <div className="grid grid-cols-2 gap-4 text-xs font-semibold">
+                <div className="flex items-center gap-2.5 p-3.5 rounded-2xl bg-white border border-gray-200">
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <div>
+                    <div className="text-gray-900">In Stock Ready to Ship</div>
+                    <div className="text-[11px] text-gray-400 font-normal">{product.stockQuantity || 12} Units at Factory Depot</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2.5 p-3.5 rounded-2xl bg-white border border-gray-200">
+                  <ShieldCheck className="w-5 h-5 text-blue-600 shrink-0" />
+                  <div>
+                    <div className="text-gray-900">Official Warranty</div>
+                    <div className="text-[11px] text-gray-400 font-normal">{product.warranty}</div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Quantity Stepper & Dual Action Buttons */}
-            <div className="space-y-4 pt-2">
-              <div className="flex items-center gap-4">
-                <span className="text-xs font-bold uppercase tracking-wider text-gray-600">Quantity:</span>
-                <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
+              {/* Quantity Stepper & Dual Action Buttons */}
+              <div className="space-y-4 pt-2">
+                <div className="flex items-center gap-4">
+                  <span className="text-xs font-bold uppercase tracking-wider text-gray-600">Quantity:</span>
+                  <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                    <button
+                      type="button"
+                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      className="px-3.5 py-2 hover:bg-gray-100 text-gray-700 font-bold transition-colors"
+                    >
+                      -
+                    </button>
+                    <span className="px-5 py-2 text-sm font-bold text-gray-900 font-mono">
+                      {quantity}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setQuantity(quantity + 1)}
+                      className="px-3.5 py-2 hover:bg-gray-100 text-gray-700 font-bold transition-colors"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                {/* DUAL ACTION BUTTONS: "Add to Cart" & "Buy Now" */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  {/* OPTION 1: ADD TO CART */}
                   <button
                     type="button"
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="px-3.5 py-2 hover:bg-gray-100 text-gray-700 font-bold transition-colors"
+                    onClick={() => {
+                      addToCart(product, quantity);
+                      setIsCartOpen(true);
+                    }}
+                    className="py-4 px-6 rounded-2xl border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 shadow-sm"
                   >
-                    -
+                    <ShoppingCart className="w-4 h-4" />
+                    <span>Add to Cart</span>
                   </button>
-                  <span className="px-5 py-2 text-sm font-bold text-gray-900 font-mono">
-                    {quantity}
-                  </span>
+
+                  {/* OPTION 2: BUY NOW (Direct Checkout) */}
                   <button
                     type="button"
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="px-3.5 py-2 hover:bg-gray-100 text-gray-700 font-bold transition-colors"
+                    onClick={() => setIsBuyNowOpen(true)}
+                    className="py-4 px-6 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold tracking-tight text-sm flex items-center justify-center gap-2 shadow-xl shadow-blue-500/25 transition-all active:scale-95"
                   >
-                    +
+                    <Zap className="w-4 h-4" />
+                    <span>Buy Now (Instant Checkout)</span>
                   </button>
                 </div>
               </div>
 
-              {/* DUAL ACTION BUTTONS: "Add to Cart" & "Buy Now" */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {/* OPTION 1: ADD TO CART */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    addToCart(product, quantity);
-                    setIsCartOpen(true);
-                  }}
-                  className="py-4 px-6 rounded-2xl border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 shadow-sm"
-                >
-                  <ShoppingCart className="w-4 h-4" />
-                  <span>Add to Cart</span>
-                </button>
-
-                {/* OPTION 2: BUY NOW (Direct Checkout) */}
-                <button
-                  type="button"
-                  onClick={() => setIsBuyNowOpen(true)}
-                  className="py-4 px-6 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold tracking-tight text-sm flex items-center justify-center gap-2 shadow-xl shadow-blue-500/25 transition-all active:scale-95"
-                >
-                  <Zap className="w-4 h-4" />
-                  <span>Buy Now (Instant Checkout)</span>
-                </button>
+              {/* Quick Guarantees */}
+              <div className="pt-2 flex flex-wrap items-center gap-6 text-xs text-gray-500">
+                <span className="flex items-center gap-1.5">
+                  <Truck className="w-4 h-4 text-blue-600" />
+                  Free Doorstep Delivery
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-blue-600" />
+                  Dispatches in 24-48 Hours
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-amber-500" />
+                  100% Authentic VLOXIA Certified
+                </span>
               </div>
-            </div>
-
-            {/* Quick Guarantees */}
-            <div className="pt-2 flex flex-wrap items-center gap-6 text-xs text-gray-500">
-              <span className="flex items-center gap-1.5">
-                <Truck className="w-4 h-4 text-blue-600" />
-                Free Doorstep Delivery
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="w-4 h-4 text-blue-600" />
-                Dispatches in 24-48 Hours
-              </span>
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-amber-500" />
-                100% Authentic VLOXIA Certified
-              </span>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* ── TABS: OVERVIEW, TECHNICAL SPECS & CUSTOMER REVIEWS ── */}
-        <section className="bg-white rounded-3xl border border-gray-200/80 p-6 sm:p-10 shadow-sm space-y-6">
+        <ScrollReveal delay={0.1}>
+          <section className="bg-white rounded-3xl border border-gray-200/80 p-6 sm:p-10 shadow-sm space-y-6">
           <div className="flex items-center gap-3 border-b border-gray-100 pb-4 overflow-x-auto">
             {[
               { id: "overview", label: "Overview & Features" },
@@ -642,69 +646,73 @@ export default function ProductDetailPage() {
               </div>
             </div>
           )}
-        </section>
+          </section>
+        </ScrollReveal>
 
         {/* ── SUGGESTED HARDWARE PRODUCTS (AT BOTTOM AS REQUESTED) ── */}
         <section className="space-y-6 pt-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-xl sm:text-2xl font-normal text-slate-950 tracking-tight">
-                You May Also Like & Hardware Suggestions
-              </h2>
-              <p className="text-xs sm:text-sm text-gray-500 mt-1">
-                Explore complementary charging units and modular power systems
-              </p>
+          <ScrollReveal>
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl sm:text-2xl font-normal text-slate-950 tracking-tight">
+                  You May Also Like & <span className="text-shimmer font-bold">Hardware Suggestions</span>
+                </h2>
+                <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                  Explore complementary charging units and modular power systems
+                </p>
+              </div>
+              <Link
+                href="/shop"
+                className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
+              >
+                <span>View All Catalog</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
-            <Link
-              href="/shop"
-              className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1"
-            >
-              <span>View All Catalog</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {suggestedProducts.map((item) => (
-              <div
-                key={item.id}
-                className="group bg-[#F2F4FA] hover:bg-[#EBEEF8] rounded-3xl p-5 transition-all duration-300 flex flex-col justify-between border border-transparent hover:border-blue-200 hover:shadow-lg"
-              >
-                <div>
-                  <Link
-                    href={`/shop/${item.id}`}
-                    className="relative block w-full h-44 rounded-2xl bg-white/70 p-3 overflow-hidden mb-4"
-                  >
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      sizes="250px"
-                      className="object-contain group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </Link>
-                  <span className="text-[10px] uppercase font-bold text-gray-400">
-                    {item.categoryLabel}
-                  </span>
-                  <Link
-                    href={`/shop/${item.id}`}
-                    className="block text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1 mt-0.5"
-                  >
-                    {item.name}
-                  </Link>
-                  <div className="text-blue-600 font-bold text-sm font-mono mt-1">
-                    ₹{item.price.toLocaleString("en-IN")}
-                  </div>
-                </div>
-
-                <Link
-                  href={`/shop/${item.id}`}
-                  className="mt-4 pt-3 border-t border-gray-200/60 text-xs font-bold text-blue-600 flex items-center justify-between group-hover:gap-2 transition-all"
+            {suggestedProducts.map((item, sIdx) => (
+              <ScrollReveal key={item.id} delay={Math.min(sIdx * 0.05, 0.25)}>
+                <div
+                  className="group bg-[#F2F4FA] hover:bg-[#EBEEF8] rounded-3xl p-5 transition-all duration-300 flex flex-col justify-between border border-transparent hover:border-blue-200 hover:shadow-lg h-full"
                 >
-                  <span>View Details</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
+                  <div>
+                    <Link
+                      href={`/shop/${item.id}`}
+                      className="relative block w-full h-44 rounded-2xl bg-white/70 p-3 overflow-hidden mb-4"
+                    >
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        sizes="250px"
+                        className="object-contain group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </Link>
+                    <span className="text-[10px] uppercase font-bold text-gray-400">
+                      {item.categoryLabel}
+                    </span>
+                    <Link
+                      href={`/shop/${item.id}`}
+                      className="block text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1 mt-0.5"
+                    >
+                      {item.name}
+                    </Link>
+                    <div className="text-blue-600 font-bold text-sm font-mono mt-1">
+                      ₹{item.price.toLocaleString("en-IN")}
+                    </div>
+                  </div>
+
+                  <Link
+                    href={`/shop/${item.id}`}
+                    className="mt-4 pt-3 border-t border-gray-200/60 text-xs font-bold text-blue-600 flex items-center justify-between group-hover:gap-2 transition-all"
+                  >
+                    <span>View Details</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </section>
