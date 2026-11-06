@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
+import { getSystemSettings } from "@/lib/settings";
 
 export async function POST(req: Request) {
   try {
@@ -13,8 +14,9 @@ export async function POST(req: Request) {
       );
     }
 
-    const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
-    const keySecret = process.env.RAZORPAY_KEY_SECRET;
+    const settings = await getSystemSettings();
+    const keyId = settings.razorpayKeyId;
+    const keySecret = settings.razorpayKeySecret;
 
     // Razorpay requires amount in Paise (1 INR = 100 Paise)
     const amountInPaise = Math.round(amount * 100);
@@ -41,6 +43,7 @@ export async function POST(req: Request) {
         orderId: order.id,
         amount: order.amount,
         currency: order.currency,
+        keyId,
       });
     } else {
       // Development / Mock order simulation when real test keys are not configured yet
@@ -50,6 +53,7 @@ export async function POST(req: Request) {
         amount: amountInPaise,
         currency: "INR",
         isMock: true,
+        keyId: "rzp_test_mock",
       });
     }
   } catch (error: any) {

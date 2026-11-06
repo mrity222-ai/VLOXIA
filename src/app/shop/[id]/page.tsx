@@ -200,7 +200,7 @@ export default function ProductDetailPage() {
       }
 
       // Check if Razorpay key is present
-      const keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_51MockVloxiaKey";
+      const keyId = orderData.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_51MockVloxiaKey";
 
       if ((window as any).Razorpay && !keyId.includes("Mock")) {
         const options = {

@@ -9,15 +9,17 @@ datasource db {
 }
 
 model AdminUser {
-  id           String    @id @default(cuid())
-  email        String    @unique
-  name         String
-  passwordHash String
-  role         String    @default("ADMIN") // SUPER_ADMIN, ADMIN, VIEWER
-  resetOtp     String?
-  otpExpiresAt DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id                  String    @id @default(cuid())
+  email               String    @unique
+  name                String
+  passwordHash        String
+  role                String    @default("ADMIN") // SUPER_ADMIN, ADMIN, VIEWER
+  resetOtp            String?
+  otpExpiresAt        DateTime?
+  resetToken          String?
+  resetTokenExpiresAt DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 }
 
 model Product {
@@ -109,7 +111,6 @@ model ClientLogo {
   updatedAt   DateTime @updatedAt
 }
 
-
 model ShopBanner {
   id          String   @id @default(cuid())
   title       String
@@ -134,4 +135,17 @@ model Category {
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model SystemSetting {
+  id                    String    @id @default("global_config")
+  smtpHost              String?   @default("smtp.gmail.com")
+  smtpPort              Int?      @default(587)
+  smtpUser              String?
+  smtpPass              String?
+  smtpFrom              String?
+  razorpayKeyId         String?
+  razorpayKeySecret     String?
+  razorpayWebhookSecret String?
+  updatedAt             DateTime  @updatedAt
 }

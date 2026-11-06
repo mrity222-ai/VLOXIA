@@ -86,10 +86,12 @@ export default function CartDrawer() {
         throw new Error(orderData.error || "Failed to create payment order");
       }
 
-      if (window.Razorpay && !keyId.includes("Mock")) {
+      const activeKeyId = orderData.keyId || keyId;
+
+      if (window.Razorpay && !activeKeyId.includes("Mock")) {
         // Step 2: Open Razorpay Modal
         const options = {
-          key: keyId,
+          key: activeKeyId,
           amount: orderData.amount,
           currency: orderData.currency || "INR",
           name: "VLOXIA Systems LLP",

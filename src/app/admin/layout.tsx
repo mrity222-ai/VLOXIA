@@ -18,6 +18,7 @@ import {
   ShieldCheck,
   Sliders,
   Layers,
+  Settings,
 } from "lucide-react";
 
 const navigation = [
@@ -29,6 +30,7 @@ const navigation = [
   { name: "Inquiries & Leads", href: "/admin/inquiries", icon: Inbox },
   { name: "Services CMS", href: "/admin/services", icon: Wrench },
   { name: "Partners & OEM Logos", href: "/admin/clients", icon: Building2 },
+  { name: "Settings & API Keys", href: "/admin/settings", icon: Settings },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
