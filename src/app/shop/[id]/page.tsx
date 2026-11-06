@@ -210,7 +210,7 @@ export default function ProductDetailPage() {
           name: "VLOXIA Systems LLP",
           description: `Direct Purchase: ${product.name}`,
           image: "/vloxia-logo.png",
-          order_id: orderData.orderId,
+          ...(orderData.orderId ? { order_id: orderData.orderId } : {}),
           handler: async (response: any) => {
             const verifyRes = await fetch("/api/razorpay/verify-payment", {
               method: "POST",
