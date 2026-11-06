@@ -70,6 +70,34 @@ export default function Header() {
 
   return (
     <>
+      {/* ── Top Announcement & Contact Bar ── */}
+      <div className="bg-slate-900 text-slate-300 text-[11px] py-1.5 px-6 lg:px-12 border-b border-slate-800 hidden md:block">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-blue-400">VLOXIA SYSTEMS LLP</span>
+            <span className="text-slate-600">•</span>
+            <span className="text-slate-400">Powering Mobility. Harnessing Energy. Enabling a Sustainable Future.</span>
+          </div>
+          <div className="flex items-center gap-5 text-slate-300">
+            <a
+              href="tel:+918178810456"
+              className="hover:text-white transition-colors flex items-center gap-1.5 font-medium"
+            >
+              <span>📞 +91 8178810456</span>
+            </a>
+            <span className="text-slate-700">|</span>
+            <a
+              href="mailto:vloxiasystems@gmail.com"
+              className="hover:text-white transition-colors flex items-center gap-1.5 font-medium"
+            >
+              <span>✉️ vloxiasystems@gmail.com</span>
+            </a>
+            <span className="text-slate-700">|</span>
+            <span className="text-slate-400">📍 Rohini, Delhi 110089</span>
+          </div>
+        </div>
+      </div>
+
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 font-sans">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
           

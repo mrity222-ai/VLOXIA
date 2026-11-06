@@ -19,152 +19,249 @@ import {
   ChevronRight,
   ShieldCheck,
   CheckCircle2,
+  Building2,
+  Car,
+  Home as HomeIcon,
+  Factory,
+  GraduationCap,
+  Sparkles,
+  Layers,
+  Cpu,
+  MapPin,
+  Phone,
+  Mail,
 } from "lucide-react";
 
+// 04 | WHAT WE DO — The 4 Complementary Business Verticals
 const CORE_SERVICES = [
   {
-    id: "solar",
-    title: "Solar Panel & Captive EPC",
-    icon: Sun,
-    desc: "High-efficiency Tier-1 monocrystalline & TOPCon solar arrays engineered for commercial rooftops and ground-mount captive parks.",
-    href: "/solutions/solar-energy",
-  },
-  {
-    id: "agrivoltaics",
-    title: "Agrivoltaics & EV Hubs",
+    id: "ev-charging",
+    title: "⚡ EV Charging Solutions",
+    vertical: "01 / EV CHARGING",
     icon: Zap,
-    desc: "Dual land utilization combining high-yield agrivoltaic arrays with automated commercial EV ultra-fast charging corridors.",
+    desc: "AC & DC charging solutions for homes, workplaces, commercial establishments, fleets and public charging infrastructure.",
+    highlight: "TATA EZ POWER Distributor",
     href: "/solutions/ev-charging",
   },
   {
-    id: "storage",
-    title: "Lithium Energy Storage (BESS)",
+    id: "solar-energy",
+    title: "☀️ Solar Energy Solutions",
+    vertical: "02 / SOLAR ENERGY",
+    icon: Sun,
+    desc: "Solar power solutions designed to reduce dependence on conventional electricity and improve long-term energy economics.",
+    highlight: "Generate → Store → Manage → Consume",
+    href: "/solutions/solar-energy",
+  },
+  {
+    id: "energy-storage",
+    title: "🔋 Energy Storage & Lithium",
+    vertical: "03 / ENERGY STORAGE",
     icon: Battery,
-    desc: "Automotive-grade LiFePO4 battery energy storage systems (BESS) delivering zero-emission critical backup and peak shaving.",
+    desc: "Lithium-based energy storage and inverter solutions for backup power, energy management and greater energy independence.",
+    highlight: "Integrated Lithium Battery Systems",
     href: "/solutions/energy-storage",
   },
   {
-    id: "power",
-    title: "Hybrid Inverters & Microgrids",
+    id: "power-solutions",
+    title: "⚙️ Power Solutions",
+    vertical: "04 / POWER SOLUTIONS",
     icon: Power,
-    desc: "Industrial-grade hybrid dual-MPPT inverters, sub-10ms UPS switchgear, and active harmonic filtering for clean power continuity.",
+    desc: "Integrated power and energy solutions addressing backup, reliability, efficiency and evolving electrical infrastructure requirements.",
+    highlight: "End-to-End Continuity & Resilience",
     href: "/solutions/power-solutions",
   },
 ];
 
-const PROCESS_STEPS = [
+// 13 | OUR SOLUTION PHILOSOPHY (5 STEPS)
+const SOLUTION_PHILOSOPHY = [
   {
     step: "01",
-    title: "Site Planning & Energy Audit",
-    desc: "Our technical team evaluates roof real estate, historical load curves, transformer capacity, and financial ROI parameters.",
+    phase: "UNDERSTAND",
+    title: "Customer Energy Requirement",
+    desc: "We look at the complete operational profile — power demand, usage schedules, charger requirements, and future scalability.",
     image: "/Industries/Commercial.png",
   },
   {
     step: "02",
-    title: "System Design & Single-Line BOM",
-    desc: "Certified electrical engineers prepare custom CAD drawings, single-line diagrams, and certified Tier-1 hardware BOM.",
+    phase: "ANALYSE",
+    title: "Site & Electrical Infrastructure",
+    desc: "Technical evaluation of roof space, transformer capacity, grid power quality, and dynamic load compatibility.",
     image: "/ev.jpg",
   },
   {
     step: "03",
-    title: "Construction & Commissioning",
-    desc: "Turnkey civil foundation, HT switchgear cabling, CEIG safety clearances, and net-metering synchronization with DISCOM.",
+    phase: "RECOMMEND",
+    title: "Right Technology & Configuration",
+    desc: "Tailored recommendation of certified Tier-1 equipment, optimum system sizing, and transparent ROI economics.",
     image: "/Industries/Industrial.png",
   },
-];
-
-const INNOVATOR_SECTORS = [
   {
-    title: "Communities & Societies",
-    desc: "Shared residential housing EV charging bays with automated billing per apartment and common area rooftop solar.",
-    badge: "Residential",
+    step: "04",
+    phase: "IMPLEMENT",
+    title: "Precision Execution & Quality",
+    desc: "Certified installation, safety clearances, DISCOM synchronization, and rigorous commissioning standards.",
+    image: "/Industries/Mobility.png",
   },
   {
-    title: "Businesses & Commercial Hubs",
-    desc: "Commercial solar rooftop EPC, workplace employee charging, and accelerated depreciation tax savings.",
-    badge: "Commercial",
-  },
-  {
-    title: "Fleets & Industrial Plants",
-    desc: "Megawatt industrial solar parks, containerized BESS backup, and dual-gun DC ultra-fast fleet depots.",
-    badge: "Industrial & Fleet",
+    step: "05",
+    phase: "SUPPORT",
+    title: "Ongoing Lifecycle & Telemetry",
+    desc: "Continuous after-sales support, OEM warranty management, proactive maintenance, and technical assistance.",
+    image: "/Industries/Commercial.png",
   },
 ];
 
+// 10 | OUR CUSTOMER SEGMENTS
+const CUSTOMER_SEGMENTS = [
+  {
+    id: "residential",
+    title: "Residential",
+    icon: HomeIcon,
+    desc: "Independent homes, premium residences, apartment communities, residential rooftop solar, society EV charging, and compact lithium backup.",
+    badge: "Homes & Societies",
+  },
+  {
+    id: "commercial",
+    title: "Commercial",
+    icon: Building2,
+    desc: "Offices, retail outlets, hotels, restaurants, hospitals, educational institutions, warehouses, and commercial business complexes.",
+    badge: "Enterprises & Retail",
+  },
+  {
+    id: "industrial",
+    title: "Industrial",
+    icon: Factory,
+    desc: "Manufacturing facilities, industrial units, logistics hubs, cold storage, and energy-intensive manufacturing operations.",
+    badge: "Plants & Logistics",
+  },
+  {
+    id: "mobility",
+    title: "Mobility",
+    icon: Car,
+    desc: "EV fleets, fleet operators, automotive dealerships, charging-point operators (CPOs), and highway public charging infrastructure.",
+    badge: "Fleets & Corridors",
+  },
+  {
+    id: "institutional",
+    title: "Institutional",
+    icon: GraduationCap,
+    desc: "Schools, colleges, government institutions, healthcare institutions, corporate campuses, and large residential communities.",
+    badge: "Campuses & Public",
+  },
+];
+
+// 11 | WHY VLOXIA? (THE 6 DIFFERENTIATORS)
+const DIFFERENTIATORS = [
+  {
+    number: "01",
+    title: "Technology-Led",
+    desc: "We focus on emerging technologies that are shaping the future of clean energy and intelligent mobility.",
+  },
+  {
+    number: "02",
+    title: "Multi-Vertical Portfolio",
+    desc: "Customers access EV charging, solar, storage and power solutions under one single unified platform.",
+  },
+  {
+    number: "03",
+    title: "Strong OEM Ecosystem",
+    desc: "We work with established technology partners like TATA EZ POWER to bring dependable products to market.",
+  },
+  {
+    number: "04",
+    title: "Solution-Oriented",
+    desc: "We focus on the customer's specific energy requirements rather than simply selling an off-the-shelf product.",
+  },
+  {
+    number: "05",
+    title: "Scalability",
+    desc: "Our solutions are engineered to support customers as their energy, storage, and charging needs expand.",
+  },
+  {
+    number: "06",
+    title: "Channel-Focused",
+    desc: "Building a dependable distribution and partner network across India for long-term collaborative growth.",
+  },
+];
+
+// Official FAQs
 const FAQS = [
   {
-    q: "How does the VLOXIA turnkey clean energy development process work?",
-    a: "We manage the entire lifecycle: preliminary site audit, custom single-line engineering, Tier-1 OEM procurement, civil & electrical installation, CEIG approvals, DISCOM net-metering, and continuous 24/7 cloud NOC monitoring.",
+    q: "What makes VLOXIA Systems LLP different from ordinary equipment sellers?",
+    a: "Our approach goes beyond product distribution. We aim to understand the customer's energy requirement, recommend the right technology, and create a dependable solution around it across EV Charging, Solar Energy, Lithium Storage, and Power Systems.",
   },
   {
-    q: "Can EV chargers and solar rooftop systems operate on the same dynamic load?",
-    a: "Yes. Our intelligent dynamic load balancing (DLB) prioritizes captive solar generation directly into connected EV charging stations, cutting expensive grid peak demand surcharges.",
+    q: "What is VLOXIA's partnership with TATA EZ POWER?",
+    a: "VLOXIA Systems LLP operates as a distributor for Tata EZ Power AC and DC EV charging solutions as well as inverter solutions with integrated lithium battery systems, supporting customers and channel partners across India.",
   },
   {
-    q: "What warranties and guarantees come with VLOXIA hardware installations?",
-    a: "All solar PV modules carry 25-30 year linear output warranties. Lithium battery storage systems come with 10-year / 6,000 cycle performance warranties, and EV chargers carry up to 5-year commercial onsite replacement support.",
+    q: "How does the Solar + Storage solution work?",
+    a: "The combination of solar generation and battery storage creates a more resilient energy ecosystem by enabling customers to Generate (Solar) → Store (Lithium) → Manage (Intelligent Inverter) → Consume on-demand, reducing dependence on conventional grid electricity.",
   },
   {
-    q: "How can I purchase hardware or become a channel partner?",
-    a: "Browse our live Hardware Marketplace to order certified units online with Razorpay checkout, or contact our commercial desk for dealer wholesale distribution terms.",
+    q: "Can VLOXIA support EV charging for residential apartment societies?",
+    a: "Yes. We provide complete AC EV charging solutions for independent homes, apartments, and residential societies, including charger selection, power availability audit, installation, and scalable infrastructure.",
   },
   {
-    q: "What happens after installation is complete?",
-    a: "Every project is backed by our SLA guarantee, scheduled preventive maintenance visits, fast-response spare parts replenishment, and direct OEM manufacturer warranty coverage.",
+    q: "How can businesses or dealers become VLOXIA Channel Partners?",
+    a: "We welcome dealers, distributors, installers, EPC contractors, and solution partners. Contact Manu Bhatia (Business & Channel Partnerships) at +91 8178810456 or email vloxiasystems@gmail.com to apply.",
   },
 ];
 
-// 3 Exact Slides matching Reference Imagery
+// 3 Exact Slides matching Master Deck
 const HERO_CAROUSEL_SLIDES = [
   {
     id: 1,
     number: "01",
-    breadcrumb: "SOLUTIONS / SOLAR ENERGY",
+    breadcrumb: "ENERGY × TECHNOLOGY × MOBILITY",
     title: (
       <>
-        Powering tomorrow with <br />
-        <span className="text-cyan-400 font-bold">clean solar energy</span>
+        Powering Mobility. <br />
+        <span className="text-cyan-400 font-bold">Harnessing Energy.</span>
       </>
     ),
-    desc: "Industrial rooftop solar EPC, ground-mount captive parks, and hybrid storage engineered for zero emission operations.",
+    tagline: "Enabling a Sustainable Future.",
+    desc: "A technology-driven sustainable energy and power solutions company focused on enabling businesses, institutions and consumers to transition towards cleaner, smarter and more efficient energy ecosystems.",
     image: "/Industries/Commercial.png",
-    btnText: "Explore Solar Solutions",
-    btnHref: "/solutions/solar-energy",
-  },
-  {
-    id: 2,
-    number: "02",
-    breadcrumb: "SOLUTIONS / EV CHARGING",
-    title: (
-      <>
-        Next-gen commercial <br />
-        <span className="text-blue-400 font-bold">EV charging hubs</span>
-      </>
-    ),
-    desc: "Turnkey DC fast charging infrastructure with dynamic load management, OCPP 2.0.1 compliance, and automated cloud revenue billing.",
-    image: "/ev.jpg",
     btnText: "Explore EV Charging",
     btnHref: "/solutions/ev-charging",
   },
   {
-    id: 3,
-    number: "03",
-    breadcrumb: "SOLUTIONS / ENERGY STORAGE",
+    id: 2,
+    number: "02",
+    breadcrumb: "INTELLIGENT ENERGY / RELIABLE POWER",
     title: (
       <>
-        Utility-grade lithium <br />
-        <span className="text-cyan-400 font-bold">battery storage (BESS)</span>
+        Advanced Inverters &amp; <br />
+        <span className="text-blue-400 font-bold">Integrated Lithium Storage</span>
       </>
     ),
-    desc: "Modular LiFePO4 battery storage systems engineered for continuous mission-critical backup, peak shaving, and sub-10ms UPS switchover.",
-    image: "/Industries/Industrial.png",
+    tagline: "Store Energy. Secure Power. Improve Efficiency.",
+    desc: "Inverters with integrated lithium battery systems addressing the growing demand for compact, reliable, and intelligent energy-storage across India.",
+    image: "/ev.jpg",
     btnText: "Explore Energy Storage",
     btnHref: "/solutions/energy-storage",
+  },
+  {
+    id: 3,
+    number: "03",
+    breadcrumb: "TATA EZ POWER DISTRIBUTOR / MULTI-VERTICAL",
+    title: (
+      <>
+        Enabling India&apos;s <br />
+        <span className="text-cyan-400 font-bold">Clean Energy Transition</span>
+      </>
+    ),
+    tagline: "One Partner. Multiple Energy Possibilities.",
+    desc: "Bringing together EV Charging, Solar Energy, Lithium Energy Storage, and Power Solutions under a single, unified technology platform.",
+    image: "/Industries/Industrial.png",
+    btnText: "Explore Our Ecosystem",
+    btnHref: "/approach",
   },
 ];
 
 export default function HomePage() {
-  const [selectedService, setSelectedService] = useState<string>("solar");
+  const [selectedService, setSelectedService] = useState<string>("ev-charging");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   // 3-Slide Carousel State
@@ -211,9 +308,9 @@ export default function HomePage() {
   return (
     <div className="bg-white text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white">
       
-      {/* ─── 1. HERO SECTION (3-SLIDE CAROUSEL MATCHING REFERENCE) ─── */}
+      {/* ─── 1. HERO SECTION (3-SLIDE CAROUSEL MATCHING MASTER DECK) ─── */}
       <section
-        className="relative overflow-hidden min-h-[500px] sm:min-h-[560px] lg:min-h-[620px] flex items-center bg-slate-950 text-white select-none"
+        className="relative overflow-hidden min-h-[520px] sm:min-h-[580px] lg:min-h-[640px] flex items-center bg-slate-950 text-white select-none"
         onMouseEnter={() => setIsHeroPaused(true)}
         onMouseLeave={() => setIsHeroPaused(false)}
       >
@@ -228,7 +325,7 @@ export default function HomePage() {
                   : "opacity-0 pointer-events-none z-0"
               }`}
             >
-              {/* Full-bleed background image with right/ambient alignment */}
+              {/* Full-bleed background image */}
               <Image
                 src={slide.image}
                 alt={`VLOXIA Slide ${slide.number}`}
@@ -237,15 +334,15 @@ export default function HomePage() {
                 className="object-cover object-center sm:object-right"
               />
               
-              {/* Dark left-to-right gradient vignette ensuring text legibility */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 to-transparent sm:to-black/30" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/35" />
+              {/* Dark left-to-right gradient vignette */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/85 to-transparent sm:to-black/35" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
 
               {/* Slide Foreground Content */}
               <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full h-full flex flex-col justify-center relative z-20 pt-10 sm:pt-14 pb-20 sm:pb-24">
-                {/* Top Breadcrumb with Dynamic Rotating Headline */}
+                {/* Top Breadcrumb with Dynamic Headline */}
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-300/80 font-sans">
+                  <div className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-blue-400 font-mono">
                     {slide.breadcrumb}
                   </div>
                   <span className="hidden sm:inline-block text-white/30">•</span>
@@ -259,12 +356,18 @@ export default function HomePage() {
                   {slide.title}
                 </h1>
 
+                {/* Brand Tagline Badge */}
+                <div className="inline-flex items-center gap-2 mt-3 text-cyan-300 font-medium text-xs sm:text-sm">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>{slide.tagline}</span>
+                </div>
+
                 {/* Subtitle Description */}
-                <p className="text-sm sm:text-base text-slate-200/90 max-w-xl leading-relaxed mt-3 mb-6 drop-shadow">
+                <p className="text-xs sm:text-sm text-slate-200/90 max-w-xl leading-relaxed mt-3 mb-6 drop-shadow">
                   {slide.desc}
                 </p>
 
-                {/* Outlined Action Button matching Reference */}
+                {/* Outlined Action Button */}
                 <div>
                   <Link
                     href={slide.btnHref}
@@ -279,9 +382,8 @@ export default function HomePage() {
           );
         })}
 
-        {/* Bottom Navigation Controls Matching Reference Screenshots */}
+        {/* Bottom Navigation Controls */}
         <div className="absolute bottom-8 sm:bottom-12 left-6 lg:left-12 z-30 flex items-end gap-8 sm:gap-12 text-white">
-          {/* Left Block: Slide counter on top, segmented progress line below */}
           <div className="flex flex-col gap-2.5">
             <div className="text-xs sm:text-sm font-mono tracking-wider font-semibold">
               <span>{HERO_CAROUSEL_SLIDES[heroSlide].number}</span>
@@ -289,7 +391,6 @@ export default function HomePage() {
               <span className="text-white/60">03</span>
             </div>
 
-            {/* Segmented indicators: active slide has extended filling bar, other slides have compact dots */}
             <div className="flex items-center gap-2">
               {HERO_CAROUSEL_SLIDES.map((_, i) => {
                 const isActive = i === heroSlide;
@@ -325,7 +426,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Arrow Buttons [ < ] [ > ] with cyan icons matching reference */}
           <div className="flex items-center gap-2 mb-0.5">
             <button
               type="button"
@@ -349,112 +449,94 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── 2. TIER-1 PARTNER ALLIANCES & OEM LOGO MARQUEE (POSITION 2) ─── */}
+      {/* ─── 2. TIER-1 PARTNER ALLIANCES & OEM LOGO MARQUEE (FEATURING TATA EZ POWER) ─── */}
       <PartnerMarquee
         eyebrow={
           <>
-            <span className="text-slate-900">Tier-1 Equipment &amp;</span>{" "}
-            <span className="text-blue-600 font-bold">Authorized OEM Alliances</span>
+            <span className="text-slate-900">Official Distributor &amp;</span>{" "}
+            <span className="text-blue-600 font-bold">Technology Partnerships</span>
           </>
         }
       />
 
-      {/* ─── 3. ABOUT & SUSTAINABILITY VALUE SECTION (LIGHT THEME) ─── */}
+      {/* ─── 3. 01 | WHO WE ARE — INTELLIGENT ENERGY. RELIABLE POWER. SUSTAINABLE SOLUTIONS. ─── */}
       <section className="py-20 lg:py-28 border-t border-gray-100 bg-slate-50/60 text-slate-900 relative">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
             
-            {/* Left Label: About */}
-            <div className="lg:col-span-2">
-              <span className="text-xs font-bold tracking-widest text-blue-600 uppercase font-mono">
-                About VLOXIA
+            <div className="lg:col-span-3">
+              <span className="text-xs font-bold tracking-widest text-blue-600 uppercase font-mono block">
+                01 | WHO WE ARE
+              </span>
+              <span className="text-xs text-slate-400 font-mono mt-1 block">
+                VLOXIA SYSTEMS LLP
               </span>
             </div>
 
-            {/* Right Column: Statement, Metrics & Details */}
-            <div className="lg:col-span-10 space-y-12">
+            <div className="lg:col-span-9 space-y-10">
               <ScrollReveal>
                 <h2 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-slate-950 leading-snug tracking-tight max-w-3xl">
-                  We create sustainable value by engineering clean power systems with{" "}
-                  <span className="text-blue-600 font-bold">green innovation and responsible implementation</span>.
+                  Intelligent Energy. Reliable Power.{" "}
+                  <span className="text-blue-600 font-bold">Sustainable Solutions.</span>
                 </h2>
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-3xl mt-4">
+                  VLOXIA Systems LLP is a technology-driven sustainable energy and power solutions company focused on enabling businesses, institutions and consumers to transition towards cleaner, smarter and more efficient energy ecosystems.
+                </p>
+                <p className="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-3xl mt-2">
+                  Our portfolio brings together solutions across Electric Vehicle Charging, Solar Energy, Lithium Energy Storage, Inverters and Power Management, creating a single platform for the evolving energy requirements of modern India.
+                </p>
               </ScrollReveal>
 
-              {/* Two Big Stats Columns */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
-                <ScrollReveal delay={0.1}>
-                  <div className="space-y-2 border-l-2 border-blue-600 pl-6 bg-white p-4 rounded-r-2xl border-y border-r border-gray-200 shadow-xs">
-                    <div className="text-4xl sm:text-5xl font-extrabold text-slate-950 tracking-tight">
-                      90%
-                    </div>
-                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                      Organizations reduce environmental impact and grid energy costs after implementing VLOXIA sustainability strategies.
-                    </p>
-                  </div>
-                </ScrollReveal>
-
-                <ScrollReveal delay={0.2}>
-                  <div className="space-y-2 border-l-2 border-cyan-500 pl-6 bg-white p-4 rounded-r-2xl border-y border-r border-gray-200 shadow-xs">
-                    <div className="text-4xl sm:text-5xl font-extrabold text-slate-950 tracking-tight">
-                      75K+
-                    </div>
-                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                      Green initiatives, kW capacity, and sustainability projects successfully supported across India today.
-                    </p>
-                  </div>
-                </ScrollReveal>
+              {/* Approach Beyond Distribution Callout */}
+              <div className="p-6 bg-white rounded-2xl border border-gray-200/80 shadow-xs space-y-2">
+                <span className="text-[11px] font-bold text-blue-600 uppercase tracking-wider font-mono">
+                  OUR PHILOSOPHY
+                </span>
+                <h3 className="text-base font-bold text-slate-900">
+                  Our approach goes beyond product distribution.
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  We aim to understand the customer&apos;s energy requirement, recommend the right technology and create a dependable solution around it.
+                </p>
               </div>
 
-              {/* Bottom Details Grid with EV Visual Card */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center pt-6">
-                
-                {/* Left Card: Hardware Visual */}
-                <div className="md:col-span-5 relative h-64 sm:h-72 rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm">
-                  <Image
-                    src="/ev.jpg"
-                    alt="VLOXIA EV Charging & Clean Infrastructure"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 40vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-4 left-4 text-white text-xs font-semibold flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-cyan-400" />
-                    <span>Tier-1 Hardware Integration</span>
+              {/* 3 Value Pillars */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
+                <div className="space-y-2 border-l-2 border-blue-600 pl-4 bg-white p-4 rounded-r-xl border-y border-r border-gray-100 shadow-2xs">
+                  <div className="text-xs font-bold uppercase tracking-wider text-blue-600 font-mono">
+                    PARTNER ECOSYSTEM
                   </div>
-                </div>
-
-                {/* Right Content & Actions */}
-                <div className="md:col-span-7 space-y-6">
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    We help organizations transition toward sustainable operations by providing expert guidance in climate strategy, environmental planning, and long-term impact solutions.
+                  <div className="text-base font-extrabold text-slate-900">
+                    Tier-1 Technology
+                  </div>
+                  <p className="text-xs text-slate-500">
+                    Working with established manufacturers including TATA EZ POWER.
                   </p>
-
-                  <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700 font-medium">
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                      <span>Proven sustainability solutions across multiple industries</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                      <span>Expertise in both emerging startups and global enterprises</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                      <span>Advanced solutions for climate action and carbon reduction</span>
-                    </li>
-                  </ul>
-
-                  <div className="pt-2">
-                    <Link
-                      href="/about"
-                      className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-full text-xs transition-all shadow-md shadow-blue-500/20"
-                    >
-                      Explore Our Impact
-                    </Link>
-                  </div>
                 </div>
 
+                <div className="space-y-2 border-l-2 border-cyan-500 pl-4 bg-white p-4 rounded-r-xl border-y border-r border-gray-100 shadow-2xs">
+                  <div className="text-xs font-bold uppercase tracking-wider text-cyan-600 font-mono">
+                    NATIONWIDE NETWORK
+                  </div>
+                  <div className="text-base font-extrabold text-slate-900">
+                    Channel &amp; Distribution
+                  </div>
+                  <p className="text-xs text-slate-500">
+                    Strong channel partners, installers, and project solution networks across India.
+                  </p>
+                </div>
+
+                <div className="space-y-2 border-l-2 border-emerald-500 pl-4 bg-white p-4 rounded-r-xl border-y border-r border-gray-100 shadow-2xs">
+                  <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 font-mono">
+                    END-TO-END
+                  </div>
+                  <div className="text-base font-extrabold text-slate-900">
+                    Dependable Solutions
+                  </div>
+                  <p className="text-xs text-slate-500">
+                    From load analysis to certified hardware, integration and lifecycle support.
+                  </p>
+                </div>
               </div>
 
             </div>
@@ -463,18 +545,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── 4. "THE BRIGHT CHOICE FOR A SUSTAINABLE WORLD" (4 VERTICALS) ─── */}
+      {/* ─── 4. 04 | WHAT WE DO — THE 4 COMPLEMENTARY BUSINESS VERTICALS ─── */}
       <section className="py-20 lg:py-28 border-t border-gray-100 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
           
           <ScrollReveal>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight mb-16">
-              The bright choice <br />
-              for an <span className="text-blue-600 font-bold">intelligent clean future</span>
+            <span className="text-xs font-bold tracking-widest text-blue-600 uppercase font-mono block mb-2">
+              04 | WHAT WE DO
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight mb-4">
+              Four Complementary <br />
+              <span className="text-blue-600 font-bold">Business Verticals</span>
             </h2>
+            <p className="text-xs sm:text-sm text-slate-500 max-w-2xl mx-auto mb-16">
+              VLOXIA operates across four integrated pillars that address India&apos;s evolving energy, mobility, and storage landscape.
+            </p>
           </ScrollReveal>
 
-          {/* 4-Column Cards Row Matching Reference Layout */}
+          {/* 4-Column Cards Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
             {CORE_SERVICES.map((srv, idx) => {
               const Icon = srv.icon;
@@ -484,16 +572,20 @@ export default function HomePage() {
                 <ScrollReveal key={srv.id} delay={idx * 0.08}>
                   <div
                     onClick={() => setSelectedService(srv.id)}
-                    className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 min-h-[320px] cursor-pointer group ${
+                    className={`rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 min-h-[340px] cursor-pointer group ${
                       isSelected
                         ? "bg-white border-2 border-blue-600 shadow-xl -translate-y-1"
                         : "bg-slate-50/70 border border-gray-200/80 hover:border-blue-400 hover:bg-white hover:shadow-xl hover:-translate-y-1"
                     }`}
                   >
                     <div>
+                      <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-4">
+                        {srv.vertical}
+                      </div>
+
                       {/* Icon Badge */}
                       <div
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center mb-6 shrink-0 transition-all duration-300 ${
+                        className={`w-11 h-11 rounded-2xl flex items-center justify-center mb-5 shrink-0 transition-all duration-300 ${
                           isSelected
                             ? "bg-blue-600 text-white shadow-md shadow-blue-500/30 scale-105"
                             : "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-110"
@@ -502,13 +594,17 @@ export default function HomePage() {
                         <Icon className="w-5 h-5" />
                       </div>
 
-                      <h3 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors duration-200">
+                      <h3 className="text-base font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors duration-200">
                         {srv.title}
                       </h3>
 
-                      <p className="text-xs text-slate-500 leading-relaxed">
+                      <p className="text-xs text-slate-500 leading-relaxed mb-4">
                         {srv.desc}
                       </p>
+
+                      <div className="inline-block text-[11px] font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
+                        {srv.highlight}
+                      </div>
                     </div>
 
                     <div className="pt-6 mt-4 border-t border-gray-100">
@@ -521,7 +617,7 @@ export default function HomePage() {
                             : "text-slate-700 group-hover:text-blue-600"
                         }`}
                       >
-                        <span className="underline-hover-effect">Explore Scope</span>
+                        <span className="underline-hover-effect">Explore Vertical</span>
                         <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1.5" />
                       </Link>
                     </div>
@@ -534,136 +630,338 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── 5. "POWERING THE SUSTAINABLE INNOVATION" (BIG STATS & SCALE) ─── */}
+      {/* ─── 5. 14 | THE VLOXIA ECOSYSTEM — GENERATE → STORE → POWER → MOVE ─── */}
+      <section className="py-20 lg:py-28 border-t border-gray-100 bg-slate-950 text-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-xs font-bold tracking-widest text-cyan-400 uppercase font-mono block mb-2">
+              14 | THE VLOXIA ECOSYSTEM
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-4">
+              One Connected Energy Journey
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300">
+              Connecting power generation, battery storage, intelligent inverters, and clean mobility into a unified cycle.
+            </p>
+          </div>
+
+          {/* 4 Connected Stages */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            {/* Stage 1: GENERATE */}
+            <div className="rounded-2xl bg-slate-900 border border-slate-800 p-6 space-y-4 hover:border-cyan-400 transition-all group">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-400/30 text-cyan-400 flex items-center justify-center font-bold text-sm">
+                01
+              </div>
+              <div>
+                <span className="text-[11px] font-mono text-cyan-400 uppercase tracking-widest">
+                  SOLAR ENERGY
+                </span>
+                <h3 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
+                  GENERATE
+                </h3>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Rooftop &amp; commercial solar power systems generating clean electricity right at the point of consumption.
+              </p>
+            </div>
+
+            {/* Stage 2: STORE */}
+            <div className="rounded-2xl bg-slate-900 border border-slate-800 p-6 space-y-4 hover:border-blue-400 transition-all group">
+              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-400/30 text-blue-400 flex items-center justify-center font-bold text-sm">
+                02
+              </div>
+              <div>
+                <span className="text-[11px] font-mono text-blue-400 uppercase tracking-widest">
+                  LITHIUM STORAGE
+                </span>
+                <h3 className="text-lg font-bold text-white group-hover:text-blue-300 transition-colors">
+                  STORE
+                </h3>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                High-cycle lithium battery systems storing excess solar and off-peak grid energy for when it is needed most.
+              </p>
+            </div>
+
+            {/* Stage 3: POWER */}
+            <div className="rounded-2xl bg-slate-900 border border-slate-800 p-6 space-y-4 hover:border-indigo-400 transition-all group">
+              <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-400/30 text-indigo-400 flex items-center justify-center font-bold text-sm">
+                03
+              </div>
+              <div>
+                <span className="text-[11px] font-mono text-indigo-400 uppercase tracking-widest">
+                  INVERTERS &amp; POWER
+                </span>
+                <h3 className="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
+                  POWER
+                </h3>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Intelligent inverters delivering continuous power backup, sub-10ms transfer, and intelligent energy management.
+              </p>
+            </div>
+
+            {/* Stage 4: MOVE */}
+            <div className="rounded-2xl bg-slate-900 border border-slate-800 p-6 space-y-4 hover:border-emerald-400 transition-all group">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-400/30 text-emerald-400 flex items-center justify-center font-bold text-sm">
+                04
+              </div>
+              <div>
+                <span className="text-[11px] font-mono text-emerald-400 uppercase tracking-widest">
+                  EV CHARGING
+                </span>
+                <h3 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
+                  MOVE
+                </h3>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                AC and DC fast charging infrastructure driving electric vehicles with clean, dependable, and scalable power.
+              </p>
+            </div>
+
+          </div>
+
+          {/* Equation Banner */}
+          <div className="mt-12 text-center p-6 rounded-2xl bg-slate-900/60 border border-slate-800">
+            <span className="text-xs font-mono tracking-widest text-slate-400 uppercase block mb-1">
+              THE VLOXIA FORMULA
+            </span>
+            <div className="text-base sm:text-xl font-mono font-bold text-cyan-300 tracking-wider">
+              ENERGY × TECHNOLOGY × MOBILITY × SUSTAINABILITY
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ─── 6. 09 | TECHNOLOGY PARTNER SHOWCASE (TATA EZ POWER DISTRIBUTOR) ─── */}
       <section className="py-20 lg:py-28 border-t border-gray-100 bg-slate-50/50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            {/* Left Column: Heading, Text & Aerial Road Image */}
             <div className="lg:col-span-6 space-y-6">
               <ScrollReveal>
+                <span className="text-xs font-bold tracking-widest text-blue-600 uppercase font-mono block">
+                  09 | TECHNOLOGY PARTNERS
+                </span>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight leading-tight">
-                  Powering <br />
-                  <span className="text-blue-600 font-bold">clean energy innovation</span>
+                  Building the Right Portfolio <br />
+                  <span className="text-blue-600 font-bold">with the Right Partners</span>
                 </h2>
-
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-md mt-4">
-                  Through advanced clean energy solutions and environmental initiatives, VLOXIA helps organizations accelerate their transition toward a more sustainable and responsible future.
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  VLOXIA believes that strong technology partnerships are fundamental to building a reliable energy business. Our current portfolio includes anchor distributor operations for:
                 </p>
 
-                <div className="relative w-full h-56 sm:h-64 rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm mt-6">
-                  <Image
-                    src="/Industries/Mobility.png"
-                    alt="Curved Aerial Green Energy Route"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
+                <div className="space-y-4 pt-2">
+                  <div className="p-5 bg-white rounded-2xl border border-gray-200/80 shadow-xs space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-600" />
+                      <h4 className="text-sm font-bold text-slate-900">
+                        TATA EZ POWER — EV Charging Solutions
+                      </h4>
+                    </div>
+                    <p className="text-xs text-slate-500 leading-relaxed pl-4">
+                      VLOXIA Systems LLP operates as a distributor for Tata&apos;s AC and DC EV charging solutions, supporting customers and channel partners with direct access to EV charging technologies.
+                    </p>
+                  </div>
+
+                  <div className="p-5 bg-white rounded-2xl border border-gray-200/80 shadow-xs space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-600" />
+                      <h4 className="text-sm font-bold text-slate-900">
+                        Inverters &amp; Integrated Lithium Energy Storage
+                      </h4>
+                    </div>
+                    <p className="text-xs text-slate-500 leading-relaxed pl-4">
+                      Distributing advanced inverter solutions with integrated lithium battery systems, addressing the growing demand for compact and intelligent energy-storage.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <Link
+                    href="/partners"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-800"
+                  >
+                    <span>Explore Channel Partner Opportunities</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </ScrollReveal>
             </div>
 
-            {/* Right Column: Massive Metric & Sub-stats Grid */}
-            <div className="lg:col-span-6 space-y-10">
-              <ScrollReveal delay={0.1}>
-                <div className="space-y-2 bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
-                  <div className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-slate-950 tracking-tight">
-                    100% Uptime
-                  </div>
-                  <p className="text-xs sm:text-sm font-medium text-blue-600">
-                    Engineered for continuous industrial &amp; commercial duty cycles
+            <div className="lg:col-span-6 space-y-6">
+              <div className="relative w-full h-80 sm:h-96 rounded-3xl overflow-hidden bg-white border border-gray-200 shadow-sm">
+                <Image
+                  src="/ev.jpg"
+                  alt="TATA EZ POWER EV Charging & Lithium Inverters"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-400">
+                    AUTHORIZED DISTRIBUTOR
+                  </span>
+                  <div className="text-lg font-bold">TATA EZ POWER</div>
+                  <p className="text-xs text-slate-300">
+                    EV Charging Solutions &amp; Integrated Lithium Inverter Systems
                   </p>
                 </div>
-              </ScrollReveal>
-
-              {/* 4-Item Sub-Stats Grid */}
-              <div className="grid grid-cols-2 gap-6 pt-6 border-t border-gray-200/80">
-                <ScrollReveal delay={0.15}>
-                  <div className="space-y-1 bg-white p-5 rounded-2xl border border-gray-100 shadow-2xs">
-                    <div className="text-2xl sm:text-3xl font-extrabold text-blue-600">
-                      18k+
-                    </div>
-                    <div className="text-xs text-slate-500 font-medium">
-                      kW Solar EPC Installed
-                    </div>
-                  </div>
-                </ScrollReveal>
-
-                <ScrollReveal delay={0.2}>
-                  <div className="space-y-1 bg-white p-5 rounded-2xl border border-gray-100 shadow-2xs">
-                    <div className="text-2xl sm:text-3xl font-extrabold text-blue-600">
-                      12k+
-                    </div>
-                    <div className="text-xs text-slate-500 font-medium">
-                      Daily EV Kilometers Powered
-                    </div>
-                  </div>
-                </ScrollReveal>
-
-                <ScrollReveal delay={0.25}>
-                  <div className="space-y-1 bg-white p-5 rounded-2xl border border-gray-100 shadow-2xs">
-                    <div className="text-2xl sm:text-3xl font-extrabold text-blue-600">
-                      6,000+
-                    </div>
-                    <div className="text-xs text-slate-500 font-medium">
-                      LiFePO4 Battery Cycles
-                    </div>
-                  </div>
-                </ScrollReveal>
-
-                <ScrollReveal delay={0.3}>
-                  <div className="space-y-1 bg-white p-5 rounded-2xl border border-gray-100 shadow-2xs">
-                    <div className="text-2xl sm:text-3xl font-extrabold text-blue-600">
-                      &lt;10ms
-                    </div>
-                    <div className="text-xs text-slate-500 font-medium">
-                      Hybrid Inverter Transfer Latency
-                    </div>
-                  </div>
-                </ScrollReveal>
               </div>
 
+              {/* Expanding Portfolio Tags */}
+              <div className="p-5 bg-white rounded-2xl border border-gray-200/80">
+                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-2">
+                  OUR EXPANDING TECHNOLOGIES
+                </span>
+                <div className="flex flex-wrap gap-2 text-xs font-semibold text-slate-700">
+                  <span className="bg-slate-100 px-3 py-1 rounded-full">EV Charging</span>
+                  <span className="bg-slate-100 px-3 py-1 rounded-full">Solar</span>
+                  <span className="bg-slate-100 px-3 py-1 rounded-full">Lithium Storage</span>
+                  <span className="bg-slate-100 px-3 py-1 rounded-full">Inverters</span>
+                  <span className="bg-slate-100 px-3 py-1 rounded-full">Power Electronics</span>
+                  <span className="bg-slate-100 px-3 py-1 rounded-full">Energy Management</span>
+                </div>
+              </div>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* ─── 6. "THE PROCESS BEHIND THE POWER" ─── */}
+      {/* ─── 7. 10 | OUR CUSTOMER SEGMENTS ─── */}
+      <section className="py-20 lg:py-28 border-t border-gray-100 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-xs font-bold tracking-widest text-blue-600 uppercase font-mono block mb-2">
+              10 | OUR CUSTOMER SEGMENTS
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight mb-4">
+              Solutions Designed for <br />
+              <span className="text-blue-600 font-bold">Every Segment</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500">
+              From independent homes to large-scale industrial plants, mobility fleets, and educational institutions.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {CUSTOMER_SEGMENTS.map((seg, idx) => {
+              const Icon = seg.icon;
+              return (
+                <ScrollReveal key={seg.id} delay={idx * 0.08}>
+                  <div className="rounded-2xl border border-gray-200/80 bg-slate-50/60 p-6 flex flex-col justify-between hover:bg-white hover:border-blue-400 hover:shadow-xl transition-all duration-300 group cursor-pointer h-full">
+                    <div className="space-y-3">
+                      <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center transition-colors">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <span className="text-[10px] font-mono font-bold text-blue-700 bg-white px-2 py-0.5 rounded border border-gray-200 inline-block">
+                        {seg.badge}
+                      </span>
+                      <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                        {seg.title}
+                      </h3>
+                      <p className="text-xs text-slate-500 leading-relaxed">
+                        {seg.desc}
+                      </p>
+                    </div>
+
+                    <div className="pt-4 mt-4 border-t border-gray-200/60">
+                      <Link
+                        href={`/industries#${seg.id}`}
+                        className="text-xs font-bold text-blue-600 group-hover:text-blue-800 flex items-center gap-1.5 transition-colors"
+                      >
+                        <span>View Segment</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ─── 8. 11 | WHY VLOXIA? (THE 6 DIFFERENTIATORS) ─── */}
+      <section className="py-20 lg:py-28 border-t border-gray-100 bg-slate-50/60">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          
+          <div className="max-w-2xl mb-16">
+            <span className="text-xs font-bold tracking-widest text-blue-600 uppercase font-mono block mb-2">
+              11 | WHY VLOXIA?
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-950 tracking-tight mb-4">
+              One Partner. <br />
+              <span className="text-blue-600 font-bold">Multiple Energy Possibilities.</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500">
+              The energy ecosystem is rapidly converging. Solar is becoming more accessible. EV adoption is accelerating. Lithium storage is transforming backup power. VLOXIA brings these technologies together under one platform.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {DIFFERENTIATORS.map((diff, idx) => (
+              <ScrollReveal key={diff.number} delay={idx * 0.08}>
+                <div className="rounded-2xl bg-white border border-gray-200/80 p-6 space-y-3 hover:border-blue-400 hover:shadow-lg transition-all">
+                  <div className="text-xs font-mono font-bold text-blue-600">
+                    {diff.number} | DIFFERENTIATOR
+                  </div>
+                  <h3 className="text-base font-bold text-slate-900">
+                    {diff.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    {diff.desc}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ─── 9. 13 | OUR SOLUTION PHILOSOPHY (THE 5 STEPS) ─── */}
       <section className="py-16 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="rounded-3xl bg-slate-950 text-white p-8 sm:p-14 lg:p-16 relative overflow-hidden shadow-2xl">
             
-            {/* Header Block with Blue Accent Bar */}
             <ScrollReveal>
-              <div className="flex items-center gap-3 mb-12">
+              <div className="flex items-center gap-3 mb-4">
                 <span className="w-1.5 h-6 bg-blue-500 rounded-full" />
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white">
-                  The process behind the <span className="text-blue-400 font-bold">power</span>
-                </h2>
+                <span className="text-xs font-mono uppercase tracking-widest text-cyan-400">
+                  13 | SOLUTION PHILOSOPHY
+                </span>
               </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white mb-2">
+                Understand → Analyse → Recommend → <span className="text-blue-400 font-bold">Implement → Support</span>
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mb-12">
+                We believe that every energy requirement is unique. Our structured approach ensures the right technology is selected and implemented seamlessly.
+              </p>
             </ScrollReveal>
 
-            {/* 3 Vertical Step Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {PROCESS_STEPS.map((step, idx) => (
-                <ScrollReveal key={step.step} delay={idx * 0.1}>
-                  <div className="rounded-2xl bg-slate-900/90 border border-slate-800 p-5 flex flex-col justify-between hover:border-blue-400 hover:bg-slate-900 hover:shadow-2xl transition-all duration-300 group cursor-pointer h-full">
-                    <div className="space-y-4">
-                      <div className="relative w-full h-48 sm:h-56 rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
-                        <Image
-                          src={step.image}
-                          alt={step.title}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                        />
-                        <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-xs px-2.5 py-1 rounded-md text-[10px] font-mono font-bold text-cyan-400 border border-white/20 shadow-sm">
+            {/* 5 Step Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+              {SOLUTION_PHILOSOPHY.map((step, idx) => (
+                <ScrollReveal key={step.step} delay={idx * 0.08}>
+                  <div className="rounded-2xl bg-slate-900 border border-slate-800 p-5 flex flex-col justify-between hover:border-cyan-400 transition-all group h-full">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-mono font-bold text-cyan-400">
                           STEP {step.step}
-                        </div>
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-400 uppercase">
+                          {step.phase}
+                        </span>
                       </div>
 
-                      <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors duration-200">
+                      <h3 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
                         {step.title}
                       </h3>
 
@@ -672,9 +970,9 @@ export default function HomePage() {
                       </p>
                     </div>
 
-                    <div className="pt-4 mt-4 border-t border-slate-800 text-xs font-semibold text-cyan-400 flex items-center gap-1.5">
-                      <span>Verified Milestone</span>
-                      <CheckCircle2 className="w-3.5 h-3.5" />
+                    <div className="pt-4 mt-4 border-t border-slate-800 text-[11px] font-semibold text-cyan-400 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3" />
+                      <span>{step.phase}</span>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -685,94 +983,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── 7. "INNOVATORS FOR VLOXIA" (AUDIENCE VERTICALS) ─── */}
-      <section className="py-20 lg:py-28 border-t border-gray-100 bg-slate-50/60">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            <div className="lg:col-span-4 space-y-3">
-              <ScrollReveal>
-                <span className="text-xs font-bold tracking-widest text-blue-600 uppercase font-mono">
-                  TAILORED ECOSYSTEMS
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-bold text-slate-950 tracking-tight">
-                  Innovators for <br />
-                  <span className="text-blue-600 font-bold">VLOXIA</span>
-                </h2>
-                <p className="text-xs text-slate-500 leading-relaxed max-w-sm mt-3">
-                  Tailored clean-tech power packages designed for specific operational architectures.
-                </p>
-              </ScrollReveal>
-            </div>
-
-            <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {INNOVATOR_SECTORS.map((sec, idx) => (
-                <ScrollReveal key={idx} delay={idx * 0.08}>
-                  <div className="rounded-2xl border border-gray-200/80 bg-white p-6 flex flex-col justify-between hover:border-blue-400 hover:shadow-xl transition-all duration-300 group cursor-pointer h-full">
-                    <div className="space-y-3">
-                      <span className="text-[10px] font-mono font-bold text-blue-700 bg-blue-50 group-hover:bg-blue-600 group-hover:text-white px-2.5 py-1 rounded-full border border-blue-100 inline-block transition-colors duration-200">
-                        {sec.badge}
-                      </span>
-                      <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-200">
-                        {sec.title}
-                      </h3>
-                      <p className="text-xs text-slate-500 leading-relaxed">
-                        {sec.desc}
-                      </p>
-                    </div>
-
-                    <div className="pt-6 mt-4 border-t border-gray-100">
-                      <Link
-                        href="/industries"
-                        className="text-xs font-bold text-blue-600 group-hover:text-blue-800 flex items-center gap-1.5 transition-colors"
-                      >
-                        <span className="underline-hover-effect">Explore Scope</span>
-                        <ArrowRight className="w-3 h-3 transition-transform duration-200 group-hover:translate-x-1.5" />
-                      </Link>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ─── 8. FEATURED HARDWARE MARKETPLACE ─── */}
+      {/* ─── 10. HARDWARE MARKETPLACE PREVIEW ─── */}
       <FeaturedProducts
         title="Hardware Marketplace"
-        eyebrow="Popular Equipment"
-        description="Explore popular Tier-1 EV chargers, solar packages, and lithium batteries."
+        eyebrow="Certified Equipment"
+        description="Browse certified EV chargers, integrated lithium inverters, and clean energy hardware."
       />
 
-      {/* ─── 9. "GET CLARITY — HOW WORKS FOR YOU" (FAQ ACCORDIONS) ─── */}
+      {/* ─── 11. FAQ ACCORDIONS ─── */}
       <section className="py-20 lg:py-28 border-t border-gray-100 bg-slate-50/70">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
-            {/* Left Column: Heading & Button */}
             <div className="lg:col-span-5 space-y-4">
               <ScrollReveal>
+                <span className="text-xs font-bold tracking-widest text-blue-600 uppercase font-mono block">
+                  CLARITY &amp; INSIGHTS
+                </span>
                 <h2 className="text-3xl sm:text-4xl font-bold text-slate-950 tracking-tight leading-tight">
-                  Get Clarity — <br />
-                  <span className="text-blue-600 font-bold">How Works For You</span>
+                  Frequently Asked <br />
+                  <span className="text-blue-600 font-bold">Questions</span>
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                  Have specific site questions? Our senior clean energy architects provide tailored answers within 24 hours.
+                  Have questions about EV charging, inverters, solar, or channel partnerships? We are here to guide you.
                 </p>
                 <div className="pt-2">
                   <Link
                     href="/contact"
                     className="btn-hover-effect glow-hover-blue inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-full text-xs shadow-lg shadow-blue-500/20 active:scale-95"
                   >
-                    Ask a Technical Question
+                    Contact Our Energy Team
                   </Link>
                 </div>
               </ScrollReveal>
             </div>
 
-            {/* Right Column: Accordion Rows */}
             <div className="lg:col-span-7 space-y-3">
               {FAQS.map((faq, idx) => {
                 const isOpen = openFaq === idx;
@@ -810,33 +1055,58 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── 10. BOTTOM PANORAMIC CTA BANNER ─── */}
+      {/* ─── 12. 18 | REGISTERED OFFICE & PARTNERSHIP CTA BANNER ─── */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 pb-20 lg:pb-28">
         <ScrollReveal>
-          <div className="relative rounded-3xl overflow-hidden aspect-[16/7] sm:aspect-[21/7] bg-slate-950 flex items-center justify-center text-center p-8 border border-gray-100 shadow-sm group">
-            <Image
-              src="/Industries/Commercial.png"
-              alt="Let's Plan Your Green Future"
-              fill
-              className="object-cover opacity-35 group-hover:scale-105 group-hover:opacity-40 transition-all duration-700"
-              sizes="100vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
-
-            <div className="relative z-10 max-w-xl space-y-5">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
-                Let&apos;s plan your <span className="text-blue-400 font-bold">green future</span>
+          <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-12 lg:p-14 border border-slate-800 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div className="lg:col-span-7 space-y-4">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-400">
+                18 | CONNECT WITH VLOXIA
+              </span>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-tight">
+                Partner with <span className="text-cyan-400">VLOXIA SYSTEMS LLP</span>
               </h2>
-              <div className="pt-2">
-                <Link
-                  href="/contact"
-                  className="btn-hover-effect glow-hover-blue inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-3.5 rounded-full text-xs sm:text-sm shadow-lg shadow-blue-500/25 active:scale-95 group/btn"
-                >
-                  <span>Get Started with VLOXIA</span>
-                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1.5" />
-                </Link>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">
+                Ready to explore EV charging, solar energy, lithium storage, or channel distribution? Contact our corporate desk or visit our registered office.
+              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 text-xs text-slate-300">
+                <div className="flex items-start gap-2.5">
+                  <MapPin className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-semibold text-white block">Registered Office</span>
+                    <span>A3/55, Sector 15, Rohini, Delhi 110089</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <Phone className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-semibold text-white block">Manu Bhatia (Partnerships)</span>
+                    <a href="tel:+918178810456" className="text-cyan-300 hover:underline">
+                      +91 8178810456
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
+
+            <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center items-stretch lg:items-end">
+              <Link
+                href="/partners"
+                className="btn-hover-effect glow-hover-cyan inline-flex items-center justify-center gap-2 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold px-8 py-3.5 rounded-full text-xs sm:text-sm shadow-lg shadow-cyan-500/20 active:scale-95 text-center"
+              >
+                <span>Become a Channel Partner</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 border border-slate-700 hover:border-slate-500 text-white font-semibold px-8 py-3.5 rounded-full text-xs sm:text-sm transition-all text-center"
+              >
+                <span>Contact Corporate Desk</span>
+              </Link>
+            </div>
+
           </div>
         </ScrollReveal>
       </section>

@@ -14,54 +14,57 @@ import {
   ChevronDown,
   ChevronUp,
   Sparkles,
+  Globe,
+  UserCheck,
 } from "lucide-react";
 
+// 18 | CONTACT US DATA
 const CONTACT_CHANNELS = [
   {
     icon: MapPin,
     title: "Registered Corporate Office",
-    desc: "A3/55, Sector 15, Rohini, Delhi – 110089. Accessible via Delhi Metro (Rohini West / Sector 18).",
+    desc: "A3/55, Sector 15, Rohini, Delhi 110089, India. Accessible via Delhi Metro Red Line (Rohini West) & Yellow Line (Samaypur Badli).",
     action: "View on Google Maps",
-    href: "https://maps.google.com/?q=Sector+15+Rohini+Delhi",
+    href: "https://maps.google.com/?q=Sector+15+Rohini+Delhi+110089",
+  },
+  {
+    icon: UserCheck,
+    title: "Business & Channel Partnerships",
+    desc: "Manu Bhatia — Direct channel desk for dealership appointments, TATA EZ POWER distributor allocations, and corporate inquiries.",
+    action: "Call Manu Bhatia: +91 8178810456",
+    href: "tel:+918178810456",
   },
   {
     icon: Phone,
-    title: "Phone & WhatsApp Desk",
-    desc: "+91 81788 104 56. Direct technical desk for site audits, hardware inquiries, and vendor alliances.",
-    action: "Call +91 81788 104 56",
+    title: "Direct Phone & WhatsApp",
+    desc: "+91 8178810456 / 8178810456. Technical assistance, hardware quotes, and dealer inquiries across India.",
+    action: "Call +91 8178810456",
     href: "tel:+918178810456",
   },
   {
     icon: Mail,
-    title: "Official Email Inquiries",
-    desc: "vloxiasystems@gmail.com. Verified official email for RFPs, tenders, single-line diagrams, and quotes.",
+    title: "Official Corporate Email",
+    desc: "vloxiasystems@gmail.com. Verified channel for RFPs, tenders, single-line diagrams, and partnership proposals.",
     action: "Send Email Direct",
     href: "mailto:vloxiasystems@gmail.com",
-  },
-  {
-    icon: Clock,
-    title: "Operating Hours & NOC",
-    desc: "Mon – Sat: 9:00 AM – 7:00 PM IST. 24/7 emergency telemetry and NOC monitoring for SLA contract holders.",
-    action: "Schedule Meeting",
-    href: "#enquiry-form",
   },
 ];
 
 const WHAT_TO_EXPECT = [
   {
     n: "01",
-    title: "Site Audit & Technical Feasibility Assessment",
-    desc: "Our senior electrical engineers review your consumption bills, roof or ground dimensions, existing transformer capacity, and grid interconnection limits within 24 hours.",
+    title: "Understand & Site Feasibility Audit",
+    desc: "Our senior engineers evaluate historical load profiles, roof space, transformer capacity, grid stability, and harmonic distortion within 24 hours.",
   },
   {
     n: "02",
-    title: "Custom Single-Line Diagram & Commercial BOM",
-    desc: "You receive an itemized bill of materials (BOM) featuring Tier-1 OEM hardware, transparent civil/electrical scope, and detailed IRR/payback financial calculations.",
+    title: "Recommend Right Technology & Sizing",
+    desc: "You receive an itemized proposal featuring Tier-1 OEM hardware (including TATA EZ POWER), transparent civil/electrical scope, and clear ROI calculations.",
   },
   {
     n: "03",
-    title: "Turnkey Commissioning & Net-Metering NOC",
-    desc: "From foundation pouring to CEIG clearance and DISCOM grid-synchronization, our certified execution team handles end-to-end commissioning.",
+    title: "Certified Implementation & SLA Handover",
+    desc: "From mounting to CEIG clearance and DISCOM grid-synchronization, our execution team handles end-to-end commissioning and ongoing warranty support.",
   },
 ];
 
@@ -77,28 +80,29 @@ export default function ContactPage() {
   return (
     <div className="bg-white text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white">
       
-      {/* ── 1. HERO SECTION (EDITORIAL REFERENCE STYLE) ── */}
+      {/* ── 1. HERO SECTION ── */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 pt-12 pb-16 lg:pt-20 lg:pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Column: Heading, Subtitle & Action Buttons */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8">
             <ScrollReveal>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70">
                 <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                <span>Get In Touch</span>
+                <span>18 | CONTACT VLOXIA SYSTEMS LLP</span>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={0.1}>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-slate-950 leading-[1.15]">
-                Contact VLOXIA systems for <span className="text-shimmer font-bold">engineering consultation</span>
+                Powering Mobility. <br />
+                Harnessing Energy. <br />
+                <span className="text-shimmer font-bold">Enabling a Sustainable Future.</span>
               </h1>
             </ScrollReveal>
 
             <ScrollReveal delay={0.15}>
               <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
-                Ready to start your clean energy journey? Our senior engineers and consultants are here to help — reach out for site audits, commercial quotations, or partnership enquiries.
+                Ready to explore EV charging infrastructure, integrated lithium inverters, or commercial solar solutions? Reach out to our registered office in Rohini, Delhi or connect directly with our partnership desk.
               </p>
             </ScrollReveal>
 
@@ -108,7 +112,7 @@ export default function ContactPage() {
                   href="tel:+918178810456"
                   className="btn-hover-effect glow-hover-blue inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-7 py-3.5 rounded-full transition-all shadow-md shadow-blue-500/25 text-sm active:scale-95"
                 >
-                  <span>Call Us Now</span>
+                  <span>Call: +91 8178810456</span>
                   <span className="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
                     <ArrowRight className="w-3.5 h-3.5" />
                   </span>
@@ -118,7 +122,7 @@ export default function ContactPage() {
                   href="#enquiry-form"
                   className="btn-hover-effect inline-flex items-center justify-center px-7 py-3.5 rounded-full border border-gray-300 text-slate-800 font-semibold hover:border-gray-400 hover:bg-slate-50 transition-all text-sm"
                 >
-                  Submit Project RFP
+                  Submit Inquiry
                 </a>
               </div>
             </ScrollReveal>
@@ -130,35 +134,38 @@ export default function ContactPage() {
               <div className="relative rounded-3xl border border-gray-200 bg-slate-50/80 p-8 sm:p-10 shadow-xs space-y-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">
                   <MapPin className="w-3.5 h-3.5" />
-                  <span>Delhi NCR Central Desk</span>
+                  <span>Delhi Corporate Office</span>
                 </div>
 
                 <div>
                   <h3 className="text-2xl font-bold text-slate-950">
-                    Corporate Headquarters
+                    VLOXIA SYSTEMS LLP
                   </h3>
                   <p className="text-xs text-blue-600 mt-1 uppercase font-mono font-bold tracking-wider">
-                    VLOXIA Systems LLP
+                    Registered Office
                   </p>
                 </div>
 
                 <div className="space-y-3 text-sm text-slate-700">
-                  <p className="leading-relaxed">
-                    A3/55, Sector 15, Rohini, New Delhi, Delhi 110089.
+                  <p className="leading-relaxed font-medium">
+                    A3/55, Sector 15, Rohini, Delhi 110089, India
                   </p>
-                  <p className="text-xs text-slate-500 leading-relaxed">
-                    Easily accessible via Delhi Metro Red Line (Rohini West) &amp; Yellow Line (Samaypur Badli).
-                  </p>
+                  <div className="pt-2 border-t border-gray-200 space-y-1.5 text-xs text-slate-600">
+                    <p><strong>Partnerships Lead:</strong> Manu Bhatia</p>
+                    <p><strong>Phone:</strong> +91 8178810456 / 8178810456</p>
+                    <p><strong>Email:</strong> vloxiasystems@gmail.com</p>
+                    <p><strong>Website:</strong> www.vloxia.in</p>
+                  </div>
                 </div>
 
                 <div className="pt-2 border-t border-gray-200">
                   <a
-                    href="https://maps.google.com/?q=Sector+15+Rohini+Delhi"
+                    href="https://maps.google.com/?q=Sector+15+Rohini+Delhi+110089"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors group"
                   >
-                    <span className="underline-hover-effect">Open Directions in Google Maps</span>
+                    <span className="underline-hover-effect">Open Sector 15 Rohini in Google Maps</span>
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                   </a>
                 </div>
@@ -169,22 +176,24 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── 2. "WHY SHOULD YOU PARTNER?" / TOUCHPOINTS (2x2 GRID WITH BLUE BADGES) ── */}
+      {/* ── 2. 18 | DIRECT CONTACT CHANNELS (2x2 GRID) ── */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100">
         <ScrollReveal>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
             <div>
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-600 block mb-2">
+                18 | CONTACT CHANNELS
+              </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-slate-950">
-                Direct Contact <span className="text-shimmer font-bold">Channels</span>
+                Direct Contact <span className="text-shimmer font-bold">Touchpoints</span>
               </h2>
             </div>
             <p className="text-slate-500 text-sm sm:text-base max-w-md leading-relaxed">
-              Gain a deeper understanding of our touchpoints and reach the right engineering desk immediately.
+              Reach the right engineering or channel partner desk immediately for guidance on EV charging, storage, or solar installations.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* 2x2 Grid with blue badges */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {CONTACT_CHANNELS.map((channel, idx) => {
             const Icon = channel.icon;
@@ -225,49 +234,46 @@ export default function ContactPage() {
       <section id="enquiry-form" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          {/* Left Column: Context & Assurances */}
           <div className="lg:col-span-5 space-y-6">
             <ScrollReveal>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70">
-                <span>Project Consultation</span>
+                <span>Direct Inquiry</span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-slate-950 leading-tight">
-                Send an Engineering <span className="text-shimmer font-bold">Enquiry</span>
+                Send a Message to <span className="text-shimmer font-bold">VLOXIA</span>
               </h2>
 
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed mt-3">
-                Fill in your project requirements below. Our technical engineering desk typically responds within 24 business hours with initial single-line feasibility.
+                Fill in your project requirements below. Manu Bhatia and our technical engineering desk will respond within 24 business hours.
               </p>
 
-              <div className="space-y-4 pt-4">
-                {[
-                  { title: "NDA & Commercial Privacy", desc: "All client drawings and load profiles are kept confidential." },
-                  { title: "No Obligation Site Audit", desc: "Initial rooftop and EV feasibility review without consulting fees." },
-                  { title: "Turnkey Single-Point SLA", desc: "Single warranty for solar modules, inverters, chargers, and switchgear." },
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="text-sm font-bold text-slate-950 tracking-tight">{item.title}</h4>
-                      <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
+              <div className="space-y-3 pt-4 text-xs text-slate-600">
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Authorized TATA EZ POWER EV &amp; Inverter Distributor</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Direct OEM Commercial Pricing &amp; Warranty</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Turnkey Technical Single-Line Engineering</span>
+                </div>
               </div>
             </ScrollReveal>
           </div>
 
-          {/* Right Column: Clean Form Container */}
           <div className="lg:col-span-7">
             <ScrollReveal delay={0.15}>
               <div className="rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 shadow-xs">
                 <div className="mb-8">
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight">
-                    Project Scope &amp; Site Details
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-950">
+                    Project &amp; Channel Inquiry Form
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                    Provide your technical requirements so we can assign the specialized vertical engineer.
+                    Please provide your contact and energy requirements.
                   </p>
                 </div>
 
@@ -277,10 +283,10 @@ export default function ContactPage() {
                       <CheckCircle2 className="w-6 h-6" />
                     </div>
                     <h4 className="text-lg font-bold text-emerald-900">
-                      Enquiry Successfully Submitted!
+                      Inquiry Received!
                     </h4>
                     <p className="text-xs sm:text-sm text-emerald-700 max-w-md mx-auto">
-                      Thank you for reaching out to VLOXIA Systems. A senior project engineer will analyze your requirements and connect with you shortly.
+                      Thank you for contacting VLOXIA Systems LLP. Manu Bhatia will review your details and contact you shortly.
                     </p>
                   </div>
                 ) : (
@@ -288,16 +294,29 @@ export default function ContactPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                          Full Name *
+                          Your Name *
                         </label>
                         <input
                           type="text"
                           required
-                          placeholder="e.g. Rahul Sharma"
+                          placeholder="Full name"
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
                         />
                       </div>
 
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                          Company / Society Name
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="Business or residential entity"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
                           Phone Number *
@@ -305,31 +324,19 @@ export default function ContactPage() {
                         <input
                           type="tel"
                           required
-                          placeholder="+91 98765 43210"
+                          placeholder="+91 8178810456"
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
                         />
                       </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                          Business Email
+                          Email Address *
                         </label>
                         <input
                           type="email"
-                          placeholder="you@company.com"
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                          City / Operating Location
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="e.g. New Delhi, Gurugram, Noida..."
+                          required
+                          placeholder="yourname@domain.com"
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
                         />
                       </div>
@@ -338,49 +345,42 @@ export default function ContactPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                          Interested Solution *
+                          Core Vertical of Interest *
                         </label>
                         <select
                           required
                           defaultValue=""
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
                         >
-                          <option value="" disabled>Select a solution</option>
-                          <option value="ev-charging">EV Charging Infrastructure</option>
-                          <option value="solar-energy">Solar Energy EPC</option>
-                          <option value="energy-storage">Energy Storage &amp; Lithium BESS</option>
-                          <option value="power-solutions">Power Solutions &amp; Backup</option>
-                          <option value="multiple">Integrated Multi-Technology Solution</option>
+                          <option value="" disabled>Select vertical</option>
+                          <option value="ev-charging">⚡ EV Charging (AC &amp; DC Fast)</option>
+                          <option value="solar-energy">☀️ Solar Energy &amp; Rooftop EPC</option>
+                          <option value="energy-storage">🔋 Lithium Energy Storage &amp; Inverters</option>
+                          <option value="power-solutions">⚙️ Integrated Power Solutions</option>
+                          <option value="channel-partner">🤝 Channel Partner / Dealership</option>
                         </select>
                       </div>
 
                       <div>
                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                          Customer / Sector Type *
+                          Project Location (City / State) *
                         </label>
-                        <select
+                        <input
+                          type="text"
                           required
-                          defaultValue=""
+                          placeholder="e.g. Rohini Delhi, Gurugram, Noida..."
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
-                        >
-                          <option value="" disabled>Select sector</option>
-                          <option value="residential">Residential &amp; Housing Society</option>
-                          <option value="commercial">Commercial Real Estate &amp; Retail</option>
-                          <option value="industrial">Industrial &amp; Manufacturing</option>
-                          <option value="mobility">Fleet &amp; Logistics Operator</option>
-                          <option value="institutional">Institutional &amp; Healthcare</option>
-                          <option value="channel-partner">Dealer / Channel Partner</option>
-                        </select>
+                        />
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                        Project Requirement &amp; Scope
+                        Message / Project Scope
                       </label>
                       <textarea
                         rows={4}
-                        placeholder="Describe your site details, required power capacity, timeline, or any specific engineering requirements..."
+                        placeholder="Tell us about your energy requirement, sanctioned load, or partnership expectations..."
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
                       />
                     </div>
@@ -390,7 +390,7 @@ export default function ContactPage() {
                         type="submit"
                         className="btn-hover-effect glow-hover-blue w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-full transition-all text-sm shadow-md shadow-blue-500/25 cursor-pointer active:scale-95"
                       >
-                        <span>Submit Project Enquiry</span>
+                        <span>Send Project Message</span>
                         <span className="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
                           <ArrowRight className="w-3.5 h-3.5" />
                         </span>
@@ -405,11 +405,50 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── 4. WHAT TO EXPECT: NUMBERED ACCORDION (01, 02, 03) ── */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100">
+      {/* ── 4. INTERACTIVE GOOGLE MAPS SECTION (SECTOR 15, ROHINI, DELHI) ── */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-12 py-12 border-t border-gray-100">
+        <ScrollReveal>
+          <div className="rounded-3xl overflow-hidden border border-gray-200 bg-slate-50 shadow-sm space-y-4 p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600">
+                  HEADQUARTERS LOCATION
+                </span>
+                <h3 className="text-lg font-bold text-slate-950">
+                  Sector 15, Rohini, Delhi 110089
+                </h3>
+              </div>
+              <a
+                href="https://maps.google.com/?q=Sector+15+Rohini+Delhi+110089"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-hover-effect inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 text-xs font-semibold text-slate-700 hover:bg-white hover:border-blue-400"
+              >
+                <span>Open in Google Maps App</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+
+            <div className="relative w-full h-[320px] sm:h-[400px] rounded-2xl overflow-hidden border border-gray-200">
+              <iframe
+                title="VLOXIA Systems LLP Corporate Office - Rohini Sector 15 Delhi"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13998.48700201944!2d77.1207887754512!3d28.729729962386884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d015c7e7b6863%3A0xe5a285d83fbf50e4!2sSector%2015%2C%20Rohini%2C%20Delhi%2C%20110089!5e0!3m2!1sen!2sin!4v1714500000000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
+        </ScrollReveal>
+      </section>
+
+      {/* ── 5. WHAT TO EXPECT: NUMBERED ACCORDION ── */}
+      <section className="max-w-7xl mx-auto px-6 lg:px-12 py-16 border-t border-gray-100">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          {/* Left Column: Heading & Subtitle */}
           <div className="lg:col-span-5 space-y-4">
             <ScrollReveal>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-slate-950 leading-tight">
@@ -423,17 +462,16 @@ export default function ContactPage() {
                 <div className="p-6 rounded-2xl bg-slate-50 border border-gray-200 space-y-3">
                   <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-600">
                     <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                    <span>Transparent Pricing</span>
+                    <span>Transparent Pricing &amp; Engineering</span>
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed">
-                    No hidden contractor markups. Every single transformer, panel, and cable is transparently specified.
+                    No hidden contractor markups. Every single transformer, panel, inverter, and charger is transparently specified.
                   </p>
                 </div>
               </div>
             </ScrollReveal>
           </div>
 
-          {/* Right Column: Numbered Step Accordion */}
           <div className="lg:col-span-7 space-y-4">
             {WHAT_TO_EXPECT.map((step, idx) => {
               const isActive = activeStep === idx;
@@ -483,29 +521,27 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── 5. BOTTOM DARK CTA BANNER ── */}
+      {/* ── 6. BOTTOM DARK CTA BANNER ── */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 pb-16 lg:pb-24">
         <ScrollReveal>
-          <div className="rounded-3xl bg-[#111827] text-white p-8 sm:p-14 lg:p-16 relative overflow-hidden shadow-2xl">
+          <div className="rounded-3xl bg-slate-950 text-white p-8 sm:p-14 lg:p-16 relative overflow-hidden shadow-2xl">
             <div className="relative z-10 max-w-2xl space-y-5">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
-                Instant Connect
+              <span className="text-xs font-bold uppercase tracking-wider text-cyan-400 font-mono">
+                DIRECT CONTACT
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
-                Need Urgent Technical Assistance?
+                Connect Directly with <span className="text-cyan-400">Manu Bhatia</span>
               </h2>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Our direct customer engineering line is active Monday through Saturday. You can also chat directly with our project leads via WhatsApp.
+                Call or WhatsApp our partnership desk for dealership inquiries, EV charging infrastructure, or solar rooftop estimates across India.
               </p>
               <div className="pt-3">
                 <a
                   href="tel:+918178810456"
-                  className="btn-hover-effect glow-hover-blue inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-full transition-all text-sm shadow-lg shadow-blue-500/25 active:scale-95"
+                  className="btn-hover-effect glow-hover-cyan inline-flex items-center gap-3 bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold px-8 py-4 rounded-full transition-all text-sm shadow-lg shadow-cyan-500/20 active:scale-95"
                 >
-                  <span>Call +91 81788 104 56</span>
-                  <span className="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
+                  <span>Call +91 8178810456</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
             </div>
