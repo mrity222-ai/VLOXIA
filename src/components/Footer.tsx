@@ -16,7 +16,7 @@ export default function Footer() {
     <footer className="bg-white text-slate-800 border-t border-gray-100 font-sans antialiased selection:bg-[#0066FF] selection:text-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 sm:py-14">
         
-        {/* ── TOP ROW: LOGO & TAGLINE ── */}
+        {/* ── TOP ROW: LOGO & TAGLINE (MATCHES REFERENCE EXACTLY) ── */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6">
           <Link href="/" className="inline-block">
             <Image
@@ -30,29 +30,27 @@ export default function Footer() {
           </Link>
 
           <p className="text-xs sm:text-sm text-slate-500 font-medium tracking-tight">
-            Powering Mobility. Harnessing Energy. Enabling a Sustainable Future.
+            Intelligent clean energy &amp; EV infrastructure that actually works.
           </p>
         </div>
 
         {/* Thin Divider Line */}
         <div className="border-t border-gray-100 my-6" />
 
-        {/* ── MIDDLE GRID: COMPANY, VERTICALS, REGISTERED OFFICE & REGION ── */}
+        {/* ── MIDDLE GRID: COMPANY, NAVIGATION, CONTACT, REGION & SOCIALS ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 py-4">
           
-          {/* Column 1: Company (3 cols) */}
+          {/* Column 1: Empresa / Company (3 cols) */}
           <div className="lg:col-span-3 space-y-3.5">
             <h4 className="text-sm font-bold text-slate-900 tracking-tight">
               Company
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm">
               {[
-                { label: "About VLOXIA", href: "/about" },
-                { label: "Our Vision & Mission", href: "/about#vision-mission" },
-                { label: "Our Approach & Ecosystem", href: "/approach" },
-                { label: "Customer Segments", href: "/industries" },
-                { label: "Channel Partners (Tata EZ Power)", href: "/partners" },
-                { label: "Hardware Marketplace", href: "/shop" },
+                { label: "About Us", href: "/about" },
+                { label: "Our Approach", href: "/approach" },
+                { label: "Why VLOXIA", href: "/about#why-vloxia" },
+                { label: "Channel Partners", href: "/partners" },
                 { label: "Contact Us", href: "/contact" },
               ].map((item, idx) => (
                 <li key={idx}>
@@ -67,19 +65,18 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 2: 4 Core Verticals (3 cols) */}
+          {/* Column 2: Navegação / Navigation (3 cols) */}
           <div className="lg:col-span-3 space-y-3.5">
             <h4 className="text-sm font-bold text-slate-900 tracking-tight">
-              Core Verticals
+              Navigation
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm">
               {[
-                { label: "⚡ EV Charging Solutions", href: "/solutions/ev-charging" },
-                { label: "☀️ Solar Energy Systems", href: "/solutions/solar-energy" },
-                { label: "🔋 Lithium Energy Storage", href: "/solutions/energy-storage" },
-                { label: "⚙️ Power Solutions & Inverters", href: "/solutions/power-solutions" },
-                { label: "🏢 Commercial & Industrial", href: "/industries#commercial" },
-                { label: "🚗 Fleet & Public Corridors", href: "/industries#mobility" },
+                { label: "EV Fast Chargers", href: "/solutions/ev-charging" },
+                { label: "Solar Energy Systems", href: "/solutions/solar-energy" },
+                { label: "Lithium Energy Storage", href: "/solutions/energy-storage" },
+                { label: "Hybrid Inverters & UPS", href: "/solutions/power-solutions" },
+                { label: "Hardware Marketplace", href: "/shop" },
               ].map((item, idx) => (
                 <li key={idx}>
                   <Link
@@ -93,49 +90,43 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Registered Office & Contacts (3 cols) */}
+          {/* Column 3: Contacto / Contact Details with Blue Outline Badges (3 cols) */}
           <div className="lg:col-span-3 space-y-3.5">
             <h4 className="text-sm font-bold text-slate-900 tracking-tight">
-              Registered Office
+              Contact
             </h4>
             <ul className="space-y-3 text-xs sm:text-sm">
-              <li className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-500 border border-sky-100 flex items-center justify-center shrink-0 hover:scale-110 hover:bg-blue-600 hover:text-white transition-all cursor-pointer shadow-xs mt-0.5">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <div>
-                  <span className="text-slate-900 font-semibold block text-xs">VLOXIA SYSTEMS LLP</span>
-                  <span className="text-slate-600 leading-snug text-xs">
-                    A3/55, Sector 15, Rohini,<br />Delhi 110089, India
-                  </span>
-                </div>
-              </li>
-
-              <li className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-500 border border-sky-100 flex items-center justify-center shrink-0 hover:scale-110 hover:bg-blue-600 hover:text-white transition-all cursor-pointer shadow-xs">
-                  <Phone className="w-4 h-4" />
-                </div>
-                <div>
-                  <a
-                    href="tel:+918178810456"
-                    className="text-slate-600 hover:text-blue-600 transition-colors font-medium underline-hover-effect block text-xs"
-                  >
-                    +91 8178810456
-                  </a>
-                  <span className="text-[10px] text-slate-400">Manu Bhatia (Partnerships)</span>
-                </div>
-              </li>
-
               <li className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-500 border border-sky-100 flex items-center justify-center shrink-0 hover:scale-110 hover:bg-blue-600 hover:text-white transition-all cursor-pointer shadow-xs">
                   <Mail className="w-4 h-4" />
                 </div>
                 <a
                   href="mailto:vloxiasystems@gmail.com"
-                  className="text-slate-600 hover:text-blue-600 transition-colors truncate font-medium underline-hover-effect text-xs"
+                  className="text-slate-600 hover:text-blue-600 transition-colors truncate font-medium underline-hover-effect"
                 >
                   vloxiasystems@gmail.com
                 </a>
+              </li>
+
+              <li className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-500 border border-sky-100 flex items-center justify-center shrink-0 hover:scale-110 hover:bg-blue-600 hover:text-white transition-all cursor-pointer shadow-xs">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <a
+                  href="tel:+918178810456"
+                  className="text-slate-600 hover:text-blue-600 transition-colors font-medium underline-hover-effect"
+                >
+                  +91 8178810456
+                </a>
+              </li>
+
+              <li className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-500 border border-sky-100 flex items-center justify-center shrink-0 hover:scale-110 hover:bg-blue-600 hover:text-white transition-all cursor-pointer shadow-xs">
+                  <MapPin className="w-4 h-4" />
+                </div>
+                <span className="text-slate-600 font-medium">
+                  A3/55, Sector 15, Rohini, Delhi 110089
+                </span>
               </li>
             </ul>
           </div>
@@ -149,7 +140,7 @@ export default function Footer() {
               <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
             </div>
 
-            {/* Social Icons in Clean Rounded Boxes */}
+            {/* Social Icons in Clean Rounded Boxes Matching Reference */}
             <div className="flex items-center gap-2 pt-2">
               <a
                 href="https://linkedin.com"
@@ -205,9 +196,9 @@ export default function Footer() {
 
         </div>
 
-        {/* ── BOTTOM SUB-FOOTER LEGAL BAR ── */}
+        {/* ── BOTTOM SUB-FOOTER LEGAL BAR (MATCHES REFERENCE EXACTLY) ── */}
         <div className="border-t border-gray-100 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <p>© 2026 VLOXIA Systems LLP. Registered in Delhi, India. All rights reserved.</p>
+          <p>© 2026 VLOXIA Systems LLP. All rights reserved.</p>
           <div className="flex items-center gap-6 text-xs text-slate-500 font-medium">
             <Link href="/about" className="hover:text-blue-600 transition-colors">
               Terms &amp; Conditions
@@ -215,8 +206,8 @@ export default function Footer() {
             <Link href="/about" className="hover:text-blue-600 transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/contact" className="hover:text-blue-600 transition-colors">
-              Corporate Office: Rohini, Delhi
+            <Link href="/about" className="hover:text-blue-600 transition-colors">
+              Cookies
             </Link>
           </div>
         </div>

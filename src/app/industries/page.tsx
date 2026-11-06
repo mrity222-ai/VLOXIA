@@ -239,7 +239,7 @@ export default function IndustriesPage() {
             <ScrollReveal>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70">
                 <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                <span>10 | OUR CUSTOMER SEGMENTS · VLOXIA SYSTEMS LLP</span>
+                <span>Industry-Specific Solutions</span>
               </div>
             </ScrollReveal>
 
