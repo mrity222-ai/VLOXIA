@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x", "rhel-openssl-3.0.x", "debian-openssl-1.1.x", "debian-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String
+  role         String    @default("ADMIN") // SUPER_ADMIN, ADMIN, VIEWER
+  resetOtp     String?
+  otpExpiresAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Product {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  tagline       String
+  category      String   // ev-charging, battery-storage, power-solar
+  categoryLabel String
+  price         Float
+  originalPrice Float?
+  rating        Float    @default(5.0)
+  reviewsCount  Int      @default(0)
+  inStock       Boolean  @default(true)
+  stockQuantity Int      @default(10)
+  warranty      String
+  specsJson     String   @default("{}") // Stored as JSON string
+  highlightsJson String  @default("[]") // Stored as JSON string
+  image         String
+  imagesJson    String   @default("[]") // Stored as JSON string array of up to 5 images
+  badge         String?
+  isPublished   Boolean  @default(true)
+  isFeatured    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Order {
+  id                 String   @id @default(cuid())
+  orderNumber        String   @unique
+  razorpayOrderId    String?
+  razorpayPaymentId  String?
+  customerName       String
+  customerPhone      String
+  customerEmail      String?
+  customerCity       String?
+  totalAmount        Float
+  paymentStatus      String   @default("PAID") // PAID, PENDING, FAILED
+  fulfillmentStatus  String   @default("PROCESSING") // PROCESSING, DISPATCHED, DELIVERED, CANCELLED
+  itemsSnapshotJson  String   @default("[]") // Stored as JSON string
+  trackingNumber     String?
+  notes              String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model Inquiry {
+  id           String   @id @default(cuid())
+  type         String   @default("GENERAL") // GENERAL, QUOTE, PARTNER
+  fullName     String
+  phone        String
+  email        String?
+  solution     String?
+  customerType String?  // Residential, Commercial, Industrial, Institutional, Dealer
+  city         String?
+  companyName  String?  // for channel partners
+  message      String
+  status       String   @default("NEW") // NEW, IN_REVIEW, CONTACTED, CLOSED
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Service {
+  id             String   @id @default(cuid())
+  title          String
+  slug           String   @unique
+  category       String   // EV Charging, Solar Energy, Energy Storage, Power Solutions
+  subtitle       String?
+  description    String
+  pointsJson     String   @default("[]") // Stored as JSON string
+  icon           String?
+  bannerImage    String?
+  sortOrder      Int      @default(0)
+  isVisible      Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model ClientLogo {
+  id          String   @id @default(cuid())
+  name        String
+  logoUrl     String
+  websiteUrl  String?
+  category    String   @default("TECHNOLOGY_PARTNER") // TECHNOLOGY_PARTNER, CLIENT, INSTITUTIONAL
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+model ShopBanner {
+  id          String   @id @default(cuid())
+  title       String
+  subtitle    String?
+  ctaText     String   @default("Explore the Collections")
+  ctaLink     String   @default("#catalog-grid")
+  badge       String?
+  imageUrl    String
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  imageUrl    String
+  description String?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

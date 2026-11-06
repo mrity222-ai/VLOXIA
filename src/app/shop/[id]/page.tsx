@@ -103,19 +103,19 @@ export default function ProductDetailPage() {
 
   if (notFound) {
     return (
-      <div className="min-h-screen bg-[#050B17] flex items-center justify-center p-6 text-white font-sans">
-        <div className="text-center max-w-md mx-auto space-y-5 bg-[#09142B] p-8 rounded-2xl border border-blue-900/40 shadow-xl">
-          <div className="w-14 h-14 rounded-full bg-red-500/10 text-red-400 flex items-center justify-center mx-auto text-2xl font-bold">
+      <div className="min-h-screen bg-[#FBFBFE] flex items-center justify-center p-6 text-slate-900 font-sans">
+        <div className="text-center max-w-md mx-auto space-y-5 bg-white p-8 rounded-2xl border border-gray-200 shadow-sm">
+          <div className="w-14 h-14 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto text-2xl font-bold">
             !
           </div>
-          <h2 className="text-2xl font-bold text-white tracking-tight">Product Not Available</h2>
-          <p className="text-sm text-slate-400">
+          <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Product Not Available</h2>
+          <p className="text-sm text-slate-500">
             This hardware item is no longer in our active catalogue or has been removed by the administrator.
           </p>
           <div className="pt-2">
             <Link
               href="/shop"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all"
             >
               <ArrowLeft className="w-4 h-4" />
               Return to Hardware Marketplace
@@ -128,10 +128,10 @@ export default function ProductDetailPage() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#050B17] flex items-center justify-center p-6">
+      <div className="min-h-screen bg-[#FBFBFE] flex items-center justify-center p-6">
         <div className="text-center space-y-4">
-          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-sm text-slate-400 font-medium">Loading hardware specifications...</p>
+          <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-sm text-gray-500 font-medium">Loading hardware specifications...</p>
         </div>
       </div>
     );

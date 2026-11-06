@@ -67,7 +67,7 @@ const SERVICES_COLUMN_2 = [
 export default function MegaMenu({ onClose }: MegaMenuProps) {
   return (
     <div
-      className="absolute top-full left-0 right-0 w-full bg-[#071126]/98 backdrop-blur-md border-b border-blue-900/40 shadow-2xl py-10 px-6 sm:px-12 z-50 animate-in fade-in slide-in-from-top-2 duration-200 text-white font-sans"
+      className="absolute top-full left-0 right-0 w-full bg-white/98 backdrop-blur-md border-b border-gray-100 shadow-xl py-10 px-6 sm:px-12 z-50 animate-in fade-in slide-in-from-top-2 duration-200"
       onMouseLeave={onClose}
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
@@ -75,13 +75,13 @@ export default function MegaMenu({ onClose }: MegaMenuProps) {
         {/* ── 1. LEFT COLUMN: CORE CAPABILITIES (3 COLS) ── */}
         <div className="lg:col-span-3 space-y-3">
           <div>
-            <h3 className="text-lg font-bold text-white tracking-tight">
+            <h3 className="text-lg font-bold text-slate-900 tracking-tight">
               Core Capabilities
             </h3>
-            <div className="w-10 h-0.5 bg-blue-500 rounded-full mt-2 mb-4" />
+            <div className="w-10 h-0.5 bg-blue-600 rounded-full mt-2 mb-4" />
           </div>
 
-          <p className="text-xs text-slate-400 leading-relaxed max-w-xs">
+          <p className="text-xs text-slate-500 leading-relaxed max-w-xs">
             Explore our full suite of enterprise clean energy solutions, EV fast charging, rooftop solar, and lithium storage.
           </p>
 
@@ -89,10 +89,9 @@ export default function MegaMenu({ onClose }: MegaMenuProps) {
             <Link
               href="/solutions/ev-charging"
               onClick={onClose}
-              className="inline-flex items-center gap-1.5 border border-blue-800/40 bg-[#091533] text-slate-200 hover:border-cyan-400 hover:text-cyan-300 rounded-full px-5 py-2 text-xs font-semibold transition-all shadow-sm"
+              className="inline-flex items-center gap-1.5 border border-gray-200 text-slate-800 hover:border-blue-600 hover:text-blue-600 rounded-full px-5 py-2 text-xs font-semibold transition-all shadow-2xs"
             >
               <span>View All Services</span>
-              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
@@ -111,10 +110,10 @@ export default function MegaMenu({ onClose }: MegaMenuProps) {
                   onClick={onClose}
                   className="flex items-center gap-3.5 group py-1"
                 >
-                  <div className="w-9 h-9 rounded-full bg-[#0b1a3d] text-cyan-400 border border-blue-800/40 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
+                  <div className="w-9 h-9 rounded-full bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-2xs">
                     <Icon className="w-4 h-4" />
                   </div>
-                  <span className="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan-300 transition-colors">
+                  <span className="text-xs sm:text-sm font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">
                     {item.title}
                   </span>
                 </Link>
@@ -133,10 +132,10 @@ export default function MegaMenu({ onClose }: MegaMenuProps) {
                   onClick={onClose}
                   className="flex items-center gap-3.5 group py-1"
                 >
-                  <div className="w-9 h-9 rounded-full bg-[#0b1a3d] text-cyan-400 border border-blue-800/40 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-xs">
+                  <div className="w-9 h-9 rounded-full bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-2xs">
                     <Icon className="w-4 h-4" />
                   </div>
-                  <span className="text-xs sm:text-sm font-semibold text-slate-200 group-hover:text-cyan-300 transition-colors">
+                  <span className="text-xs sm:text-sm font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">
                     {item.title}
                   </span>
                 </Link>
@@ -147,22 +146,23 @@ export default function MegaMenu({ onClose }: MegaMenuProps) {
         </div>
 
         {/* ── 3. RIGHT COLUMN: HARDWARE & TECHNOLOGY INNOVATIONS (3 COLS) ── */}
-        <div className="lg:col-span-3 lg:border-l lg:border-blue-900/30 lg:pl-8 space-y-3">
-          <h4 className="text-sm font-bold text-white tracking-tight">
-            Clean Tech Hardware
+        <div className="lg:col-span-3 lg:border-l lg:border-gray-100 lg:pl-8 space-y-3">
+          <h4 className="text-sm font-bold text-slate-900 tracking-tight">
+            Hardware &amp; Technology
           </h4>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Direct access to commercial DC fast chargers, battery storage racks, and dual-MPPT inverters.
+
+          <p className="text-xs text-slate-500 leading-relaxed">
+            Discover our certified Tier-1 OEM hardware, high-power DC fast charging kiosks, and cloud CMS telemetry suite.
           </p>
 
           <div className="pt-2">
             <Link
               href="/shop"
               onClick={onClose}
-              className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors group"
+              className="text-xs font-bold text-blue-600 hover:text-blue-800 inline-flex items-center gap-1.5 hover:gap-2 transition-all"
             >
-              <span>Explore Hardware Marketplace</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+              <span>Explore Products</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

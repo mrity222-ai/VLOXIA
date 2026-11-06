@@ -63,8 +63,8 @@ type PartnerMarqueeProps = {
 export default function PartnerMarquee({
   eyebrow = (
     <>
-      <span className="text-white">Authorized OEM Alliances &amp;</span>{" "}
-      <span className="text-cyan-400 font-bold">Tier-1 Clean Energy Partners</span>
+      <span className="text-slate-900">Authorized OEM Alliances &amp;</span>{" "}
+      <span className="text-blue-600 font-bold">Tier-1 Clean Energy Partners</span>
     </>
   ),
   className = "",
@@ -95,15 +95,15 @@ export default function PartnerMarquee({
       : [...partnerList, ...partnerList, ...partnerList, ...partnerList];
 
   return (
-    <section className={`py-10 bg-[#060D1E] border-y border-blue-900/30 overflow-hidden ${className}`}>
+    <section className={`py-10 bg-slate-50/70 border-y border-gray-100 overflow-hidden ${className}`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shrink-0" />
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
+          <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse shrink-0" />
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-600">
             {eyebrow}
           </span>
         </div>
-        <span className="text-xs text-slate-400 font-medium hidden md:inline-block font-mono">
+        <span className="text-xs text-slate-400 font-medium hidden md:inline-block">
           Certified Hardware &amp; Turnkey Supply Chain
         </span>
       </div>
@@ -114,7 +114,7 @@ export default function PartnerMarquee({
           {marqueeList.map((partner, idx) => (
             <div
               key={`${partner.id}-${idx}`}
-              className="card-hover-effect lift-effect shadow-hover-effect flex items-center justify-center h-20 px-8 py-3 rounded-2xl bg-[#091533]/80 border border-blue-900/40 shadow-lg hover:border-cyan-400/50 hover:shadow-cyan-950/40 shrink-0 group cursor-pointer"
+              className="card-hover-effect lift-effect shadow-hover-effect flex items-center justify-center h-20 px-8 py-3 rounded-2xl bg-white border border-gray-200/80 shadow-2xs hover:border-blue-400 hover:shadow-md shrink-0 group cursor-pointer"
               title={`${partner.name} - ${partner.category}`}
             >
               <div className="relative h-10 w-36 flex items-center justify-center">
@@ -123,7 +123,7 @@ export default function PartnerMarquee({
                   alt={partner.name}
                   fill
                   sizes="160px"
-                  className="object-contain filter brightness-95 opacity-85 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"
+                  className="object-contain filter grayscale-0 opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"
                 />
               </div>
             </div>
