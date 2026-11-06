@@ -52,6 +52,49 @@ html {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   LEFT-TO-RIGHT TYPOGRAPHY SHIMMER & DARK BLUE SUITE
+   ═══════════════════════════════════════════════════════════════════ */
+@keyframes text-shimmer-ltr {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.text-shimmer {
+  background: linear-gradient(90deg, #94a3b8 0%, #ffffff 25%, #38bdf8 50%, #ffffff 75%, #94a3b8 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer-ltr 4s ease-in-out infinite;
+}
+
+.text-shimmer-fast {
+  background: linear-gradient(90deg, #60a5fa 0%, #38bdf8 30%, #ffffff 50%, #38bdf8 70%, #60a5fa 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shimmer-ltr 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.vloxia-dark-bg {
+  background-color: #050B18;
+  background-image: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.15) 0%, rgba(5, 11, 24, 0.98) 70%);
+}
+
+.vloxia-card-dark {
+  background: rgba(9, 20, 43, 0.75);
+  border: 1px solid rgba(56, 189, 248, 0.12);
+  backdrop-filter: blur(16px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.vloxia-card-dark:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 12px 30px -8px rgba(37, 99, 235, 0.25);
+  transform: translateY(-3px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    9 INTERACTIVE HOVER & MICRO-ANIMATION UTILITY SUITE
    ═══════════════════════════════════════════════════════════════════ */
 

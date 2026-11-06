@@ -58,70 +58,80 @@ export default function ProductDetailPage() {
 
   const { addToCart, setIsCartOpen } = useCart();
 
-  // Find product from static list or API
-  useEffect(() => {
-    // 1. Check static PRODUCTS
-    const foundStatic = PRODUCTS.find((p) => p.id === productId);
-    if (foundStatic) {
-      setProduct({ ...foundStatic, images: [foundStatic.image] });
-    }
+  const [notFound, setNotFound] = useState(false);
 
-    // 2. Fetch live products from DB
-    fetch("/api/admin/products")
+  // Find product from live API / Database
+  useEffect(() => {
+    if (!productId) return;
+
+    // 1. Fetch exact product from live DB
+    fetch(`/api/products/${productId}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Product not found");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data?.success && data.product) {
+          setProduct(data.product);
+          setNotFound(false);
+        } else {
+          setNotFound(true);
+        }
+      })
+      .catch(() => {
+        // Fallback check static PRODUCTS if offline
+        const foundStatic = PRODUCTS.find((p) => p.id === productId || p.slug === productId);
+        if (foundStatic) {
+          setProduct({ ...foundStatic, images: [foundStatic.image] });
+        } else {
+          setNotFound(true);
+        }
+      });
+
+    // 2. Fetch all live products for recommendations
+    fetch("/api/products")
       .then((res) => res.json())
       .then((data) => {
-        if (data?.products && data.products.length > 0) {
-          const mapped: ShopProduct[] = data.products.map((p: any) => {
-            let specs = {};
-            let highlights: string[] = [];
-            let images: string[] = [];
-            try {
-              specs = JSON.parse(p.specsJson || "{}");
-            } catch (e) {}
-            try {
-              highlights = JSON.parse(p.highlightsJson || "[]");
-            } catch (e) {}
-            try {
-              images = JSON.parse(p.imagesJson || "[]");
-            } catch (e) {}
-            if (images.length === 0 && p.image) images = [p.image];
-
-            return {
-              id: p.id,
-              name: p.name,
-              tagline: p.tagline,
-              category: p.category as any,
-              categoryLabel: p.categoryLabel,
-              price: p.price,
-              originalPrice: p.originalPrice,
-              rating: p.rating || 5.0,
-              reviewsCount: p.reviewsCount || 121,
-              inStock: p.inStock,
-              warranty: p.warranty,
-              specs,
-              highlights,
-              image: p.image,
-              images,
-              badge: p.badge,
-            };
-          });
-
-          setAllProducts(mapped);
-          const foundDb = mapped.find((p) => p.id === productId);
-          if (foundDb) {
-            setProduct(foundDb);
-          }
+        if (data?.success && Array.isArray(data.products)) {
+          setAllProducts(data.products);
         }
       })
       .catch(() => {});
   }, [productId]);
 
+  if (notFound) {
+    return (
+      <div className="min-h-screen bg-[#050B17] flex items-center justify-center p-6 text-white font-sans">
+        <div className="text-center max-w-md mx-auto space-y-5 bg-[#09142B] p-8 rounded-2xl border border-blue-900/40 shadow-xl">
+          <div className="w-14 h-14 rounded-full bg-red-500/10 text-red-400 flex items-center justify-center mx-auto text-2xl font-bold">
+            !
+          </div>
+          <h2 className="text-2xl font-bold text-white tracking-tight">Product Not Available</h2>
+          <p className="text-sm text-slate-400">
+            This hardware item is no longer in our active catalogue or has been removed by the administrator.
+          </p>
+          <div className="pt-2">
+            <Link
+              href="/shop"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Return to Hardware Marketplace
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#FBFBFE] flex items-center justify-center p-6">
+      <div className="min-h-screen bg-[#050B17] flex items-center justify-center p-6">
         <div className="text-center space-y-4">
-          <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-sm text-gray-500 font-medium">Loading hardware specifications...</p>
+          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-sm text-slate-400 font-medium">Loading hardware specifications...</p>
         </div>
       </div>
     );

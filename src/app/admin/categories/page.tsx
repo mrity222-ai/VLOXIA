@@ -121,10 +121,15 @@ export default function AdminCategoriesPage() {
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this category?")) return;
     try {
-      await fetch(`/api/admin/categories/${id}`, { method: "DELETE" });
-      fetchCategories();
-    } catch (e) {
-      alert("Failed to delete category");
+      const res = await fetch(`/api/admin/categories/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        fetchCategories();
+      } else {
+        const d = await res.json();
+        alert(d.error || "Failed to delete category");
+      }
+    } catch (e: any) {
+      alert("Failed to delete category: " + e.message);
     }
   };
 

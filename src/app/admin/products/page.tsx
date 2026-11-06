@@ -167,12 +167,17 @@ export default function AdminProductsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this product?")) return;
+    if (!confirm("Are you sure you want to delete this product? It will be immediately removed from the customer marketplace.")) return;
     try {
-      await fetch(`/api/admin/products/${id}`, { method: "DELETE" });
-      fetchProducts();
-    } catch (e) {
-      alert("Failed to delete product");
+      const res = await fetch(`/api/admin/products/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        fetchProducts();
+      } else {
+        const data = await res.json();
+        alert(data.error || "Failed to delete product");
+      }
+    } catch (e: any) {
+      alert("Failed to delete product: " + e.message);
     }
   };
 

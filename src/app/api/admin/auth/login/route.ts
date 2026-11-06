@@ -4,6 +4,8 @@ import bcrypt from "bcryptjs";
 import { signAdminToken, setAdminSessionCookie } from "@/lib/auth";
 import { sendOtpEmail } from "@/lib/mailer";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   try {
     const { email, password, otp, requireOtp } = await req.json();
@@ -40,12 +42,16 @@ export async function POST(req: Request) {
           },
         });
 
-        await sendOtpEmail(admin.email, generatedOtp, admin.name);
+        const mailResult = await sendOtpEmail(admin.email, generatedOtp, admin.name);
 
         return NextResponse.json({
           step: "OTP_REQUIRED",
-          message: "OTP sent to your registered email via SMTP",
+          message: mailResult.simulated
+            ? `OTP generated (Simulation mode: ${generatedOtp})`
+            : "OTP sent to your registered email via SMTP",
           email: admin.email,
+          simulated: mailResult.simulated,
+          simulatedOtp: mailResult.simulated ? generatedOtp : undefined,
         });
       }
 

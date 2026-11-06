@@ -181,50 +181,18 @@ export default function ShopPage() {
       .catch(() => {});
   }, []);
 
-  // Fetch live products from DB/API to merge with static
+  // Fetch live products from DB/API
   useEffect(() => {
-    fetch("/api/admin/products")
+    fetch("/api/products")
       .then((res) => res.json())
       .then((data) => {
-        if (data?.products && data.products.length > 0) {
-          const mapped: ShopProduct[] = data.products.map((p: any) => {
-            let specs = {};
-            let highlights: string[] = [];
-            let images: string[] = [];
-            try {
-              specs = JSON.parse(p.specsJson || "{}");
-            } catch (e) {}
-            try {
-              highlights = JSON.parse(p.highlightsJson || "[]");
-            } catch (e) {}
-            try {
-              images = JSON.parse(p.imagesJson || "[]");
-            } catch (e) {}
-            if (images.length === 0 && p.image) images = [p.image];
-
-            return {
-              id: p.id,
-              name: p.name,
-              tagline: p.tagline,
-              category: p.category as any,
-              categoryLabel: p.categoryLabel,
-              price: p.price,
-              originalPrice: p.originalPrice,
-              rating: p.rating || 5.0,
-              reviewsCount: p.reviewsCount || 121,
-              inStock: p.inStock,
-              warranty: p.warranty,
-              specs,
-              highlights,
-              image: p.image,
-              images,
-              badge: p.badge,
-            };
-          });
-          setProducts(mapped);
+        if (data?.success && Array.isArray(data.products)) {
+          setProducts(data.products);
         }
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.error("Failed to fetch products from /api/products:", err);
+      });
   }, []);
 
   // Auto-scroll Timer for Banners
@@ -275,7 +243,7 @@ export default function ShopPage() {
   const displayedProducts = filteredProducts.slice(0, visibleCount);
 
   return (
-    <div className="min-h-screen bg-[#FBFBFE] text-gray-900 pb-24">
+    <div className="min-h-screen bg-[#050B18] text-slate-100 pb-24 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-14">
 
         {/* ── 1. EDITORIAL HERO BANNER SLIDER (MATCHES IMAGE 1 REFERENCE) ── */}
@@ -399,10 +367,10 @@ export default function ShopPage() {
         <section className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-950">
-                Shop Our Top <span className="text-blue-600 font-bold">Categories</span>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+                Shop Top <span className="text-shimmer">Categories</span>
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              <p className="text-xs sm:text-sm text-slate-400 mt-1">
                 Explore dedicated portfolios with certified Tier-1 hardware &amp; turnkey availability
               </p>
             </div>
@@ -410,7 +378,7 @@ export default function ShopPage() {
               <button
                 type="button"
                 onClick={() => setSelectedCategory("all")}
-                className="text-xs font-bold text-blue-600 hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100 flex items-center gap-1.5 self-start sm:self-auto transition-colors"
+                className="text-xs font-bold text-cyan-400 hover:text-cyan-300 bg-blue-950/70 px-3 py-1.5 rounded-full border border-blue-800/40 flex items-center gap-1.5 self-start sm:self-auto transition-colors"
               >
                 <span>✕ Clear Filter ({selectedCategory})</span>
               </button>
@@ -506,16 +474,16 @@ export default function ShopPage() {
           </div>
 
           {/* Filter Bar */}
-          <div className="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-4">
+          <div className="bg-[#091533]/80 rounded-2xl border border-blue-900/40 p-4 shadow-xl flex flex-col lg:flex-row items-center justify-between gap-4">
             {/* Search Input */}
             <div className="relative w-full lg:w-72">
-              <Search className="absolute left-3.5 top-2.5 w-4 h-4 text-gray-400" />
+              <Search className="absolute left-3.5 top-2.5 w-4 h-4 text-slate-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search products, models..."
-                className="w-full pl-9 pr-4 py-1.5 rounded-xl bg-[#F4F5FA] border border-gray-200 text-xs sm:text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-9 pr-4 py-1.5 rounded-xl bg-[#060D1E] border border-blue-800/40 text-xs sm:text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400"
               />
             </div>
 
@@ -533,8 +501,8 @@ export default function ShopPage() {
                   onClick={() => setSelectedCategory(c.id)}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
                     selectedCategory === c.id
-                      ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
-                      : "bg-[#F4F5FA] text-gray-700 hover:bg-gray-200"
+                      ? "bg-blue-600 text-white shadow-md shadow-blue-500/30"
+                      : "bg-[#060D1E] text-slate-300 hover:text-white border border-blue-900/40 hover:bg-blue-950/80"
                   }`}
                 >
                   {c.label}
@@ -547,7 +515,7 @@ export default function ShopPage() {
               <select
                 value={priceFilter}
                 onChange={(e) => setPriceFilter(e.target.value)}
-                className="bg-[#F4F5FA] border border-gray-200 text-xs font-medium text-gray-700 rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="bg-[#060D1E] border border-blue-900/40 text-xs font-medium text-slate-200 rounded-xl px-3 py-1.5 focus:outline-none focus:border-cyan-400"
               >
                 <option value="all">Price: All Ranges</option>
                 <option value="under-50k">Under ₹50,000</option>
@@ -558,7 +526,7 @@ export default function ShopPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-[#F4F5FA] border border-gray-200 text-xs font-medium text-gray-700 rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="bg-[#060D1E] border border-blue-900/40 text-xs font-medium text-slate-200 rounded-xl px-3 py-1.5 focus:outline-none focus:border-cyan-400"
               >
                 <option value="featured">Featured First</option>
                 <option value="price-low">Price: Low to High</option>
@@ -572,16 +540,17 @@ export default function ShopPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {displayedProducts.map((product) => {
               const isWishlisted = wishlist.has(product.id);
+              const targetSlug = product.slug || product.id;
               return (
                 <div
                   key={product.id}
-                  className="group card-hover-effect lift-effect shadow-hover-effect bg-[#F2F4FA] hover:bg-white rounded-3xl p-5 transition-all duration-300 flex flex-col justify-between border border-gray-200/60 hover:border-blue-400 hover:shadow-2xl cursor-pointer"
+                  className="group rounded-3xl p-5 transition-all duration-300 flex flex-col justify-between border border-blue-900/40 bg-[#091533]/80 hover:bg-[#0c1a3e] hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-blue-950/60 cursor-pointer"
                 >
                   <div>
                     {/* Photo Box Container with Image Zoom */}
                     <Link
-                      href={`/shop/${product.id}`}
-                      className="img-zoom-container relative block w-full h-48 rounded-2xl bg-white/70 p-3 overflow-hidden mb-4"
+                      href={`/shop/${targetSlug}`}
+                      className="img-zoom-container relative block w-full h-48 rounded-2xl bg-[#050B18] p-3 overflow-hidden mb-4 border border-blue-950"
                     >
                       {product.badge && (
                         <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-blue-600 text-white z-10 shadow-sm">
@@ -592,7 +561,7 @@ export default function ShopPage() {
                       <button
                         type="button"
                         onClick={(e) => toggleWishlist(product.id, e)}
-                        className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-white/80 hover:bg-white text-gray-400 hover:text-red-500 transition-colors z-10 shadow-sm hover:scale-110 active:scale-90"
+                        className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-[#091533]/80 hover:bg-[#091533] text-slate-400 hover:text-red-400 transition-colors z-10 shadow-sm hover:scale-110 active:scale-90 border border-blue-800/40"
                         title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
                       >
                         <Heart className={`w-3.5 h-3.5 ${isWishlisted ? "fill-red-500 text-red-500" : ""}`} />
@@ -609,23 +578,23 @@ export default function ShopPage() {
 
                     {/* Meta */}
                     <div className="space-y-1">
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400">
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-cyan-400">
                         {product.categoryLabel || "Hardware"}
                       </span>
                       <Link
-                        href={`/shop/${product.id}`}
-                        className="block text-sm sm:text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-1"
+                        href={`/shop/${targetSlug}`}
+                        className="block text-sm sm:text-base font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-1"
                       >
                         {product.name}
                       </Link>
-                      <p className="text-xs text-gray-500 line-clamp-1">
+                      <p className="text-xs text-slate-400 line-clamp-1">
                         {product.tagline}
                       </p>
                       <div className="flex items-center gap-1 pt-1">
                         {[...Array(5)].map((_, i) => (
                           <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
                         ))}
-                        <span className="text-[11px] text-gray-500 ml-1 font-semibold">
+                        <span className="text-[11px] text-slate-400 ml-1 font-semibold">
                           {product.rating} ({product.reviewsCount} reviews)
                         </span>
                       </div>
@@ -633,32 +602,30 @@ export default function ShopPage() {
                   </div>
 
                   {/* Price & DUAL ACTION BUTTONS ("Details" & "Add to Cart") */}
-                  <div className="mt-4 pt-3 border-t border-gray-200/60">
-                    <div className="text-blue-600 font-bold text-base font-mono tracking-tight mb-3">
+                  <div className="mt-4 pt-3 border-t border-blue-900/30">
+                    <div className="text-cyan-300 font-extrabold text-base font-mono tracking-tight mb-3">
                       ₹{product.price.toLocaleString("en-IN")}
                     </div>
 
                     <div className="grid grid-cols-2 gap-2">
-                      {/* OPTION 1: DETAILS (Navigates to dedicated /shop/[id] page) */}
                       <Link
-                        href={`/shop/${product.id}`}
-                        className="btn-hover-effect px-2.5 py-2.5 rounded-xl bg-white hover:bg-blue-50/60 border border-gray-200 hover:border-blue-300 text-gray-800 text-xs font-bold flex items-center justify-center gap-1 transition-all shadow-xs text-center active:scale-95"
+                        href={`/shop/${targetSlug}`}
+                        className="btn-hover-effect px-2.5 py-2.5 rounded-xl bg-[#060D1E] hover:bg-blue-950 border border-blue-800/40 hover:border-cyan-400 text-slate-200 text-xs font-bold flex items-center justify-center gap-1 transition-all shadow-xs text-center active:scale-95"
                       >
-                        <Eye className="w-3.5 h-3.5 text-blue-600" />
+                        <Eye className="w-3.5 h-3.5 text-cyan-400" />
                         <span>Details</span>
                       </Link>
 
-                      {/* OPTION 2: ADD TO CART (Adds item to cart & opens Cart Drawer) */}
                       <button
                         type="button"
-                        onClick={() => {
-                          addToCart(product, 1);
-                          setIsCartOpen(true);
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addToCart(product);
                         }}
-                        className="btn-hover-effect glow-hover-blue px-2.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center justify-center gap-1 transition-all shadow-sm active:scale-95"
+                        className="btn-hover-effect px-2.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center justify-center gap-1 transition-all shadow-md shadow-blue-600/30 text-center active:scale-95"
                       >
                         <ShoppingCart className="w-3.5 h-3.5" />
-                        <span>Add to Cart</span>
+                        <span>Add</span>
                       </button>
                     </div>
                   </div>
@@ -673,7 +640,7 @@ export default function ShopPage() {
               <button
                 type="button"
                 onClick={() => setVisibleCount((prev) => prev + 8)}
-                className="px-7 py-3 rounded-full bg-white border border-gray-200 hover:border-gray-300 text-gray-700 font-semibold text-xs sm:text-sm inline-flex items-center gap-2 shadow-sm hover:shadow transition-all"
+                className="px-7 py-3 rounded-full bg-[#091533] hover:bg-[#0E1E45] border border-blue-800/60 hover:border-cyan-400 text-slate-200 font-semibold text-xs sm:text-sm inline-flex items-center gap-2 shadow-lg transition-all"
               >
                 <span>View More Hardware ({filteredProducts.length - visibleCount} more)</span>
                 <ChevronDown className="w-4 h-4" />
