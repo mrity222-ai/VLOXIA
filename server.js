@@ -24,11 +24,21 @@ if (fs.existsSync(envFile)) {
   });
 }
 
-// 2. Guarantee PostgreSQL socket database URL if not set
-if (!process.env.DATABASE_URL) {
-  process.env.DATABASE_URL =
-    "postgresql://avedatech_vloxia_user:Jaymatadi%40121@localhost/avedatech_vloxia?host=/var/run/postgresql&schema=public";
+// 2. Guarantee production mode and PostgreSQL socket database URL
+process.env.NODE_ENV = "production";
+
+const DEFAULT_POSTGRES_URL =
+  "postgresql://avedatech_vloxia_user:Jaymatadi%40121@localhost/avedatech_vloxia?host=/var/run/postgresql&schema=public";
+
+if (
+  !process.env.DATABASE_URL ||
+  (process.platform === "linux" &&
+    (process.env.DATABASE_URL.includes("dev.db") ||
+      process.env.DATABASE_URL.startsWith("file:")))
+) {
+  process.env.DATABASE_URL = DEFAULT_POSTGRES_URL;
 }
+
 if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET =
     "vloxia_ultra_secure_jwt_secret_key_2026_clean_energy_systems_llp";
@@ -38,29 +48,34 @@ const { createServer } = require("http");
 const { parse } = require("url");
 const next = require("next");
 
-const dev = process.env.NODE_ENV !== "production";
-const hostname = process.env.HOSTNAME || "0.0.0.0";
-const port = parseInt(process.env.PORT || "3000", 10);
+const dev = false;
+const port = process.env.PORT || 3000;
 
-const app = next({ dev, dir: __dirname, hostname, port });
+const app = next({ dev, dir: __dirname });
 const handle = app.getRequestHandler();
 
-app.prepare().then(() => {
-  createServer(async (req, res) => {
-    try {
-      const parsedUrl = parse(req.url, true);
-      await handle(req, res, parsedUrl);
-    } catch (err) {
-      console.error("Error occurred handling", req.url, err);
-      res.statusCode = 500;
-      res.end("Internal Server Error");
-    }
-  })
-    .once("error", (err) => {
-      console.error(err);
-      process.exit(1);
+app
+  .prepare()
+  .then(() => {
+    createServer(async (req, res) => {
+      try {
+        const parsedUrl = parse(req.url, true);
+        await handle(req, res, parsedUrl);
+      } catch (err) {
+        console.error("Error occurred handling", req.url, err);
+        res.statusCode = 500;
+        res.end("Internal Server Error");
+      }
     })
-    .listen(port, () => {
-      console.log(`> VLOXIA Next.js App Ready on http://${hostname}:${port}`);
-    });
-});
+      .once("error", (err) => {
+        console.error("Server listener error:", err);
+        process.exit(1);
+      })
+      .listen(port, () => {
+        console.log(`> VLOXIA Next.js App Ready on ${port}`);
+      });
+  })
+  .catch((err) => {
+    console.error("Fatal Next.js startup error:", err);
+    process.exit(1);
+  });
