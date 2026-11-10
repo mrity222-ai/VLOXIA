@@ -8,7 +8,6 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     cpus: 1,
-    workerThreads: false,
     webpackMemoryOptimizations: true,
   },
   webpack: (config) => {
