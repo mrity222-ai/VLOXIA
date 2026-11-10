@@ -51,30 +51,61 @@ const PARTNER_BENEFITS = [
 ];
 
 export default function PartnersPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    companyName: "",
+    phone: "",
+    email: "",
+    category: "dealer",
+    region: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "PARTNER",
+          fullName: formData.fullName,
+          companyName: formData.companyName,
+          phone: formData.phone,
+          email: formData.email,
+          city: formData.region,
+          customerType: "Dealer / Channel Partner",
+          message: `Channel Partner Application for Category: ${formData.category} in Region: ${formData.region}`,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to submit partner application");
+
+      setSubmitted(true);
+    } catch (err: any) {
+      setErrorMsg(err.message || "An error occurred while submitting. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="bg-white text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white">
       
       {/* ── 1. HERO SECTION (EDITORIAL REFERENCE STYLE) ── */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-12 pt-12 pb-16 lg:pt-20 lg:pb-24">
+      <section className="max-w-7xl mx-auto px-6 lg:px-12 pt-12 pb-14 lg:pt-20 lg:pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column: Heading, Subtitle & Action Buttons */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8">
             <ScrollReveal>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                <span>Partners &amp; Alliances</span>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.1}>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-slate-950 leading-[1.15]">
                 Join the <span className="text-shimmer font-bold">VLOXIA partner network</span> &amp; OEM alliances
               </h1>
@@ -122,7 +153,7 @@ export default function PartnersPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 text-white">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-cyan-400 font-mono">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-blue-400 font-mono">
                     Nationwide Expansion
                   </span>
                   <p className="text-sm font-medium mt-1 text-slate-100">
@@ -136,7 +167,200 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      {/* ── 2. "WHY SHOULD YOU PARTNER?" / CHANNEL ADVANTAGES (2x2 GRID WITH BLUE BADGES) ── */}
+      {/* ── 2. CHANNEL PARTNER APPLICATION FORM SECTION (NOW POSITION 2 DIRECTLY AFTER HERO!) ── */}
+      <section id="partner-application" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100 bg-slate-50/40">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          
+          {/* Left Column: Context & Guidelines */}
+          <div className="lg:col-span-5 space-y-6">
+            <ScrollReveal>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-slate-950 leading-tight">
+                Join the <span className="text-shimmer font-bold">VLOXIA Partner Network</span>
+              </h2>
+
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed mt-3">
+                We are building a pan-India network of authorized dealers, installers, and EPC partners. Scale your clean energy business with guaranteed inventory, OEM pricing, and full technical training.
+              </p>
+
+              <div className="space-y-3 pt-4">
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                  Partner Categories We Welcome:
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {CHANNEL_TYPES.map((type, idx) => (
+                    <span
+                      key={idx}
+                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white text-slate-800 text-xs font-medium border border-gray-200 shadow-2xs"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                      {type}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-gray-100 space-y-3 mt-6">
+                <div className="flex items-center gap-3 text-xs text-slate-600 font-medium">
+                  <Phone className="w-4 h-4 text-blue-600" />
+                  <span>Alliance Desk: +91 81788 104 56</span>
+                </div>
+                <div className="flex items-center gap-3 text-xs text-slate-600 font-medium">
+                  <Mail className="w-4 h-4 text-blue-600" />
+                  <span>vloxiasystems@gmail.com</span>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          {/* Right Column: Clean Form Container */}
+          <div className="lg:col-span-7">
+            <ScrollReveal delay={0.15}>
+              <div className="rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 shadow-xs">
+                <div className="mb-8">
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-950">
+                    Channel Partner Application
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                    Submit your business details and our channel alliance team will get in touch within 24 hours.
+                  </p>
+                </div>
+
+                {errorMsg && (
+                  <div className="p-4 mb-6 rounded-xl bg-red-50 border border-red-200 text-xs sm:text-sm text-red-700">
+                    {errorMsg}
+                  </div>
+                )}
+
+                {submitted ? (
+                  <div className="p-8 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-3">
+                    <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
+                      <CheckCircle2 className="w-6 h-6" />
+                    </div>
+                    <h4 className="text-lg font-bold text-emerald-900">
+                      Application Received!
+                    </h4>
+                    <p className="text-xs sm:text-sm text-emerald-700 max-w-md mx-auto">
+                      Thank you for applying to the VLOXIA Partner Network. Our partnership manager will review your submission and contact you shortly.
+                    </p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.fullName}
+                          onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                          placeholder="Contact person name"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                          Company Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.companyName}
+                          onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                          placeholder="Registered business name"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                          Phone Number *
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="+91 98765 43210"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                          Business Email *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="partner@company.com"
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                          Partner Category *
+                        </label>
+                        <select
+                          required
+                          value={formData.category}
+                          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
+                        >
+                          <option value="dealer">Dealer / Distributor</option>
+                          <option value="installer">EV / Solar Installer</option>
+                          <option value="epc">EPC Contractor</option>
+                          <option value="integrator">Electrical System Integrator</option>
+                          <option value="oem">Technology OEM Supplier</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                          Operating Region / State *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.region}
+                          onChange={(e) => setFormData({ ...formData, region: e.target.value })}
+                          placeholder="e.g. Delhi NCR, Maharashtra, Gujarat..."
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="pt-2">
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="btn-hover-effect glow-hover-blue w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-full transition-all text-sm shadow-md shadow-blue-500/25 cursor-pointer active:scale-95 disabled:opacity-50"
+                      >
+                        <span>{isSubmitting ? "Submitting Application..." : "Submit Partner Application"}</span>
+                        <span className="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            </ScrollReveal>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── 3. "WHY SHOULD YOU PARTNER?" / CHANNEL ADVANTAGES (NOW POSITION 3) ── */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100">
         <ScrollReveal>
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
@@ -176,14 +400,10 @@ export default function PartnersPage() {
         </div>
       </section>
 
-      {/* ── 3. SHOWCASE: OEM TECHNOLOGY ALLIANCES (2-COLUMN WIDE CARDS) ── */}
+      {/* ── 4. SHOWCASE: OEM TECHNOLOGY ALLIANCES ── */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100">
         <ScrollReveal>
           <div className="mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70 mb-4">
-              <span>Hardware Portfolio</span>
-            </div>
-
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-slate-950 max-w-2xl">
                 Backed by Proven <span className="text-shimmer font-bold">OEM Engineering</span>
@@ -203,7 +423,7 @@ export default function PartnersPage() {
             <div className="card-hover-effect lift-effect bg-slate-50/60 rounded-2xl border border-gray-200/80 p-8 flex flex-col justify-between hover:border-blue-400 hover:bg-white hover:shadow-xl transition-all h-full">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
                     Strategic OEM Partner
                   </span>
                   <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700">
@@ -252,41 +472,42 @@ export default function PartnersPage() {
             </div>
           </ScrollReveal>
 
-          {/* Card 2: Expanding Portfolio */}
+          {/* Card 2: LITHIUM BESS ALLIANCE */}
           <ScrollReveal delay={0.2}>
             <div className="card-hover-effect lift-effect bg-slate-50/60 rounded-2xl border border-gray-200/80 p-8 flex flex-col justify-between hover:border-blue-400 hover:bg-white hover:shadow-xl transition-all h-full">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-700 bg-white px-3 py-1 rounded-full border border-gray-200">
-                    Expanding Alliances
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
+                    Tier-1 Storage Alliances
                   </span>
-                  <span className="text-xs font-semibold text-slate-400">
-                    Pan-India Sourcing
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    <span>UL / BIS Certified</span>
                   </span>
                 </div>
 
                 <div>
                   <h3 className="text-2xl font-bold text-slate-950 tracking-tight">
-                    Tier-1 Solar &amp; Storage Alliances
+                    Industrial LiFePO4 Energy Storage
                   </h3>
                   <p className="text-sm font-medium text-slate-500 mt-1">
-                    Active Vendor &amp; OEM Onboarding
+                    Utility BESS &amp; Microgrid Systems
                   </p>
                 </div>
 
                 <p className="text-slate-600 text-sm leading-relaxed">
-                  We are actively onboarding Tier-1 solar module manufacturers, LiFePO4 battery pack producers, and industrial hybrid inverter developers across India and global supply chains to power our integrated turnkey projects.
+                  We partner with top-tier lithium cell manufacturers to integrate high-density LiFePO4 energy storage systems equipped with liquid thermal management, aerosol fire-suppression, and remote telemetry monitoring.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
                   {[
-                    "Mono PERC & TOPCon Solar Modules",
-                    "Modular LiFePO4 BESS Systems",
-                    "Industrial Hybrid Inverters",
-                    "HT Transformers & Switchgear",
+                    "10-Year / 6,000 Cycle Performance Warranty",
+                    "Modular Rack & Containerized Packages",
+                    "Sub-10ms Fast UPS Automatic Transfer",
+                    "Active Cell Balancing & Cloud Telemetry",
                   ].map((item, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-xs font-medium text-slate-700">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -294,228 +515,18 @@ export default function PartnersPage() {
               </div>
 
               <div className="pt-8 mt-6 border-t border-gray-200/60">
-                <a
-                  href="#partner-application"
+                <Link
+                  href="/solutions/energy-storage"
                   className="inline-flex items-center gap-2 text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors group"
                 >
-                  <span className="underline-hover-effect">Become an OEM / Supply Partner</span>
+                  <span className="underline-hover-effect">Explore Storage Architecture</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                </a>
+                </Link>
               </div>
             </div>
           </ScrollReveal>
 
         </div>
-      </section>
-
-      {/* ── 4. CHANNEL PARTNER APPLICATION (APPLICATION FORM) ── */}
-      <section id="partner-application" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
-          {/* Left Column: Context & Partner Types */}
-          <div className="lg:col-span-5 space-y-6">
-            <ScrollReveal>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70">
-                <span>Channel Network</span>
-              </div>
-
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-slate-950 leading-tight">
-                Join the <span className="text-shimmer font-bold">VLOXIA Partner Network</span>
-              </h2>
-
-              <p className="text-slate-600 text-sm sm:text-base leading-relaxed mt-3">
-                We are building a pan-India network of authorized dealers, installers, and EPC partners. Scale your clean energy business with guaranteed inventory, OEM pricing, and full technical training.
-              </p>
-
-              <div className="space-y-3 pt-4">
-                <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                  Partner Categories We Welcome:
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {CHANNEL_TYPES.map((type, idx) => (
-                    <span
-                      key={idx}
-                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 text-slate-800 text-xs font-medium border border-gray-200"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-                      {type}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-6 border-t border-gray-100 space-y-3 mt-6">
-                <div className="flex items-center gap-3 text-xs text-slate-600 font-medium">
-                  <Phone className="w-4 h-4 text-blue-600" />
-                  <span>Alliance Desk: +91 81788 104 56</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs text-slate-600 font-medium">
-                  <Mail className="w-4 h-4 text-blue-600" />
-                  <span>vloxiasystems@gmail.com</span>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          {/* Right Column: Clean Form Container */}
-          <div className="lg:col-span-7">
-            <ScrollReveal delay={0.15}>
-              <div className="rounded-3xl border border-gray-200 bg-white p-8 sm:p-10 shadow-xs">
-                <div className="mb-8">
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-950">
-                    Channel Partner Application
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                    Submit your business details and our channel alliance team will get in touch within 24 hours.
-                  </p>
-                </div>
-
-                {submitted ? (
-                  <div className="p-8 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-3">
-                    <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
-                      <CheckCircle2 className="w-6 h-6" />
-                    </div>
-                    <h4 className="text-lg font-bold text-emerald-900">
-                      Application Received!
-                    </h4>
-                    <p className="text-xs sm:text-sm text-emerald-700 max-w-md mx-auto">
-                      Thank you for applying to the VLOXIA Partner Network. Our partnership manager will review your submission and contact you shortly.
-                    </p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                          Full Name *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Contact person name"
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                          Company Name *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Registered business name"
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                          Phone Number *
-                        </label>
-                        <input
-                          type="tel"
-                          required
-                          placeholder="+91 98765 43210"
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                          Business Email *
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          placeholder="partner@company.com"
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                          Partner Category *
-                        </label>
-                        <select
-                          required
-                          defaultValue=""
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
-                        >
-                          <option value="" disabled>Select category</option>
-                          <option value="dealer">Dealer / Distributor</option>
-                          <option value="installer">EV / Solar Installer</option>
-                          <option value="epc">EPC Contractor</option>
-                          <option value="integrator">Electrical System Integrator</option>
-                          <option value="oem">Technology OEM Supplier</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                          Operating Region / State *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="e.g. Delhi NCR, Maharashtra, Gujarat..."
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-hidden focus:border-blue-600 bg-white text-slate-900"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="pt-2">
-                      <button
-                        type="submit"
-                        className="btn-hover-effect glow-hover-blue w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-full transition-all text-sm shadow-md shadow-blue-500/25 cursor-pointer active:scale-95"
-                      >
-                        <span>Submit Partner Application</span>
-                        <span className="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </span>
-                      </button>
-                    </div>
-                  </form>
-                )}
-              </div>
-            </ScrollReveal>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── 5. BOTTOM DARK CTA BANNER ── */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-12 pb-16 lg:pb-24">
-        <ScrollReveal>
-          <div className="rounded-3xl bg-[#111827] text-white p-8 sm:p-14 lg:p-16 relative overflow-hidden shadow-2xl">
-            <div className="relative z-10 max-w-2xl space-y-5">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
-                Direct Inquiries
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
-                Have an OEM or <span className="text-blue-400">Bulk Distribution Requirement?</span>
-              </h2>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Connect directly with our channel alliances lead for custom volume pricing, OEM integrations, and nationwide distribution SLAs.
-              </p>
-              <div className="pt-3">
-                <Link
-                  href="/contact"
-                  className="btn-hover-effect glow-hover-blue inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-full transition-all text-sm shadow-lg shadow-blue-500/25 active:scale-95"
-                >
-                  <span>Contact Alliance Desk</span>
-                  <span className="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center shrink-0 shadow-xs">
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
       </section>
 
     </div>

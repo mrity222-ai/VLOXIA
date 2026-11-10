@@ -354,7 +354,7 @@ export default function ProductDetailPage() {
             {/* Right Column: Meta, Pricing, Rating & Direct Buy Actions */}
             <div className="lg:col-span-6 space-y-6">
               <div>
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-100 mb-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-blue-600 block mb-2 font-mono">
                   {product.categoryLabel}
                 </span>
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-normal text-slate-950 tracking-tight leading-tight">

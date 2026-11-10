@@ -123,7 +123,7 @@ const HERO_CAROUSEL_SLIDES = [
     title: (
       <>
         Powering tomorrow with <br />
-        <span className="text-cyan-400 font-bold">clean solar energy</span>
+        <span className="text-blue-500 font-bold">clean solar energy</span>
       </>
     ),
     desc: "Industrial rooftop solar EPC, ground-mount captive parks, and hybrid storage engineered for zero emission operations.",
@@ -138,7 +138,7 @@ const HERO_CAROUSEL_SLIDES = [
     title: (
       <>
         Next-gen commercial <br />
-        <span className="text-blue-400 font-bold">EV charging hubs</span>
+        <span className="text-blue-500 font-bold">EV charging hubs</span>
       </>
     ),
     desc: "Turnkey DC fast charging infrastructure with dynamic load management, OCPP 2.0.1 compliance, and automated cloud revenue billing.",
@@ -153,7 +153,7 @@ const HERO_CAROUSEL_SLIDES = [
     title: (
       <>
         Utility-grade lithium <br />
-        <span className="text-cyan-400 font-bold">battery storage (BESS)</span>
+        <span className="text-blue-500 font-bold">battery storage (BESS)</span>
       </>
     ),
     desc: "Modular LiFePO4 battery storage systems engineered for continuous mission-critical backup, peak shaving, and sub-10ms UPS switchover.",
@@ -268,10 +268,10 @@ export default function HomePage() {
                 <div>
                   <Link
                     href={slide.btnHref}
-                    className="btn-hover-effect glow-hover-cyan inline-flex items-center gap-2.5 border border-white/60 hover:border-white hover:bg-white/15 text-white font-bold text-xs sm:text-sm tracking-wider uppercase px-6 py-3 sm:py-3.5 transition-all duration-300 group shadow-md"
+                    className="btn-hover-effect glow-hover-blue inline-flex items-center gap-2.5 border border-white/60 hover:border-white hover:bg-white/15 text-white font-bold text-xs sm:text-sm tracking-wider uppercase px-6 py-3 sm:py-3.5 transition-all duration-300 group shadow-md"
                   >
                     <span>{slide.btnText}</span>
-                    <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1.5 text-cyan-400 group-hover:text-cyan-300" />
+                    <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1.5 text-blue-500 group-hover:text-blue-400" />
                   </Link>
                 </div>
               </div>
@@ -325,7 +325,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Arrow Buttons [ < ] [ > ] with cyan icons matching reference */}
+          {/* Arrow Buttons [ < ] [ > ] with brand blue icons matching reference */}
           <div className="flex items-center gap-2 mb-0.5">
             <button
               type="button"
@@ -334,7 +334,7 @@ export default function HomePage() {
               title="Previous Slide"
               aria-label="Previous Slide"
             >
-              <ChevronLeft className="w-4 h-4 text-cyan-400" />
+              <ChevronLeft className="w-4 h-4 text-blue-500" />
             </button>
             <button
               type="button"
@@ -343,7 +343,7 @@ export default function HomePage() {
               title="Next Slide"
               aria-label="Next Slide"
             >
-              <ChevronRight className="w-4 h-4 text-cyan-400" />
+              <ChevronRight className="w-4 h-4 text-blue-500" />
             </button>
           </div>
         </div>
@@ -710,7 +710,7 @@ export default function HomePage() {
                 <ScrollReveal key={idx} delay={idx * 0.08}>
                   <div className="rounded-2xl border border-gray-200/80 bg-white p-6 flex flex-col justify-between hover:border-blue-400 hover:shadow-xl transition-all duration-300 group cursor-pointer h-full">
                     <div className="space-y-3">
-                      <span className="text-[10px] font-mono font-bold text-blue-700 bg-blue-50 group-hover:bg-blue-600 group-hover:text-white px-2.5 py-1 rounded-full border border-blue-100 inline-block transition-colors duration-200">
+                      <span className="text-xs font-mono font-bold text-blue-600 tracking-wider uppercase block">
                         {sec.badge}
                       </span>
                       <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-200">

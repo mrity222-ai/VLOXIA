@@ -24,14 +24,8 @@ if (fs.existsSync(envFile)) {
   });
 }
 
-// 2. Guarantee production mode and PostgreSQL socket database URL
-process.env.NODE_ENV = "production";
-
-if (
-  !process.env.DATABASE_URL ||
-  process.env.DATABASE_URL.includes("dev.db") ||
-  process.env.DATABASE_URL.startsWith("file:")
-) {
+// 2. Guarantee PostgreSQL socket database URL if not set
+if (!process.env.DATABASE_URL) {
   process.env.DATABASE_URL =
     "postgresql://avedatech_vloxia_user:Jaymatadi%40121@localhost/avedatech_vloxia?host=/var/run/postgresql&schema=public";
 }
@@ -44,7 +38,7 @@ const { createServer } = require("http");
 const { parse } = require("url");
 const next = require("next");
 
-const dev = false;
+const dev = process.env.NODE_ENV !== "production";
 const hostname = process.env.HOSTNAME || "0.0.0.0";
 const port = parseInt(process.env.PORT || "3000", 10);
 

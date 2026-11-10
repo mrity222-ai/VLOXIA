@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Header from "./Header";
 import Footer from "./Footer";
 import CartDrawer from "./CartDrawer";
+import FloatingAssistant from "./widgets/FloatingAssistant";
 
 export default function PublicShellWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -14,13 +15,14 @@ export default function PublicShellWrapper({ children }: { children: React.React
     return <main>{children}</main>;
   }
 
-  // Standard Public website: Header -> Cart Drawer -> Page Content -> Footer
+  // Standard Public website: Header -> Cart Drawer -> Page Content -> Footer -> Floating WhatsApp & AI Assistant
   return (
     <>
       <Header />
       <CartDrawer />
       <main>{children}</main>
       <Footer />
+      <FloatingAssistant />
     </>
   );
 }

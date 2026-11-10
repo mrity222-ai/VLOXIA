@@ -237,13 +237,6 @@ export default function IndustriesPage() {
           {/* Left Column: Heading, Subtitle & Action Buttons */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8">
             <ScrollReveal>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                <span>Industry-Specific Solutions</span>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.1}>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-slate-950 leading-[1.15]">
                 Clean energy ecosystems engineered for <span className="text-shimmer font-bold">your industry</span>
               </h1>
@@ -351,9 +344,6 @@ export default function IndustriesPage() {
         {/* Section Header */}
         <ScrollReveal>
           <div className="mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70 mb-4">
-              <span>Sector Navigator</span>
-            </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-slate-950">
               Select Your <span className="text-shimmer font-bold">Industry Vertical</span>
             </h2>

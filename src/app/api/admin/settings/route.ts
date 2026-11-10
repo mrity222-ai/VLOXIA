@@ -24,6 +24,16 @@ export async function GET() {
         razorpayKeyId: settings.razorpayKeyId,
         hasRazorpayKeySecret: Boolean(settings.razorpayKeySecret),
         razorpayWebhookSecret: settings.razorpayWebhookSecret,
+        socialLinkedin: settings.socialLinkedin,
+        socialInstagram: settings.socialInstagram,
+        socialFacebook: settings.socialFacebook,
+        socialYoutube: settings.socialYoutube,
+        socialTwitter: settings.socialTwitter,
+        socialWhatsapp: settings.socialWhatsapp,
+        enableWhatsAppWidget: settings.enableWhatsAppWidget,
+        enableAiBotWidget: settings.enableAiBotWidget,
+        whatsappGreeting: settings.whatsappGreeting,
+        aiBotWelcomeMsg: settings.aiBotWelcomeMsg,
       },
     });
   } catch (error: any) {
@@ -53,6 +63,16 @@ export async function POST(req: Request) {
       razorpayKeyId: body.razorpayKeyId,
       razorpayKeySecret: body.razorpayKeySecret,
       razorpayWebhookSecret: body.razorpayWebhookSecret,
+      socialLinkedin: body.socialLinkedin,
+      socialInstagram: body.socialInstagram,
+      socialFacebook: body.socialFacebook,
+      socialYoutube: body.socialYoutube,
+      socialTwitter: body.socialTwitter,
+      socialWhatsapp: body.socialWhatsapp,
+      enableWhatsAppWidget: body.enableWhatsAppWidget,
+      enableAiBotWidget: body.enableAiBotWidget,
+      whatsappGreeting: body.whatsappGreeting,
+      aiBotWelcomeMsg: body.aiBotWelcomeMsg,
     });
 
     return NextResponse.json({
@@ -67,6 +87,16 @@ export async function POST(req: Request) {
         razorpayKeyId: updated.razorpayKeyId,
         hasRazorpayKeySecret: Boolean(updated.razorpayKeySecret),
         razorpayWebhookSecret: updated.razorpayWebhookSecret,
+        socialLinkedin: updated.socialLinkedin,
+        socialInstagram: updated.socialInstagram,
+        socialFacebook: updated.socialFacebook,
+        socialYoutube: updated.socialYoutube,
+        socialTwitter: updated.socialTwitter,
+        socialWhatsapp: updated.socialWhatsapp,
+        enableWhatsAppWidget: updated.enableWhatsAppWidget,
+        enableAiBotWidget: updated.enableAiBotWidget,
+        whatsappGreeting: updated.whatsappGreeting,
+        aiBotWelcomeMsg: updated.aiBotWelcomeMsg,
       },
     });
   } catch (error: any) {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import PartnerMarquee from "../../components/PartnerMarquee";
@@ -17,6 +17,8 @@ import {
   Sparkles,
   ChevronDown,
   ChevronUp,
+  X,
+  Maximize2,
 } from "lucide-react";
 
 const STATS = [
@@ -49,43 +51,12 @@ const CORE_VALUES = [
   },
 ];
 
-const PROJECTS_GALLERY = [
-  {
-    title: "Commercial Corporate EV Hub",
-    location: "Gurugram, NCR",
-    image: "/Industries/Commercial.png",
-    desc: "High-throughput EV charging infrastructure integrated with corporate campus energy management.",
-  },
-  {
-    title: "MW-Scale Industrial Solar EPC",
-    location: "Bhiwadi, Rajasthan",
-    image: "/Industries/Industrial.png",
-    desc: "Multi-megawatt rooftop installation delivering substantial operational energy savings.",
-  },
-  {
-    title: "Fleet Depot Fast Charging Station",
-    location: "Delhi Logistics Hub",
-    image: "/Industries/Mobility.png",
-    desc: "Turnkey DC fast charging bays engineered for commercial transport and transit fleets.",
-  },
-  {
-    title: "Smart Residential Housing Microgrid",
-    location: "Noida Sector 150",
-    image: "/Industries/Residential.png",
-    desc: "Synchronized solar and energy storage providing reliable, silent backup for premium housing.",
-  },
-  {
-    title: "Healthcare Critical Power & BESS",
-    location: "Rohini, New Delhi",
-    image: "/Industries/Institutional.png",
-    desc: "Sub-second battery energy storage ensuring uninterrupted clean power for medical equipment.",
-  },
-  {
-    title: "Ultra-Fast Highway DC Charging Bay",
-    location: "Delhi-Jaipur Expressway",
-    image: "/Modern EV Charging.png",
-    desc: "Dual-gun CCS2 high-power corridor charging hub with automated dynamic load balancing.",
-  },
+const ABOUT_GALLERY_IMAGES = [
+  { src: "/Industries/Commercial.png", alt: "Commercial Solar & EV Infrastructure" },
+  { src: "/Industries/Industrial.png", alt: "Industrial MW-Scale Solar & Power" },
+  { src: "/ev.jpg", alt: "Commercial EV Fast Charging Station" },
+  { src: "/Industries/Mobility.png", alt: "Fleet Depot Fast Charging Bays" },
+  { src: "/Industries/Residential.png", alt: "Residential Community Solar & Microgrid" },
 ];
 
 const MISSION_PILLARS = [
@@ -108,6 +79,21 @@ const MISSION_PILLARS = [
 
 export default function AboutPage() {
   const [activeStep, setActiveStep] = useState(0);
+  const [activeLightboxImage, setActiveLightboxImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActiveLightboxImage(null);
+    };
+    if (activeLightboxImage) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "unset";
+    };
+  }, [activeLightboxImage]);
 
   return (
     <div className="bg-white text-slate-900 font-sans antialiased selection:bg-blue-600 selection:text-white">
@@ -119,13 +105,6 @@ export default function AboutPage() {
           {/* Left Column: Heading, Subtitle & Action Pills */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8">
             <ScrollReveal>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                <span>About VLOXIA Systems LLP</span>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.1}>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-slate-950 leading-[1.15]">
                 Journey towards <span className="text-shimmer font-bold">excellence in clean energy</span>
               </h1>
@@ -254,69 +233,108 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── 4. SHOWCASE: LANDMARK PROJECTS (2-COLUMN CARDS MATCHING REFERENCE) ── */}
+      {/* ── 4. MODERN 5-IMAGE VISUAL GALLERY (NO TITLES, PURE VISUAL BENTO MOSAIC) ── */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100">
         <ScrollReveal>
-          <div className="mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70 mb-4">
-              <span>Our Portfolio</span>
-            </div>
-
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-slate-950 max-w-2xl">
-                Landmark Deployments <span className="text-shimmer font-bold">Engineered by VLOXIA</span>
-              </h2>
-              <p className="text-slate-500 text-sm sm:text-base max-w-md leading-relaxed">
-                Explore our proven turnkey executions across commercial complexes, industrial plants, and EV transit hubs.
-              </p>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* 2-Column Wide Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {PROJECTS_GALLERY.map((proj, idx) => (
-            <ScrollReveal key={idx} delay={idx * 0.08}>
-              <div
-                className="card-hover-effect lift-effect bg-slate-50/60 rounded-2xl border border-gray-200/80 p-6 flex flex-col justify-between hover:border-blue-400 hover:bg-white hover:shadow-xl transition-all group h-full cursor-pointer"
-              >
-                <div>
-                  <div className="relative w-full h-56 sm:h-64 rounded-xl overflow-hidden mb-5 bg-gray-100 border border-gray-200">
-                    <Image
-                      src={proj.image}
-                      alt={proj.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs px-3 py-1 rounded-full text-xs font-semibold text-slate-800 shadow-xs">
-                      {proj.location}
-                    </div>
-                  </div>
-
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-950 tracking-tight mb-2 group-hover:text-blue-600 transition-colors">
-                    {proj.title}
-                  </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                    {proj.desc}
-                  </p>
-                </div>
-
-                <div className="pt-6 mt-4 border-t border-gray-200/60 flex items-center justify-between">
-                  <Link
-                    href="/contact"
-                    className="text-xs font-bold text-blue-600 flex items-center gap-2 hover:text-blue-700 transition-colors"
-                  >
-                    <span>Request Project Details</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                  <span className="text-xs text-slate-400 font-medium">Turnkey Tier-1</span>
+          {/* Top Row: 2 Panoramic Showcase Images (Col 7 + Col 5) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 mb-6 sm:mb-8">
+            {/* Image 1: Large Anchor (Span 7) */}
+            <div
+              onClick={() => setActiveLightboxImage(ABOUT_GALLERY_IMAGES[0].src)}
+              className="lg:col-span-7 relative h-72 sm:h-96 lg:h-[420px] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-200/80 group cursor-pointer bg-slate-100"
+            >
+              <Image
+                src={ABOUT_GALLERY_IMAGES[0].src}
+                alt={ABOUT_GALLERY_IMAGES[0].alt}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                priority
+              />
+              <div className="absolute inset-0 bg-slate-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                <div className="w-12 h-12 rounded-full bg-white/90 text-slate-900 flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                  <Maximize2 className="w-5 h-5 text-slate-800" />
                 </div>
               </div>
-            </ScrollReveal>
-          ))}
-        </div>
+            </div>
+
+            {/* Image 2: Complementary Showcase (Span 5) */}
+            <div
+              onClick={() => setActiveLightboxImage(ABOUT_GALLERY_IMAGES[1].src)}
+              className="lg:col-span-5 relative h-72 sm:h-96 lg:h-[420px] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-200/80 group cursor-pointer bg-slate-100"
+            >
+              <Image
+                src={ABOUT_GALLERY_IMAGES[1].src}
+                alt={ABOUT_GALLERY_IMAGES[1].alt}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+              <div className="absolute inset-0 bg-slate-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                <div className="w-12 h-12 rounded-full bg-white/90 text-slate-900 flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                  <Maximize2 className="w-5 h-5 text-slate-800" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Row: 3 Balanced Images (Col 4 + Col 4 + Col 4) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            {ABOUT_GALLERY_IMAGES.slice(2, 5).map((img, idx) => (
+              <div
+                key={idx}
+                onClick={() => setActiveLightboxImage(img.src)}
+                className="relative h-64 sm:h-72 lg:h-[300px] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-200/80 group cursor-pointer bg-slate-100"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-slate-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                  <div className="w-11 h-11 rounded-full bg-white/90 text-slate-900 flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                    <Maximize2 className="w-5 h-5 text-slate-800" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </section>
+
+      {/* Lightbox Modal */}
+      {activeLightboxImage && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setActiveLightboxImage(null)}
+          className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-200"
+        >
+          <button
+            type="button"
+            onClick={() => setActiveLightboxImage(null)}
+            className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer z-10"
+            aria-label="Close image preview"
+          >
+            <X className="w-6 h-6" />
+          </button>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-5xl w-full h-[75vh] sm:h-[80vh] rounded-3xl overflow-hidden shadow-2xl border border-white/15"
+          >
+            <Image
+              src={activeLightboxImage}
+              alt="Clean Energy Installation Full View"
+              fill
+              className="object-contain"
+              priority
+              sizes="100vw"
+            />
+          </div>
+        </div>
+      )}
 
       {/* ── 5. HOW WE OPERATE: NUMBERED ACCORDIONS (01, 02, 03) ── */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100">

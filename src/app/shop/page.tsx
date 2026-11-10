@@ -380,7 +380,7 @@ export default function ShopPage() {
                 <button
                   type="button"
                   onClick={() => setSelectedCategory("all")}
-                  className="text-xs font-bold text-blue-600 hover:text-blue-700 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200 flex items-center gap-1.5 self-start sm:self-auto transition-colors"
+                  className="text-xs font-semibold text-slate-500 hover:text-blue-600 underline underline-offset-4 flex items-center gap-1 self-start sm:self-auto transition-colors cursor-pointer"
                 >
                   <span>✕ Clear Filter ({selectedCategory})</span>
                 </button>

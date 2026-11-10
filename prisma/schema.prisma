@@ -147,5 +147,15 @@ model SystemSetting {
   razorpayKeyId         String?
   razorpayKeySecret     String?
   razorpayWebhookSecret String?
+  socialLinkedin        String?   @default("")
+  socialInstagram       String?   @default("")
+  socialFacebook        String?   @default("")
+  socialYoutube         String?   @default("")
+  socialTwitter         String?   @default("")
+  socialWhatsapp        String?   @default("")
+  enableWhatsAppWidget  Boolean?  @default(true)
+  enableAiBotWidget     Boolean?  @default(true)
+  whatsappGreeting      String?   @default("Hi VLOXIA Team, I would like to inquire about clean energy solutions.")
+  aiBotWelcomeMsg       String?   @default("Hello! I am VLOXIA's AI Energy Assistant. How can I assist you with Solar, EV Charging, or Batteries today?")
   updatedAt             DateTime  @updatedAt
 }

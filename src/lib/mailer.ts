@@ -42,7 +42,7 @@ export async function sendOtpEmail(to: string, otp: string, adminName: string) {
   }
 
   const mailOptions = {
-    from: settings.smtpFrom || `"VLOXIA Security" <${settings.smtpUser}>`,
+    from: settings.smtpFrom || `"VLOXIA Systems" <${settings.smtpUser}>`,
     to,
     subject: `Your VLOXIA Admin Verification Code: ${otp}`,
     html: `
@@ -95,7 +95,7 @@ export async function sendPasswordResetEmail(
   }
 
   const mailOptions = {
-    from: settings.smtpFrom || `"VLOXIA Security" <${settings.smtpUser}>`,
+    from: settings.smtpFrom || `"VLOXIA Systems" <${settings.smtpUser}>`,
     to,
     subject: `Reset Your VLOXIA Admin Password`,
     html: `
@@ -148,7 +148,7 @@ export async function sendTestEmail(
   const transporter = await getMailTransporter(customConfig);
   const from =
     customConfig?.smtpFrom ||
-    `"VLOXIA Test" <${customConfig?.smtpUser || "admin@vloxia.in"}>`;
+    `"VLOXIA Test" <${customConfig?.smtpUser || "info@avedatechnologies.com"}>`;
 
   const mailOptions = {
     from,

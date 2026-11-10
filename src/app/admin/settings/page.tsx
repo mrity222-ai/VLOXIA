@@ -19,10 +19,16 @@ import {
   Server,
   Zap,
   ArrowRight,
+  Share2,
+  Globe,
+  ExternalLink,
+  Bot,
+  MessageSquare,
+  Sparkles,
 } from "lucide-react";
 
 export default function AdminSettingsPage() {
-  const [activeTab, setActiveTab] = useState<"profile" | "smtp" | "razorpay">("profile");
+  const [activeTab, setActiveTab] = useState<"profile" | "smtp" | "razorpay" | "social">("profile");
 
   // Admin Profile State
   const [adminProfile, setAdminProfile] = useState({
@@ -49,6 +55,24 @@ export default function AdminSettingsPage() {
     razorpayKeySecret: "",
     razorpayWebhookSecret: "",
     hasRazorpayKeySecret: false,
+  });
+
+  // Social Media Links State
+  const [socialSettings, setSocialSettings] = useState({
+    socialLinkedin: "",
+    socialInstagram: "",
+    socialFacebook: "",
+    socialYoutube: "",
+    socialTwitter: "",
+    socialWhatsapp: "+918178810456",
+  });
+
+  // Floating Widgets & AI Bot State
+  const [widgetSettings, setWidgetSettings] = useState({
+    enableWhatsAppWidget: true,
+    enableAiBotWidget: true,
+    whatsappGreeting: "Hi VLOXIA Team, I would like to inquire about clean energy solutions.",
+    aiBotWelcomeMsg: "Hello! I am VLOXIA's AI Energy Assistant. How can I assist you with Solar, EV Charging, or Batteries today?",
   });
 
   // UI / Action states
@@ -109,6 +133,32 @@ export default function AdminSettingsPage() {
             razorpayKeySecret: s.hasRazorpayKeySecret ? "••••••••" : "",
             razorpayWebhookSecret: s.razorpayWebhookSecret || "",
             hasRazorpayKeySecret: s.hasRazorpayKeySecret,
+          });
+
+          setSocialSettings({
+            socialLinkedin: s.socialLinkedin || "",
+            socialInstagram: s.socialInstagram || "",
+            socialFacebook: s.socialFacebook || "",
+            socialYoutube: s.socialYoutube || "",
+            socialTwitter: s.socialTwitter || "",
+            socialWhatsapp: s.socialWhatsapp || "+918178810456",
+          });
+
+          setWidgetSettings({
+            enableWhatsAppWidget:
+              s.enableWhatsAppWidget !== undefined && s.enableWhatsAppWidget !== null
+                ? Boolean(s.enableWhatsAppWidget)
+                : true,
+            enableAiBotWidget:
+              s.enableAiBotWidget !== undefined && s.enableAiBotWidget !== null
+                ? Boolean(s.enableAiBotWidget)
+                : true,
+            whatsappGreeting:
+              s.whatsappGreeting ||
+              "Hi VLOXIA Team, I would like to inquire about clean energy solutions.",
+            aiBotWelcomeMsg:
+              s.aiBotWelcomeMsg ||
+              "Hello! I am VLOXIA's AI Energy Assistant. How can I assist you with Solar, EV Charging, or Batteries today?",
           });
         }
       })
@@ -312,6 +362,31 @@ export default function AdminSettingsPage() {
     }
   };
 
+  // 7. Save Social Media & Floating Widgets Settings
+  const handleSaveSocial = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSaving(true);
+    try {
+      const res = await fetch("/api/admin/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...socialSettings,
+          ...widgetSettings,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to save settings");
+
+      showToast("success", "Social media & floating widget settings updated and applied across website!");
+    } catch (err: any) {
+      showToast("error", err.message);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   const isRazorpayLive = razorpaySettings.razorpayKeyId.startsWith("rzp_live");
 
   return (
@@ -361,6 +436,7 @@ export default function AdminSettingsPage() {
           { id: "profile", label: "Admin Profile & Password", icon: User },
           { id: "smtp", label: "SMTP Mail Server", icon: Mail },
           { id: "razorpay", label: "Razorpay Gateway", icon: CreditCard },
+          { id: "social", label: "Social & Floating Widgets", icon: Share2 },
         ].map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -906,6 +982,358 @@ export default function AdminSettingsPage() {
                 <Save className="w-4 h-4" />
                 <span>
                   {isSaving ? "Saving Credentials..." : "Save Razorpay Keys"}
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* ── TAB 4: SOCIAL MEDIA LINKS ── */}
+      {activeTab === "social" && (
+        <div className="space-y-8">
+          <form
+            onSubmit={handleSaveSocial}
+            className="bg-white rounded-3xl border border-gray-200/80 p-6 sm:p-8 shadow-xs space-y-6"
+          >
+            <div className="border-b border-gray-100 pb-4">
+              <h2 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+                <Share2 className="w-5 h-5 text-blue-600" />
+                <span>Official Social Media &amp; Support Channels</span>
+              </h2>
+              <p className="text-xs text-gray-500 mt-1">
+                Configure your official company social channels. Once saved, these URLs update dynamically across the website footer, header, and support links in real time.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {/* LinkedIn */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5 flex items-center justify-between">
+                  <span>LinkedIn Profile / Company</span>
+                  <span className="text-[10px] text-blue-600 lowercase font-mono">https://linkedin.com/...</span>
+                </label>
+                <input
+                  type="url"
+                  value={socialSettings.socialLinkedin}
+                  onChange={(e) =>
+                    setSocialSettings({
+                      ...socialSettings,
+                      socialLinkedin: e.target.value,
+                    })
+                  }
+                  placeholder="https://linkedin.com/company/vloxia"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              {/* Instagram */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5 flex items-center justify-between">
+                  <span>Instagram Profile</span>
+                  <span className="text-[10px] text-pink-600 lowercase font-mono">https://instagram.com/...</span>
+                </label>
+                <input
+                  type="url"
+                  value={socialSettings.socialInstagram}
+                  onChange={(e) =>
+                    setSocialSettings({
+                      ...socialSettings,
+                      socialInstagram: e.target.value,
+                    })
+                  }
+                  placeholder="https://instagram.com/vloxiasystems"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              {/* Facebook */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5 flex items-center justify-between">
+                  <span>Facebook Page</span>
+                  <span className="text-[10px] text-blue-600 lowercase font-mono">https://facebook.com/...</span>
+                </label>
+                <input
+                  type="url"
+                  value={socialSettings.socialFacebook}
+                  onChange={(e) =>
+                    setSocialSettings({
+                      ...socialSettings,
+                      socialFacebook: e.target.value,
+                    })
+                  }
+                  placeholder="https://facebook.com/vloxiasystems"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              {/* YouTube */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5 flex items-center justify-between">
+                  <span>YouTube Channel</span>
+                  <span className="text-[10px] text-red-600 lowercase font-mono">https://youtube.com/@...</span>
+                </label>
+                <input
+                  type="url"
+                  value={socialSettings.socialYoutube}
+                  onChange={(e) =>
+                    setSocialSettings({
+                      ...socialSettings,
+                      socialYoutube: e.target.value,
+                    })
+                  }
+                  placeholder="https://youtube.com/@vloxia"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              {/* Twitter / X */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5 flex items-center justify-between">
+                  <span>Twitter / X Profile</span>
+                  <span className="text-[10px] text-slate-700 lowercase font-mono">https://x.com/...</span>
+                </label>
+                <input
+                  type="url"
+                  value={socialSettings.socialTwitter}
+                  onChange={(e) =>
+                    setSocialSettings({
+                      ...socialSettings,
+                      socialTwitter: e.target.value,
+                    })
+                  }
+                  placeholder="https://x.com/vloxiasystems"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              {/* WhatsApp Support Number */}
+              <div>
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5 flex items-center justify-between">
+                  <span>WhatsApp Support Phone</span>
+                  <span className="text-[10px] text-emerald-600 font-mono">+91...</span>
+                </label>
+                <input
+                  type="text"
+                  value={socialSettings.socialWhatsapp}
+                  onChange={(e) =>
+                    setSocialSettings({
+                      ...socialSettings,
+                      socialWhatsapp: e.target.value,
+                    })
+                  }
+                  placeholder="+918178810456"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-xs sm:text-sm text-slate-900 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+
+            {/* Live Preview Box */}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+              <div className="text-xs font-bold text-slate-700 mb-2 flex items-center gap-1.5">
+                <Globe className="w-3.5 h-3.5 text-blue-600" />
+                <span>Live Website Footer Preview:</span>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                {socialSettings.socialLinkedin && (
+                  <a
+                    href={socialSettings.socialLinkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-xs text-blue-700 hover:border-blue-400 font-semibold shadow-2xs"
+                  >
+                    <span>LinkedIn</span>
+                    <ExternalLink className="w-3 h-3 text-gray-400" />
+                  </a>
+                )}
+                {socialSettings.socialInstagram && (
+                  <a
+                    href={socialSettings.socialInstagram}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-xs text-pink-600 hover:border-pink-400 font-semibold shadow-2xs"
+                  >
+                    <span>Instagram</span>
+                    <ExternalLink className="w-3 h-3 text-gray-400" />
+                  </a>
+                )}
+                {socialSettings.socialFacebook && (
+                  <a
+                    href={socialSettings.socialFacebook}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-xs text-blue-600 hover:border-blue-400 font-semibold shadow-2xs"
+                  >
+                    <span>Facebook</span>
+                    <ExternalLink className="w-3 h-3 text-gray-400" />
+                  </a>
+                )}
+                {socialSettings.socialYoutube && (
+                  <a
+                    href={socialSettings.socialYoutube}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-xs text-red-600 hover:border-red-400 font-semibold shadow-2xs"
+                  >
+                    <span>YouTube</span>
+                    <ExternalLink className="w-3 h-3 text-gray-400" />
+                  </a>
+                )}
+                {socialSettings.socialTwitter && (
+                  <a
+                    href={socialSettings.socialTwitter}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-gray-200 text-xs text-slate-800 hover:border-slate-400 font-semibold shadow-2xs"
+                  >
+                    <span>Twitter/X</span>
+                    <ExternalLink className="w-3 h-3 text-gray-400" />
+                  </a>
+                )}
+                {socialSettings.socialWhatsapp && (
+                  <a
+                    href={`https://wa.me/${socialSettings.socialWhatsapp.replace(/[^0-9]/g, "")}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-emerald-200 text-xs text-emerald-700 hover:border-emerald-400 font-semibold shadow-2xs"
+                  >
+                    <span>WhatsApp</span>
+                    <ExternalLink className="w-3 h-3 text-gray-400" />
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* ── FLOATING WEBSITE WIDGETS & AI BOT CONTROLS ── */}
+            <div className="border-t border-gray-100 pt-6 mt-6 space-y-6">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <Bot className="w-5 h-5 text-blue-600" />
+                  <span>Floating Website Widgets &amp; AI Assistant Bot</span>
+                </h3>
+                <p className="text-xs text-gray-500 mt-1">
+                  Manage floating chat triggers shown to visitors across all public pages. You can independently show or hide the WhatsApp button and the AI Assistant Bot.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* 1. WhatsApp Floating Trigger Control */}
+                <div className="p-5 rounded-2xl border border-emerald-200/80 bg-emerald-50/30 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                        <MessageSquare className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-slate-900">WhatsApp Floating Button</div>
+                        <div className="text-[11px] text-slate-500">Direct visitor chat trigger</div>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setWidgetSettings((prev) => ({
+                          ...prev,
+                          enableWhatsAppWidget: !prev.enableWhatsAppWidget,
+                        }))
+                      }
+                      className={`px-3 py-1 rounded-full text-xs font-bold transition-all shadow-2xs active:scale-95 ${
+                        widgetSettings.enableWhatsAppWidget
+                          ? "bg-emerald-600 text-white"
+                          : "bg-slate-200 text-slate-600"
+                      }`}
+                    >
+                      {widgetSettings.enableWhatsAppWidget ? "Visible (ON)" : "Hidden (OFF)"}
+                    </button>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-1">
+                      Pre-filled WhatsApp Message
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={widgetSettings.whatsappGreeting}
+                      onChange={(e) =>
+                        setWidgetSettings((prev) => ({
+                          ...prev,
+                          whatsappGreeting: e.target.value,
+                        }))
+                      }
+                      placeholder="Hi VLOXIA Team, I would like to inquire about clean energy solutions."
+                      className="w-full px-3.5 py-2 rounded-xl border border-emerald-200 bg-white text-xs text-slate-900 focus:outline-none focus:border-emerald-500"
+                    />
+                    <p className="text-[10px] text-slate-500 mt-1">
+                      When clicked, this message pre-fills in the customer's WhatsApp chat.
+                    </p>
+                  </div>
+                </div>
+
+                {/* 2. AI Assistant Bot Control */}
+                <div className="p-5 rounded-2xl border border-blue-200/80 bg-blue-50/30 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                        <Sparkles className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-slate-900">AI Knowledge Assistant Bot</div>
+                        <div className="text-[11px] text-slate-500">Zero external API cost • Instant answers</div>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setWidgetSettings((prev) => ({
+                          ...prev,
+                          enableAiBotWidget: !prev.enableAiBotWidget,
+                        }))
+                      }
+                      className={`px-3 py-1 rounded-full text-xs font-bold transition-all shadow-2xs active:scale-95 ${
+                        widgetSettings.enableAiBotWidget
+                          ? "bg-blue-600 text-white"
+                          : "bg-slate-200 text-slate-600"
+                      }`}
+                    >
+                      {widgetSettings.enableAiBotWidget ? "Visible (ON)" : "Hidden (OFF)"}
+                    </button>
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700 mb-1">
+                      AI Bot Initial Welcome Message
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={widgetSettings.aiBotWelcomeMsg}
+                      onChange={(e) =>
+                        setWidgetSettings((prev) => ({
+                          ...prev,
+                          aiBotWelcomeMsg: e.target.value,
+                        }))
+                      }
+                      placeholder="Hello! I am VLOXIA's AI Energy Assistant..."
+                      className="w-full px-3.5 py-2 rounded-xl border border-blue-200 bg-white text-xs text-slate-900 focus:outline-none focus:border-blue-500"
+                    />
+                    <p className="text-[10px] text-slate-500 mt-1">
+                      Greeting displayed when visitor clicks the AI Assistant Bot.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end pt-4 border-t border-gray-100">
+              <button
+                type="submit"
+                disabled={isSaving}
+                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95 disabled:opacity-50"
+              >
+                <Save className="w-4 h-4" />
+                <span>
+                  {isSaving ? "Saving Settings..." : "Save Settings & Widgets"}
                 </span>
               </button>
             </div>

@@ -111,13 +111,6 @@ export default function ApproachPage() {
           {/* Left Column: Heading, Subtitle & Action Buttons */}
           <div className="lg:col-span-7 space-y-6 sm:space-y-8">
             <ScrollReveal>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70">
-                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                <span>Framework &amp; Methodology</span>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.1}>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-slate-950 leading-[1.15]">
                 We engineer effective <span className="text-shimmer font-bold">clean energy solutions</span> to power your future
               </h1>
@@ -224,10 +217,6 @@ export default function ApproachPage() {
       <section id="landmark-projects" className="max-w-7xl mx-auto px-6 lg:px-12 py-16 lg:py-20 border-t border-gray-100">
         <ScrollReveal>
           <div className="mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/70 mb-4">
-              <span>Case Studies</span>
-            </div>
-
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-slate-950 max-w-2xl">
                 Our Landmark Deployments <span className="text-shimmer font-bold">Across India</span>

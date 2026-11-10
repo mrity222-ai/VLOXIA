@@ -8,6 +8,8 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const category = searchParams.get("category");
     const featured = searchParams.get("featured");
+    const limitParam = searchParams.get("limit");
+    const limit = limitParam ? parseInt(limitParam, 10) : undefined;
 
     const where: any = { isPublished: true };
     if (category && category !== "all") {
@@ -17,10 +19,29 @@ export async function GET(req: Request) {
       where.isFeatured = true;
     }
 
-    const products = await prisma.product.findMany({
+    let products = await prisma.product.findMany({
       where,
       orderBy: { createdAt: "desc" },
+      take: limit,
     });
+
+    // Fallback: If featured=true was asked but returned fewer items than requested limit,
+    // fill the remaining slots with latest active published products from DB
+    if (featured === "true" && limit && products.length < limit) {
+      const existingIds = products.map((p) => p.id);
+      const remainingSlots = limit - products.length;
+
+      const additional = await prisma.product.findMany({
+        where: {
+          isPublished: true,
+          id: { notIn: existingIds },
+        },
+        orderBy: { createdAt: "desc" },
+        take: remainingSlots,
+      });
+
+      products = [...products, ...additional];
+    }
 
     const parsed = products.map((p) => {
       let specs = {};
@@ -61,11 +82,20 @@ export async function GET(req: Request) {
         images,
         badge: p.badge,
         isFeatured: p.isFeatured,
+        isPublished: p.isPublished,
         createdAt: p.createdAt,
       };
     });
 
-    return NextResponse.json({ success: true, products: parsed });
+    return new NextResponse(JSON.stringify({ success: true, products: parsed }), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
+      },
+    });
   } catch (error: any) {
     console.error("Public /api/products error:", error);
     return NextResponse.json(

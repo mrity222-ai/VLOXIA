@@ -181,6 +181,31 @@ export default function AdminProductsPage() {
     }
   };
 
+  const handleToggleStatus = async (prod: any) => {
+    const newStatus = !prod.isPublished;
+    // Optimistic UI update for immediate response
+    setProducts((prev) =>
+      prev.map((p) => (p.id === prod.id ? { ...p, isPublished: newStatus } : p))
+    );
+
+    try {
+      const res = await fetch(`/api/admin/products/${prod.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...prod,
+          isPublished: newStatus,
+        }),
+      });
+
+      if (!res.ok) {
+        fetchProducts(); // revert on failure
+      }
+    } catch (err) {
+      fetchProducts(); // revert on failure
+    }
+  };
+
   const filtered = products.filter((p) => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = categoryFilter === "all" || p.category === categoryFilter;
@@ -332,17 +357,32 @@ export default function AdminProductsPage() {
                       )}
                     </td>
                     <td className="py-3.5 px-4">
-                      {prod.isPublished ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                          <CheckCircle2 className="w-3 h-3" />
-                          Published
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
-                          <XCircle className="w-3 h-3" />
-                          Draft
-                        </span>
-                      )}
+                      <button
+                        type="button"
+                        onClick={() => handleToggleStatus(prod)}
+                        title={
+                          prod.isPublished
+                            ? "Active: Click to Deactivate (Hide from store)"
+                            : "Deactive: Click to Activate (Publish in store)"
+                        }
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition-all shadow-2xs active:scale-95 ${
+                          prod.isPublished
+                            ? "bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200"
+                            : "bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200"
+                        }`}
+                      >
+                        {prod.isPublished ? (
+                          <>
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                            <span>Active</span>
+                          </>
+                        ) : (
+                          <>
+                            <XCircle className="w-3.5 h-3.5 text-amber-600" />
+                            <span>Deactive</span>
+                          </>
+                        )}
+                      </button>
                     </td>
                     <td className="py-3.5 px-4 sm:px-6 text-right">
                       <div className="flex items-center justify-end gap-2">
