@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "node -e \"const s = (process.platform === 'linux' || (process.env.DATABASE_URL && process.env.DATABASE_URL.includes('postgres'))) ? './prisma/schema.postgresql.prisma' : './prisma/schema.prisma'; require('child_process').execSync('npx prisma generate --schema=' + s, { stdio: 'inherit' });\" && next build --webpack",
+    "build": "prisma generate --schema=./prisma/schema.prisma && next build --webpack",
     "start": "node server.js",
     "lint": "eslint"
   },
