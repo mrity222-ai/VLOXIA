@@ -47,28 +47,85 @@ const { parse } = require("url");
 const next = require("next");
 
 const dev = false;
-const hostname = process.env.HOSTNAME || "0.0.0.0";
-const port = parseInt(process.env.PORT || "3000", 10);
+const port =
+  process.env.X_ZOHO_CATALYST_LISTEN_PORT || process.env.PORT || 3000;
 
-const app = next({ dev, dir: __dirname, hostname, port });
+const app = next({ dev, dir: __dirname });
 const handle = app.getRequestHandler();
 
-app.prepare().then(() => {
-  createServer(async (req, res) => {
-    try {
-      const parsedUrl = parse(req.url, true);
-      await handle(req, res, parsedUrl);
-    } catch (err) {
-      console.error("Error occurred handling", req.url, err);
-      res.statusCode = 500;
-      res.end("Internal Server Error");
-    }
-  })
-    .once("error", (err) => {
-      console.error(err);
-      process.exit(1);
+app
+  .prepare()
+  .then(() => {
+    createServer(async (req, res) => {
+      try {
+        const parsedUrl = parse(req.url, true);
+        const { pathname } = parsedUrl;
+
+        // 1. Direct high-performance static file serving from public directory
+        if (
+          pathname &&
+          !pathname.startsWith("/_next") &&
+          !pathname.startsWith("/api") &&
+          pathname !== "/"
+        ) {
+          try {
+            const sanitizedPath = path.normalize(decodeURIComponent(pathname)).replace(/^(\.\.[\/\\])+/, "");
+            const publicFilePath = path.join(__dirname, "public", sanitizedPath);
+            if (fs.existsSync(publicFilePath) && fs.statSync(publicFilePath).isFile()) {
+              const ext = path.extname(publicFilePath).toLowerCase();
+              const mimeTypes = {
+                ".png": "image/png",
+                ".jpg": "image/jpeg",
+                ".jpeg": "image/jpeg",
+                ".svg": "image/svg+xml",
+                ".gif": "image/gif",
+                ".webp": "image/webp",
+                ".ico": "image/x-icon",
+                ".css": "text/css",
+                ".js": "application/javascript",
+                ".woff": "font/woff",
+                ".woff2": "font/woff2",
+                ".ttf": "font/ttf",
+              };
+              const contentType = mimeTypes[ext] || "application/octet-stream";
+              res.setHeader("Content-Type", contentType);
+              res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+              return fs.createReadStream(publicFilePath).pipe(res);
+            }
+          } catch {
+            // Fall through to Next.js handler
+          }
+        }
+
+        await handle(req, res, parsedUrl);
+      } catch (err) {
+        console.error("Error occurred handling", req.url, err);
+        res.statusCode = 500;
+        res.end("Internal Server Error");
+      }
     })
-    .listen(port, () => {
-      console.log(`> VLOXIA Next.js App Ready on http://${hostname}:${port}`);
-    });
-});
+      .once("error", (err) => {
+        console.error("Server listener error:", err);
+        process.exit(1);
+      })
+      .listen(port, () => {
+        console.log(`> VLOXIA Next.js App Ready on ${port}`);
+
+        // Async non-blocking database column verification
+        if (process.platform !== "win32") {
+          try {
+            const { PrismaClient } = require("@prisma/client");
+            const p = new PrismaClient();
+            p.$executeRawUnsafe(`ALTER TABLE "AdminUser" ADD COLUMN IF NOT EXISTS "resetToken" TEXT;`).catch(() => {});
+            p.$executeRawUnsafe(`ALTER TABLE "AdminUser" ADD COLUMN IF NOT EXISTS "resetOtp" TEXT;`).catch(() => {});
+            p.$executeRawUnsafe(`ALTER TABLE "AdminUser" ADD COLUMN IF NOT EXISTS "otpExpiresAt" TIMESTAMP(3);`).catch(() => {});
+            p.$executeRawUnsafe(`ALTER TABLE "AdminUser" ADD COLUMN IF NOT EXISTS "resetTokenExpiresAt" TIMESTAMP(3);`).catch(() => {});
+            p.$executeRawUnsafe(`ALTER TABLE "Product" ADD COLUMN IF NOT EXISTS "imagesJson" TEXT DEFAULT '[]';`).catch(() => {});
+          } catch {}
+        }
+      });
+  })
+  .catch((err) => {
+    console.error("Fatal Next.js startup error:", err);
+    process.exit(1);
+  });

@@ -14,9 +14,30 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    const admin = await prisma.adminUser.findUnique({
-      where: { email: email.toLowerCase().trim() },
-    });
+    let admin;
+    try {
+      admin = await prisma.adminUser.findUnique({
+        where: { email: email.toLowerCase().trim() },
+      });
+    } catch (dbErr: any) {
+      if (dbErr?.message?.includes("resetToken") || dbErr?.message?.includes("column")) {
+        // Automatically add missing columns in PostgreSQL on the fly
+        try {
+          await prisma.$executeRawUnsafe(`ALTER TABLE "AdminUser" ADD COLUMN IF NOT EXISTS "resetOtp" TEXT;`);
+          await prisma.$executeRawUnsafe(`ALTER TABLE "AdminUser" ADD COLUMN IF NOT EXISTS "otpExpiresAt" TIMESTAMP(3);`);
+          await prisma.$executeRawUnsafe(`ALTER TABLE "AdminUser" ADD COLUMN IF NOT EXISTS "resetToken" TEXT;`);
+          await prisma.$executeRawUnsafe(`ALTER TABLE "AdminUser" ADD COLUMN IF NOT EXISTS "resetTokenExpiresAt" TIMESTAMP(3);`);
+          await prisma.$executeRawUnsafe(`ALTER TABLE "Product" ADD COLUMN IF NOT EXISTS "imagesJson" TEXT DEFAULT '[]';`);
+        } catch {
+          // Ignore if already added
+        }
+        admin = await prisma.adminUser.findUnique({
+          where: { email: email.toLowerCase().trim() },
+        });
+      } else {
+        throw dbErr;
+      }
+    }
 
     if (!admin) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
