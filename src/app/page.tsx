@@ -57,7 +57,7 @@ const PROCESS_STEPS = [
     step: "01",
     title: "Site Planning & Energy Audit",
     desc: "Our technical team evaluates roof real estate, historical load curves, transformer capacity, and financial ROI parameters.",
-    image: "/Industries/Commercial.png",
+    image: "/hero/slide-1.jpg",
   },
   {
     step: "02",
@@ -69,7 +69,7 @@ const PROCESS_STEPS = [
     step: "03",
     title: "Construction & Commissioning",
     desc: "Turnkey civil foundation, HT switchgear cabling, CEIG safety clearances, and net-metering synchronization with DISCOM.",
-    image: "/Industries/Industrial.png",
+    image: "/hero/slide-3.png",
   },
 ];
 
@@ -127,7 +127,7 @@ const HERO_CAROUSEL_SLIDES = [
       </>
     ),
     desc: "Industrial rooftop solar EPC, ground-mount captive parks, and hybrid storage engineered for zero emission operations.",
-    image: "/Industries/Commercial.png",
+    image: "/hero/slide-1.jpg",
     btnText: "Explore Solar Solutions",
     btnHref: "/solutions/solar-energy",
   },
@@ -142,7 +142,7 @@ const HERO_CAROUSEL_SLIDES = [
       </>
     ),
     desc: "Turnkey DC fast charging infrastructure with dynamic load management, OCPP 2.0.1 compliance, and automated cloud revenue billing.",
-    image: "/ev.jpg",
+    image: "/hero/slide-2.jpg",
     btnText: "Explore EV Charging",
     btnHref: "/solutions/ev-charging",
   },
@@ -157,7 +157,7 @@ const HERO_CAROUSEL_SLIDES = [
       </>
     ),
     desc: "Modular LiFePO4 battery storage systems engineered for continuous mission-critical backup, peak shaving, and sub-10ms UPS switchover.",
-    image: "/Industries/Industrial.png",
+    image: "/hero/slide-3.png",
     btnText: "Explore Energy Storage",
     btnHref: "/solutions/energy-storage",
   },

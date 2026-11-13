@@ -32,10 +32,8 @@ if (
   process.env.DATABASE_URL.includes("dev.db") ||
   process.env.DATABASE_URL.startsWith("file:")
 ) {
-  if (process.platform !== "win32") {
-    process.env.DATABASE_URL =
-      "postgresql://avedatech_vloxia_user:Jaymatadi%40121@localhost/avedatech_vloxia?host=/var/run/postgresql&schema=public";
-  }
+  process.env.DATABASE_URL =
+    "postgresql://neondb_owner:npg_Vem8kqdvp4gN@ep-floral-rain-bc1ay2eb-pooler.c-16.us-east-1.aws.neon.tech/neondb?sslmode=require";
 }
 if (!process.env.JWT_SECRET) {
   process.env.JWT_SECRET =

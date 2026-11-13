@@ -2,9 +2,9 @@ import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import path from "path";
 
-// 1. Fallback connection URL for cPanel PostgreSQL
+// 1. Production connection URL for Neon Cloud PostgreSQL
 const DEFAULT_POSTGRES_URL =
-  "postgresql://avedatech_vloxia_user:Jaymatadi%40121@localhost/avedatech_vloxia?host=/var/run/postgresql&schema=public";
+  "postgresql://neondb_owner:npg_Vem8kqdvp4gN@ep-floral-rain-bc1ay2eb-pooler.c-16.us-east-1.aws.neon.tech/neondb?sslmode=require";
 
 // 2. Explicitly load .env into process.env if DATABASE_URL is missing
 if (!process.env.DATABASE_URL) {
@@ -47,16 +47,13 @@ if (!process.env.DATABASE_URL) {
   }
 }
 
-// 3. Resolve active database URL (support SQLite locally and PostgreSQL on server)
-const isSqlite =
-  process.env.DATABASE_URL?.startsWith("file:") ||
-  (!process.env.DATABASE_URL && process.platform === "win32");
+// 3. Resolve active database URL (defaults directly to Neon PostgreSQL)
+const activeDatabaseUrl =
+  process.env.DATABASE_URL && !process.env.DATABASE_URL.startsWith("file:")
+    ? process.env.DATABASE_URL
+    : DEFAULT_POSTGRES_URL;
 
-const activeDatabaseUrl = isSqlite
-  ? (process.env.DATABASE_URL || "file:./dev.db")
-  : (process.env.DATABASE_URL || DEFAULT_POSTGRES_URL);
-
-if (!process.env.DATABASE_URL) {
+if (!process.env.DATABASE_URL || process.env.DATABASE_URL.startsWith("file:")) {
   process.env.DATABASE_URL = activeDatabaseUrl;
 }
 
